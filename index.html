@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A3 &amp; DMAIC Problem-Solving Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EEF0F3;--panel:#FFFFFF;--ink:#14213D;--mute:#5E6878;--line:#D9DDE4;--acc:#E8590C;--acc2:#14213D;--soft:#F4F6F9;--field:#FFFFFF;
+--hd:"Barlow Condensed","Arial Narrow",Impact,sans-serif;--bd:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;box-sizing:border-box}
+@media (prefers-color-scheme:dark){:root{--bg:#0E131B;--panel:#161D28;--ink:#E7EBF2;--mute:#9AA5B5;--line:#2A3344;--acc:#FF8A3D;--acc2:#9DB8E8;--soft:#1C2431;--field:#0F151E}}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--bd);font-size:15px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+.top{position:sticky;top:0;z-index:20;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 16px;padding-top:calc(10px + env(safe-area-inset-top,0px));display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.brand{font-family:var(--hd);font-weight:700;font-size:23px;letter-spacing:.02em;margin-right:auto;display:flex;align-items:center;gap:10px}
+.brand b{background:var(--acc);color:#fff;padding:0 8px;border-radius:3px}
+.btn{border:1px solid var(--line);background:var(--field);padding:7px 12px;border-radius:6px;cursor:pointer;font-weight:500;font-size:14px}
+.btn:hover{border-color:var(--acc)}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn.sm{padding:3px 9px;font-size:13px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:var(--field);padding:7px 14px;cursor:pointer;font-weight:600;font-size:14px}
+.seg button.on{background:var(--acc2);color:var(--panel)}
+.tabs{display:none;gap:6px}
+.app{display:grid;grid-template-columns:minmax(360px,450px) 1fr;gap:18px;padding:18px;max-width:2000px;margin:0 auto}
+.form{display:flex;flex-direction:column;gap:12px;min-width:0}
+.intro{background:var(--soft);border:1px dashed var(--line);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--mute)}
+.intro b{color:var(--ink)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+.card h3{margin:0 0 2px;font-family:var(--hd);font-size:21px;letter-spacing:.02em;display:flex;gap:9px;align-items:center}
+.card h3 i{font-style:normal;background:var(--acc2);color:var(--panel);border-radius:3px;min-width:24px;height:24px;padding:0 4px;display:grid;place-items:center;font-size:15px}
+.hint{margin:0 0 10px;color:var(--mute);font-size:13px}
+label{display:block;font-size:12px;font-weight:600;color:var(--mute);text-transform:uppercase;letter-spacing:.05em;margin:8px 0 3px}
+input,select,textarea{width:100%;background:var(--field);border:1px solid var(--line);border-radius:6px;padding:7px 9px;min-width:0}
+textarea{resize:vertical;min-height:70px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:-1px;border-color:transparent}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.row{display:grid;gap:6px;align-items:center;margin-bottom:6px}
+.row.met{grid-template-columns:1.6fr .8fr .8fr .8fr .8fr 30px}
+.row.act{grid-template-columns:1fr 30px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--soft)}
+.row.why{grid-template-columns:50px 1fr 30px}
+.row.cs{grid-template-columns:1fr 30px}
+.row.par{grid-template-columns:1fr 90px 30px}
+.hdr{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em;margin:0}
+.x{border:0;background:transparent;color:var(--mute);cursor:pointer;font-size:18px;line-height:1}
+.x:hover{color:var(--acc)}
+.wh{font-family:var(--hd);font-weight:700;font-size:16px;color:var(--acc)}
+.cat{border:1px solid var(--line);border-left:4px solid var(--acc2);border-radius:8px;padding:8px 10px;margin-bottom:8px;background:var(--soft)}
+.cat h4{margin:0 0 6px;font-family:var(--hd);font-size:16px;letter-spacing:.06em;text-transform:uppercase}
+.guide{background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.guide summary{padding:11px 14px;cursor:pointer;font-family:var(--hd);font-size:21px;font-weight:600;letter-spacing:.02em}
+.gb{padding:0 14px 14px;font-size:14px}
+.gb h5{margin:12px 0 4px;font-family:var(--hd);font-size:16px;letter-spacing:.07em;text-transform:uppercase;color:var(--acc)}
+.gb p{margin:4px 0}
+.gb ul,.gb ol{margin:4px 0;padding-left:20px}
+.gb table{width:100%;border-collapse:collapse;font-size:13px;margin:4px 0}
+.gb td,.gb th{border:1px solid var(--line);padding:4px 7px;vertical-align:top;text-align:left}
+.gb th{background:var(--soft)}
+.built{max-width:1960px;margin:0 auto 28px;padding:0 18px}
+.built>div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;max-width:560px}
+.bh{display:flex;gap:8px;align-items:center;font-weight:700;letter-spacing:.12em;color:#2F7D62;font-size:15px}
+.bn{font-size:22px;font-weight:700;margin-top:10px}
+.br{color:var(--mute);margin-bottom:10px;font-size:17px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{background:#DCEBE3;color:#2E4A3E;border-radius:99px;padding:5px 14px;font-weight:500;font-size:14.5px}
+@media (prefers-color-scheme:dark){.chips span{background:#1F3A30;color:#CFE5DA}.bh{color:#6FCBA6}}
+/* preview */
+.pv{min-width:0}
+.pvbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;color:var(--mute);font-size:13px}
+.fit{width:100%;overflow:hidden;border-radius:6px;box-shadow:0 6px 28px rgba(10,20,40,.18);background:#fff}
+body[data-cur="a3"] [data-m="dm"],body[data-cur="dm"] [data-m="a3"]{display:none}
+/* sheet (always paper-light) */
+.sheet{--p:#14213D;--o:#E8590C;--g:#6A7385;--l:#CFD4DC;width:1587px;min-height:1123px;background:#FBFAF6;color:#14213D;padding:28px 34px 22px;transform-origin:0 0;font-family:var(--bd);font-size:15.5px;line-height:1.42;display:flex;flex-direction:column;gap:14px}
+.sh-head{display:grid;grid-template-columns:1fr auto;gap:24px;border-bottom:4px solid var(--p);padding-bottom:12px;align-items:end}
+.sh-head .k{font-family:var(--hd);font-weight:600;letter-spacing:.16em;color:var(--o);font-size:17px}
+.sh-head h1{margin:0;font-family:var(--hd);font-weight:700;font-size:48px;line-height:1.02}
+.meta{display:grid;grid-template-columns:repeat(2,auto);gap:2px 22px;font-size:14px;max-width:560px}
+.meta span{color:var(--g);text-transform:uppercase;font-size:11px;letter-spacing:.08em;font-weight:600}
+.meta div{font-weight:500}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;flex:1}
+.dcols{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;flex:1}
+.col{display:flex;flex-direction:column;gap:14px}
+.sec{border:1.5px solid var(--p);background:#fff;display:flex;flex-direction:column}
+.sec>h2{margin:0;background:var(--p);color:#fff;font-family:var(--hd);font-weight:600;font-size:21px;letter-spacing:.06em;text-transform:uppercase;padding:3px 12px;display:flex;gap:10px;align-items:center}
+.sec>h2 b{background:var(--o);color:#fff;padding:0 8px;border-radius:2px}
+.sec .in{padding:10px 14px;flex:1}
+.sec p{margin:0 0 6px;white-space:pre-line}
+.sec ul{margin:0;padding-left:20px}
+.sec li{margin:2px 0}
+.dm{font-size:13.5px;line-height:1.38}
+.dm .sec .in{padding:8px 10px}
+.dm .sec>h2{font-size:20px}
+.dm .sec li{margin:1px 0}
+.sub{font-family:var(--hd);font-weight:700;font-size:15px;letter-spacing:.09em;text-transform:uppercase;color:var(--o);margin:9px 0 3px}
+.sub:first-child{margin-top:0}
+table.t{width:100%;border-collapse:collapse;font-size:14px}
+.dm table.t{font-size:12.5px}
+table.t th{background:#E9EDF3;text-align:left;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border:1px solid var(--l);color:var(--p)}
+table.t td{padding:4px 7px;border:1px solid var(--l);vertical-align:top}
+table.t td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.fb{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.fb.one{grid-template-columns:1fr;gap:5px}
+.fb div{border:1px solid var(--l);border-top:3px solid var(--p);padding:5px 8px;font-size:13.5px;background:#FBFCFD}
+.dm .fb div{font-size:12.5px;padding:3px 7px}
+.fb h4{margin:0 0 2px;font-family:var(--hd);font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--p)}
+.fb ul{padding-left:16px}
+.whys{display:flex;flex-direction:column}
+.why{display:grid;grid-template-columns:62px 1fr;border:1px solid var(--l);background:#FBFCFD;font-size:14px}
+.dm .why{grid-template-columns:50px 1fr;font-size:12.5px}
+.why+.why{margin-top:12px;position:relative}
+.why+.why::before{content:"▼";position:absolute;top:-13px;left:24px;font-size:10px;color:var(--o);line-height:12px}
+.why b{background:#E9EDF3;font-family:var(--hd);font-size:16px;letter-spacing:.06em;padding:4px 8px;color:var(--p)}
+.dm .why b{padding:3px 6px;font-size:14px}
+.why span{padding:4px 10px}
+.dm .why span{padding:3px 7px}
+.root{margin-top:12px;border:2px solid var(--o);background:#FFF3EA;padding:6px 12px;font-weight:600}
+.root em{display:block;font-style:normal;font-family:var(--hd);color:var(--o);letter-spacing:.1em;text-transform:uppercase;font-size:14px}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid}
+.pill.Done{background:#E3F4E8;color:#1D6B38;border-color:#9FD4B1}
+.pill.Inprogress{background:#FFF1D6;color:#8A5A00;border-color:#EBC77A}
+.pill.Planned{background:#E9EDF3;color:#3C4658;border-color:#C3CBD8}
+.pill.Delayed{background:#FDE5E3;color:#A3231B;border-color:#EFA39D}
+.bars{display:grid;gap:9px;margin-bottom:6px}
+.bm{font-size:13.5px}
+.dm .bm{font-size:12px}
+.bm .nm{display:flex;justify-content:space-between;gap:6px;font-weight:600;margin-bottom:2px}
+.bm .nm small{font-weight:600;color:var(--o);font-size:12.5px;white-space:nowrap}
+.bl{display:grid;grid-template-columns:62px 1fr 64px;gap:6px;align-items:center;font-size:12px;color:var(--g);margin:1px 0}
+.bl i{display:block;height:11px;background:#B8C0CE}
+.bl.t i{background:repeating-linear-gradient(45deg,#fff,#fff 3px,#cfd8e8 3px,#cfd8e8 6px);border:1px solid #7C8BA6}
+.bl.r i{background:var(--o)}
+.bl u{text-decoration:none;color:var(--p);font-weight:600;text-align:right}
+.par .pr{display:grid;grid-template-columns:84px 1fr 38px 34px;gap:5px;align-items:center;font-size:12px;margin:2px 0}
+.par .pr i{display:block;height:12px;background:#EEF1F6}
+.par .pr u{display:block;height:100%;background:var(--o)}
+.par .pr b{text-align:right}
+.par .pr em{font-style:normal;color:var(--g);text-align:right}
+.ai{border:1px solid var(--l);padding:4px 7px;margin-bottom:5px;font-size:12.5px;background:#FBFCFD}
+.ai .m{display:flex;justify-content:space-between;align-items:center;gap:6px;color:var(--g);font-size:11.5px;margin-top:3px}
+.cap{font-size:11.5px;color:var(--g);margin:0 0 3px!important}
+.sh-foot{display:flex;justify-content:space-between;color:var(--g);font-size:12px;border-top:1px solid var(--l);padding-top:6px}
+.empty{color:var(--g);font-style:italic}
+@media (max-width:980px){
+.app{grid-template-columns:1fr;padding:12px}
+.tabs{display:flex}
+body.v-edit .pv{display:none}
+body.v-pv .form{display:none}
+.row.met{grid-template-columns:1fr 1fr 30px}
+.row.met .nm{grid-column:1/3}
+.row.met .hdr{display:none}
+}
+@media print{
+@page{size:A3 landscape;margin:0}
+html,body{background:#fff}
+.top,.form,.pvbar,.built{display:none!important}
+.app{display:block;padding:0;max-width:none}
+.fit{box-shadow:none;border-radius:0;overflow:visible}
+.sheet{width:1587px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body[data-cur="a3"] #pv-a3,body[data-cur="dm"] #pv-dm{display:block!important}
+}
+</style>
+</head>
+<body data-cur="a3" class="v-edit">
+<div class="top">
+  <div class="brand"><b>A3 · DMAIC</b> Problem-Solving Builder</div>
+  <div class="seg" id="seg"><button data-set="a3">A3 Problem Solving</button><button data-set="dm">DMAIC</button></div>
+  <div class="tabs"><button class="btn sm" data-view="edit">Edit</button><button class="btn sm" data-view="pv">Preview</button></div>
+  <button class="btn" id="bEx">Load example</button>
+  <button class="btn" id="bNew">New blank</button>
+  <button class="btn" id="bSave">Save file</button>
+  <button class="btn" id="bOpen">Open file</button>
+  <input type="file" id="fOpen" accept=".json,application/json" hidden>
+  <button class="btn pri" id="bPrint">Print / Save PDF</button>
+</div>
+
+<div class="app">
+  <div class="form" id="form-a3" data-m="a3"></div>
+  <div class="pv" id="pv-a3" data-m="a3">
+    <div class="pvbar"><span>Live A3 preview (prints on one A3 landscape page)</span><span id="stat-a3"></span></div>
+    <div class="fit" id="fit-a3"><div class="sheet" id="sheet-a3"></div></div>
+  </div>
+  <div class="form" id="form-dm" data-m="dm"></div>
+  <div class="pv" id="pv-dm" data-m="dm">
+    <div class="pvbar"><span>Live DMAIC one-page preview (prints on one A3 landscape page)</span><span id="stat-dm"></span></div>
+    <div class="fit" id="fit-dm"><div class="sheet dm" id="sheet-dm"></div></div>
+  </div>
+</div>
+
+<div class="built">
+  <div>
+    <div class="bh"><span>👤</span> BUILT BY</div>
+    <div class="bn">Md Shahariar Ahmed</div>
+    <div class="br">Developer</div>
+    <div class="chips"><span>📜 EIT (APEGS)</span><span>🥋 LSS Green Belt</span><span>🎓 M.Eng Industrial Systems Engineering</span><span>🎓 B.Sc Mechanical Engineering</span></div>
+  </div>
+</div>
+
+<script>
+(function(){
+var KEY="ps-builder-v2";
+var FB=[["man","Man / People"],["machine","Machine"],["method","Method"],["material","Material"],["measurement","Measurement"],["environment","Environment"]];
+var MODE="a3",S={};
+
+/* ---------- default examples ---------- */
+var EX={
+a3:{
+title:"Lead Scrap Reduction at Rahimafrooz Globatt Ltd.",owner:"RRD, In-Charge QA (Project Leader)",team:"KMI (Sponsor), SYU (Champion), DAR (Coordinator), SNZ, ZLM, AER",area:"Ishwardi Plant: plate preparation, assembly, charging, warehouse",date:"2018-08-27",
+background:"Scrap directly raises the manufacturing cost of a battery. Cutting plate and process scrap lowers cost, supports a competitive price and helps keep customers. This Lean Six Sigma Green Belt project covers six stages: grid and cylinder casting, pasting, parting, COS operation, ICW and heat-seal, and charging and warehouse.",
+problem:"Overall lead scrap averaged 4.2% (Nov’17 to Jun’18 baseline). It comes from plate scrap (pasting, group operation, parting, COS) and process scrap (washed paste, dross at casting pots and COS, heat-seal, ICW and SFG rejection at charging). Before improvement, heat-seal rejection was 0.88%, COS group-plate rejection 0.311% and ICW rejection averaged 70.67 pieces a month.",
+metrics:[
+{name:"Overall lead scrap",unit:"%",baseline:"4.2",target:"3.5",result:"3.74"},
+{name:"Heat-seal rejection",unit:"%",baseline:"0.88",target:"",result:"0.49"},
+{name:"COS group-plate rejection",unit:"%",baseline:"0.311",target:"",result:"0.29"},
+{name:"ICW rejection",unit:"pcs/month",baseline:"70.67",target:"",result:"32"},
+{name:"Cost savings (Jul’18 to Mar’19)",unit:"BDT",baseline:"0",target:"7511501",result:"3160525"}],
+goal:"Reduce overall lead scrap by 16.67% (from 4.2% to 3.5%) by June 2019, worth an annualized benefit of BDT 4,803,108 (project charter).",
+fb:{
+man:["Inadequate training and awareness on heat-seal and ICW","Knowledge gap and mishandling by operators","Lack of skilled operators in pasting"],
+machine:["Frequent heat-seal machine breakdown","12 heaters per machine; sudden upper and lower movement at the start of each seal","Worn ICW tips; UPS connection issue (power interruption)"],
+method:["Hitting ICW areas of each cell before heat-seal to align","Plates not arranged properly during zig-box insertion","Strap lead not reused in the COS lead pot"],
+material:["Misalignment of container and cover ribs","Inferior container and cover quality from supplier","Usable and unusable plates not segregated before reuse"],
+measurement:["OEE not measured at section level (planned)"],
+environment:["Temperature difference between areas of heat-seal molds","Poor water cooling system"]},
+whys:["Why is there SFG rejection in charging? Cover and top-part leakage, battery burst, cell short, breakage at handling.","Why? Low rib-to-rib bonding, excess heat, spark, plates touching, lead chips in the battery, low awareness.","Why? Inferior container and cover, temperature difference across heat-seal molds, poor water cooling, loose connecting bars, PE height misalignment, lack of training.","Why? Supplier incapability, heater capacity and mold misalignment, cooling system design, inefficient connecting bars, too few skilled people.","Why? Lack of awareness at the supplier, machine incapability and lack of monitoring."],
+rootCause:"Machine and supplier incapability, combined with weak process monitoring and low operator awareness in the heat-seal and ICW areas.",
+actions:[
+{action:"100% chemical wash for each COS mold after use; proper mold maintenance; hands-on COS adjustment training",owner:"AER / ARB",due:"",status:"Done"},
+{action:"Reuse washed paste through a submarine-type paste collector, following the process instruction manual",owner:"ZLM",due:"",status:"Done"},
+{action:"Collect cutting lead chips in a tray and reuse them in the COS lead pot (Kaizen)",owner:"—",due:"",status:"Done"},
+{action:"Melt COS straps in the COS pot, reuse PE separators and reuse rejected charging connectors (Kaizen)",owner:"—",due:"",status:"Done"},
+{action:"Change ICW welding tips every 20,000 shots with records; new electrode bars on line 1; fix online UPS; preventive maintenance",owner:"AER",due:"",status:"Done"},
+{action:"5S at the COS mold keeping area",owner:"—",due:"",status:"Done"},
+{action:"Heat-seal: hands-on training, new supplier development, machine perfection test (IE method), QMS monitoring by shift in-charges",owner:"AER",due:"",status:"In progress"}],
+results:"Average scrap from Jul’18 to Mar’19 was 3.74% (calculated from 215,581 kg scrap on 5,759,752 kg lead), against the 4.2% baseline. Savings reached BDT 3,160,525, which is 42% of the BDT 7,511,501 potential for FY 2018-19. COS group-plate rejection fell from 0.311% to 0.29%, heat-seal rejection from 0.88% to 0.49%, ICW rejection from 70.67 to 32 pieces a month, and right-first-time rose from 98.75% to 99.36%. Heat-seal scrap is still high.",
+standardize:"Segment-wise scrap monitored daily\nSustain and audit protocol: COS group-plate rejection (weekly), heat-seal rejection and mold checking (daily), SFG rejection at wet charge, washing paste and lead dross (weekly)\nWashing-paste reuse procedure and 5S at the mold area",
+followup:"Process and Green Belt training for all shift in-charges\nFurther cut scrap in the heat-seal area of assembly and charging\nIntroduce weekly process audits in all concerned sections\nPush ICW rejection towards zero and measure OEE by section"},
+dm:{
+title:"Lead Waste Reduction (QC Circle “Surjo”)",owner:"QC Circle Surjo, facilitator: Shahariar Ahmed",team:"Ashraful Alam (leader), Shoaib Arifen (deputy), Solaiman Islam, Biplob Kumar Sarker and five more circle members",area:"Rahimafrooz Globatt Ltd., IEPZ Pabna: pasting, assembly, charging",date:"2018-07-01",
+problem:"Lead is about 75% of the cost of a lead-acid battery, yet there was no facility to recover lead from scrap. Between Mar and Aug 2018, lead waste averaged 0.65% of consumption (2,790 kg a month on 429,142 kg). It came from washed paste at pasting, cell-short and damaged batteries, and rejected charging connectors.",
+goal:"Cut lead waste and recover lead instead of scrapping it (Reduce, Reuse, Recycle), so the product can be made at a competitive price with good quality.",
+scopeIn:"Washed paste at the pasting operation\nCell-short batteries at assembly\nPhysical damage in the charging area\nRejected charging connectors",
+scopeOut:"Separator rejection and the in-line packing system (other ideas, not chosen in multi-voting)",
+businessCase:"Chosen by multi-voting: 95 points, against 87 for separator rejection and 80 for packing. One-off cost: BDT 138,000.",
+metrics:[
+{name:"Lead waste (share of lead used)",unit:"%",baseline:"0.65",target:"",result:"0.20"},
+{name:"Lead scrap generated",unit:"kg/month",baseline:"2790",target:"",result:"842"}],
+measureNote:"Monthly lead consumption and scrap (kg) were collected for Mar to Aug 2018 by source: washed paste, defective battery, cell-short battery and charging connector. Baseline: 429,142 kg lead used and 2,790 kg scrap, or 0.65%.",
+paretoTitle:"Average monthly lead scrap by source, Mar–Aug 2018 (kg)",
+pareto:[{label:"Washed paste",count:"2064"},{label:"Defective battery",count:"317"},{label:"Cell-short battery",count:"254"},{label:"Charging connector",count:"155"}],
+fb:{
+man:["Lack of awareness","Lack of initiative"],
+machine:["No recycling facility for washed paste","No guide bar at the conveyor","Sharp edge at the race way"],
+method:["No procedure for connector recycling","No washed-paste collection procedure"],
+material:["Separator only 3 mm above the plate top","Excess clearance between main post and bush"],
+measurement:[],environment:[]},
+whys:["Why is lead wasted? Batteries are scrapped for cell short, damage and rejected connectors, and washed paste is thrown away.","Why cell short? Positive and negative plates touch, or molten lead from manual pole burning bridges the cell.","Why? Separator height is too low and misaligned, and the 11 mm main post leaves excess clearance in the bush."],
+rootCause:"No way to recover washed paste and connectors, plus design gaps (3 mm separator height, 11 mm main post) and unprotected conveyor and race-way edges.",
+actions:[
+{action:"Filtered sedimentation vessel for washed paste; trial mixing at up to 10% with QC approval; written SOP",owner:"Kajal Kanti Debnath (QC)",due:"2018-09-30",status:"Done"},
+{action:"Raise separator height from 3 mm to 5 mm; change cutter blade at regular intervals",owner:"Circle Surjo",due:"",status:"Done"},
+{action:"Increase main post diameter from 11 mm to 12.5 mm (COS mold modification)",owner:"Circle Surjo",due:"",status:"Done"},
+{action:"Guide bar on charging conveyor, rubber cap and insulation tape on race way, new loading car",owner:"Circle Surjo",due:"",status:"Done"},
+{action:"Collect rejected charging connectors and recycle them with QC approval",owner:"Circle Surjo",due:"",status:"Done"}],
+results:"Lead waste fell from 0.65% to 0.20% of lead used (Sep’18 to Feb’19 average), a drop of 0.45 points. Scrap fell from about 2,790 to about 842 kg a month (calculated from the monthly figures). Savings: 1,927 kg a month at BDT 220/kg is BDT 424,028 a month, about BDT 5.09 million a year, against a one-off cost of BDT 138,000.",
+standardize:"Washed-paste recycle SOP issued Sep 30, 2018 (prepared by QC, approved by the Plant Manager)\nWashed-paste mixing capped at 10% with QC approval\nStaff trained; activities continue as regular work",
+followup:"Lead scrap minimized and productivity increased\nProduct quality enhanced\nOptimum use of people and machines; Good Manufacturing Practice followed"}
+};
+var CRUMB={a3:"A3",dm:"DMAIC"};
+
+function blank(kind){var fb={};FB.forEach(function(f){fb[f[0]]=[]});
+ var b={title:"",owner:"",team:"",area:"",date:"",problem:"",goal:"",metrics:[{name:"",unit:"",baseline:"",target:"",result:""}],fb:fb,whys:["","",""],rootCause:"",actions:[{action:"",owner:"",due:"",status:"Planned"}],results:"",standardize:"",followup:""};
+ if(kind==="a3")b.background="";
+ else{b.scopeIn="";b.scopeOut="";b.businessCase="";b.measureNote="";b.paretoTitle="";b.pareto=[{label:"",count:""}]}
+ return b}
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function normalize(d,kind){var b=blank(kind);d=d||{};var o={};
+ Object.keys(b).forEach(function(k){o[k]=d[k]===undefined?b[k]:d[k]});
+ ["metrics","whys","actions","pareto"].forEach(function(k){if(b[k]!==undefined&&!Array.isArray(o[k]))o[k]=clone(b[k])});
+ var fb={};FB.forEach(function(f){var v=(d.fb||{})[f[0]];if(typeof v==="string")v=v.split("\n").map(function(s){return s.replace(/^\s*[-•*]\s*/,"").trim()}).filter(Boolean);fb[f[0]]=Array.isArray(v)?v:[]});
+ o.fb=fb;return o}
+
+function $(s,r){return(r||document).querySelector(s)}
+function esc(x){return String(x==null?"":x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function lines(t){return String(t||"").split("\n").map(function(s){return s.replace(/^\s*[-•*]\s*/,"").trim()}).filter(Boolean)}
+function lis(a){a=(a||[]).map(function(s){return String(s||"").trim()}).filter(Boolean);return a.length?"<ul>"+a.map(function(l){return"<li>"+esc(l)+"</li>"}).join("")+"</ul>":""}
+function ul(t){return lis(lines(t))||'<span class="empty">–</span>'}
+function para(t){return t&&t.trim()?"<p>"+esc(t.trim())+"</p>":'<p class="empty">–</p>'}
+function fmtDate(d){if(!d)return"";var p=d.split("-");if(p.length!==3)return esc(d);var m=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];return m[+p[1]-1]+" "+(+p[2])+", "+p[0]}
+function num(v){var n=parseFloat(String(v).replace(/[, $%]/g,""));return isNaN(n)?null:n}
+function getP(path){return path.split(".").reduce(function(o,k){return o&&o[k]},S)}
+function setP(path,v){var p=path.split("."),o=S;for(var i=0;i<p.length-1;i++)o=o[p[i]];o[p[p.length-1]]=v}
+
+/* ---------- guides ---------- */
+function guide(p){
+if(p==="a3")return'<details class="guide" open><summary>How to use &amp; study A3</summary><div class="gb">'+
+'<h5>What is an A3?</h5><p>An A3 is a one-page problem-solving report, named after the A3 paper size (297 × 420 mm). It comes from Toyota. The sheet tells the story of a problem from left to right and follows PDCA: <b>Plan</b> (background, current condition, goal, root cause, countermeasures), <b>Do</b> (carry out the actions), <b>Check</b> (results) and <b>Act</b> (standardize and follow up).</p>'+
+'<h5>How to use this tool</h5><ol><li>Read the pre-filled example on the right to see what a good A3 looks like.</li><li>Press <b>New blank</b> to clear it, or just overwrite the example.</li><li>Fill sections 1 to 7 in order. The sheet updates as you type.</li><li><b>Save file</b> keeps your work (.json) to reopen later. <b>Print / Save PDF</b> gives one A3 landscape page.</li></ol>'+
+'<h5>What to write in each section</h5><table><tr><th>Section</th><th>Write</th></tr>'+
+'<tr><td>1 Background</td><td>Why this matters, who is affected, why now.</td></tr>'+
+'<tr><td>2 Current condition</td><td>Facts and numbers, not opinions. Go and see the process.</td></tr>'+
+'<tr><td>3 Goal</td><td>Measurable target and a deadline (SMART).</td></tr>'+
+'<tr><td>4 Root cause</td><td>Causes by category, then 5 Whys down to a cause you can fix.</td></tr>'+
+'<tr><td>5 Countermeasures</td><td>Actions that remove the root cause, each with an owner and date.</td></tr>'+
+'<tr><td>6 Results</td><td>Compare with the target using the same measure as the baseline.</td></tr>'+
+'<tr><td>7 Standardize</td><td>SOPs, training, audits, and what is still open.</td></tr></table>'+
+'<h5>Key tools</h5><ul><li><b>5 Whys:</b> ask “why” repeatedly until you reach a process cause, not a person.</li><li><b>Fishbone (Ishikawa):</b> sort causes into Man, Machine, Method, Material, Measurement, Environment. Add one cause per row.</li><li><b>SMART goal:</b> Specific, Measurable, Agreed, Realistic, Time-bound.</li></ul>'+
+'<h5>Self-check</h5><ul><li>Can someone outside the team follow it in five minutes?</li><li>Is every claim backed by data?</li><li>Does each countermeasure link to a root cause?</li><li>Common traps: jumping to solutions, blaming people, vague goals, no follow-up.</li></ul>'+
+'<h5>Study further</h5><p><i>Understanding A3 Thinking</i> (Sobek &amp; Smalley, 2008) and <i>Managing to Learn</i> (John Shook, 2008).</p></div></details>'+
+'<div class="intro"><b>Default example:</b> “Lead Scrap Reduction”, a Lean Six Sigma Green Belt project at Rahimafrooz Globatt Ltd. (2018–19), condensed onto an A3.</div>';
+return'<details class="guide" open><summary>How to use &amp; study DMAIC</summary><div class="gb">'+
+'<h5>What is DMAIC?</h5><p>DMAIC is the five-phase improvement cycle of Six Sigma and Lean Six Sigma: <b>Define, Measure, Analyze, Improve, Control</b>. It suits problems where the cause is unknown and data is needed to find it. This tool gives a one-page DMAIC summary.</p>'+
+'<h5>How to use this tool</h5><ol><li>Read the example on the right (QC Circle “Surjo”, lead waste reduction).</li><li>Press <b>New blank</b> or overwrite the example.</li><li>Work through D, M, A, I, C in order. The one-pager builds as you type.</li><li><b>Save file</b> to continue later; <b>Print / Save PDF</b> for one A3 landscape page.</li></ol>'+
+'<h5>The five phases</h5><table><tr><th>Phase</th><th>Purpose and typical tools</th></tr>'+
+'<tr><td>Define</td><td>Problem, goal, scope, business case. Tools: project charter, SIPOC, voice of customer / CTQ.</td></tr>'+
+'<tr><td>Measure</td><td>Baseline with trustworthy data. Tools: data collection plan, operational definitions, measurement check.</td></tr>'+
+'<tr><td>Analyze</td><td>Find the vital few root causes. Tools: Pareto, fishbone, 5 Whys, hypothesis tests.</td></tr>'+
+'<tr><td>Improve</td><td>Test and implement solutions. Tools: brainstorming, pilot, FMEA, poka-yoke, 5S.</td></tr>'+
+'<tr><td>Control</td><td>Hold the gain. Tools: control plan, SOP, control charts, audits, training, handover.</td></tr></table>'+
+'<h5>Add causes one by one</h5><p>In Analyze, add each cause as its own row under the right category. Use the Pareto rows to show which source contributes most.</p>'+
+'<h5>A3 vs DMAIC</h5><p>A3 is a single-page PDCA story, good for communication and coaching. DMAIC is a phased, data-heavy structure used for Green Belt and Black Belt projects. The logic is the same, so you can summarize a DMAIC project on one sheet.</p>'+
+'<h5>Study further</h5><p><i>The Lean Six Sigma Pocket Toolbook</i> (George, Rowlands, Price, Maxey) and <i>The Six Sigma Handbook</i> (Pyzdek &amp; Keller).</p></div></details>'+
+'<div class="intro"><b>Default example:</b> the QC Circle “Surjo” lead waste project (23rd National Annual Quality Convention 2019, BSTQM). It was presented as PDCA, and is mapped here onto DMAIC.</div>';
+}
+
+/* ---------- form ---------- */
+function L(t){return"<label>"+t+"</label>"}
+function I(p,k,type){return'<input'+(type?' type="'+type+'"':'')+' data-k="'+p+'.'+k+'">'}
+function T(p,k,rows){return'<textarea rows="'+(rows||3)+'" data-k="'+p+'.'+k+'"></textarea>'}
+function card(num,title,hint,inner){return'<div class="card"><h3>'+(num?'<i>'+num+'</i>':'')+title+'</h3><p class="hint">'+hint+'</p>'+inner+'</div>'}
+function listBox(p,k,addLabel){return'<div id="'+p+'-'+k+'"></div><button class="btn sm" data-add="'+p+'.'+k+'">'+addLabel+'</button>'}
+function metricsBox(p){return'<div class="row met"><p class="hdr">Measure</p><p class="hdr">Unit</p><p class="hdr">Baseline</p><p class="hdr">Target</p><p class="hdr">Result</p><span></span></div>'+listBox(p,"metrics","+ Add measure")}
+function causesBox(p){return FB.map(function(f){return'<div class="cat"><h4>'+f[1]+'</h4><div id="'+p+'-fb-'+f[0]+'"></div><button class="btn sm" data-add="'+p+'.fb.'+f[0]+'">+ Add cause</button></div>'}).join("")}
+function formHTML(p){
+ var dm=p==="dm",h=guide(p);
+ h+=card("","Title &amp; owner","Name the problem as a short, neutral statement, not a solution.",L("Title")+I(p,"title")+'<div class="g2"><div>'+L(dm?"Project leader":"Owner")+I(p,"owner")+'</div><div>'+L("Date started")+I(p,"date","date")+'</div></div><div class="g2"><div>'+L("Team")+I(p,"team")+'</div><div>'+L("Area / process")+I(p,"area")+'</div></div>');
+ if(!dm){
+  h+=card("1","Background","Why does this matter? Business context, who is affected, why now.",T(p,"background",4));
+  h+=card("2","Current condition","Describe what is happening today using facts and data. Then list the key measures.",L("Problem statement")+T(p,"problem",4)+L("Key measures (baseline, target, result)")+metricsBox(p));
+  h+=card("3","Goal","A specific, measurable target with a deadline. Say how much, by when.",T(p,"goal",3));
+ }else{
+  h+=card("D","Define","What is the problem, the goal, the scope and the business case?",L("Problem statement")+T(p,"problem",4)+L("Goal")+T(p,"goal",3)+L("In scope (one per line)")+T(p,"scopeIn",3)+L("Out of scope (one per line)")+T(p,"scopeOut",2)+L("Business case")+T(p,"businessCase",3));
+  h+=card("M","Measure","Baseline data. Enter baseline, target (if any) and result for each measure.",L("Key measures")+metricsBox(p)+L("Data collection &amp; baseline")+T(p,"measureNote",3));
+ }
+ var an=(dm?card("A","Analyze","Show where the problem comes from, then list causes one by one under each category and drill down with 5 Whys.",L("Pareto title / unit")+I(p,"paretoTitle")+L("Pareto data (category and count)")+listBox(p,"pareto","+ Add category")+L("Causes by category")+causesBox(p)+L("5 Whys")+listBox(p,"whys","+ Add why")+L("Root cause (conclusion)")+T(p,"rootCause",2))
+  :card("4","Root cause analysis","Add causes one by one under each category (one row per cause), then drill down with 5 Whys to the real root cause.",causesBox(p)+L("5 Whys (add or remove steps)")+listBox(p,"whys","+ Add why")+L("Root cause (conclusion)")+T(p,"rootCause",2)));
+ h+=an;
+ h+=card(dm?"I":"5",dm?"Improve":"Countermeasures","Actions that remove the root cause. Give each an owner, a due date and a status.",listBox(p,"actions","+ Add action"));
+ if(!dm){
+  h+=card("6","Results / effectiveness check","Did it work? Compare against the target (enter result values in the measures above).",T(p,"results",4));
+  h+=card("7","Standardize &amp; follow-up","Lock in the gain (procedures, training, audits) and list what is still open. One item per line.",L("Standardization")+T(p,"standardize",3)+L("Follow-up / next steps")+T(p,"followup",3));
+ }else{
+  h+=card("C","Control","Show the result, how it is held, and the benefits or follow-up.",L("Results")+T(p,"results",4)+L("Control plan / standardization (one per line)")+T(p,"standardize",3)+L("Benefits &amp; follow-up (one per line)")+T(p,"followup",3));
+ }
+ return h}
+
+/* ---------- list rendering ---------- */
+function listPaths(p){var a=[p+".metrics",p+".whys",p+".actions"];if(p==="dm")a.push("dm.pareto");FB.forEach(function(f){a.push(p+".fb."+f[0])});return a}
+function kindOf(path){var s=path.split(".");var last=s[s.length-1];if(s[1]==="fb")return"cause";return last==="metrics"?"metric":last==="actions"?"action":last==="pareto"?"pareto":last==="whys"?"why":"cause"}
+function newItem(path){var k=kindOf(path);return k==="metric"?{name:"",unit:"",baseline:"",target:"",result:""}:k==="action"?{action:"",owner:"",due:"",status:"Planned"}:k==="pareto"?{label:"",count:""}:""}
+function rowHTML(path,k,v,i){
+ var a=' data-l="'+path+'" data-i="'+i+'"',x='<button class="x" title="Remove" data-del="'+path+'" data-i="'+i+'">×</button>';
+ if(k==="metric")return'<div class="row met"><input class="nm" placeholder="e.g. Defect rate"'+a+' data-f="name" value="'+esc(v.name)+'"><input placeholder="%"'+a+' data-f="unit" value="'+esc(v.unit)+'"><input inputmode="decimal"'+a+' data-f="baseline" value="'+esc(v.baseline)+'"><input inputmode="decimal"'+a+' data-f="target" value="'+esc(v.target)+'"><input inputmode="decimal"'+a+' data-f="result" value="'+esc(v.result)+'">'+x+'</div>';
+ if(k==="why")return'<div class="row why"><span class="wh">Why '+(i+1)+'</span><input placeholder="Why does this happen?"'+a+' value="'+esc(v)+'">'+x+'</div>';
+ if(k==="pareto")return'<div class="row par"><input placeholder="Category"'+a+' data-f="label" value="'+esc(v.label)+'"><input inputmode="decimal" placeholder="Count"'+a+' data-f="count" value="'+esc(v.count)+'">'+x+'</div>';
+ if(k==="action"){var st=["Planned","In progress","Done","Delayed"].map(function(o){return'<option'+(o===v.status?" selected":"")+'>'+o+'</option>'}).join("");
+  return'<div class="row act"><div><label style="margin-top:0">Action</label><textarea rows="2" style="min-height:44px"'+a+' data-f="action">'+esc(v.action)+'</textarea><div class="g3" style="margin-top:6px"><div><label>Owner</label><input'+a+' data-f="owner" value="'+esc(v.owner)+'"></div><div><label>Due</label><input type="date"'+a+' data-f="due" value="'+esc(v.due)+'"></div><div><label>Status</label><select'+a+' data-f="status">'+st+'</select></div></div></div>'+x+'</div>'}
+ return'<div class="row cs"><input placeholder="Describe one cause"'+a+' value="'+esc(v)+'">'+x+'</div>'}
+function drawLists(){
+ ["a3","dm"].forEach(function(p){listPaths(p).forEach(function(path){
+  var el=$("#"+path.replace(/\./g,"-"));if(!el)return;var arr=getP(path)||[],k=kindOf(path);
+  el.innerHTML=arr.map(function(v,i){return rowHTML(path,k,v,i)}).join("")})})}
+function fillStatic(){document.querySelectorAll("[data-k]").forEach(function(el){var v=getP(el.getAttribute("data-k"));el.value=v==null?"":v})}
+
+/* ---------- sheet pieces ---------- */
+function cleanMet(m){return(m||[]).filter(function(x){return x.name||x.baseline||x.target||x.result})}
+function head(k,s){return'<div class="sh-head"><div><div class="k">'+k+'</div><h1>'+(esc(s.title)||'<span class="empty">Untitled</span>')+'</h1></div><div class="meta"><span>Owner</span><span>Date</span><div>'+(esc(s.owner)||"–")+'</div><div>'+(fmtDate(s.date)||"–")+'</div><span>Team</span><span>Area</span><div>'+(esc(s.team)||"–")+'</div><div>'+(esc(s.area)||"–")+'</div></div></div>'}
+function foot(l,s){return'<div class="sh-foot"><span>'+l+'</span><span>'+esc(s.title)+(s.owner?" · "+esc(s.owner):"")+'</span></div>'}
+function causesHTML(fb,one){var c=FB.filter(function(f){return lis(fb[f[0]])}).map(function(f){return'<div><h4>'+f[1]+'</h4>'+lis(fb[f[0]])+'</div>'}).join("");return c?'<div class="fb'+(one?' one':'')+'">'+c+'</div>':'<span class="empty">–</span>'}
+function whysHTML(s){var w=s.whys.filter(function(x){return String(x).trim()});return w.length?'<div class="whys">'+w.map(function(x,i){return'<div class="why"><b>WHY '+(i+1)+'</b><span>'+esc(x)+'</span></div>'}).join("")+'</div>':""}
+function rootHTML(s){return s.rootCause.trim()?'<div class="root"><em>Root cause</em>'+esc(s.rootCause)+'</div>':""}
+function barsHTML(met){return met.filter(function(m){return num(m.baseline)!==null}).map(function(m){
+ var b=num(m.baseline),t=num(m.target),r=num(m.result),mx=Math.max(b,t||0,r||0)||1;
+ var d=(r!==null&&b)?Math.round((r-b)/Math.abs(b)*100):null;
+ function bar(c,l,v,raw){return v===null?"":'<div class="bl '+c+'"><span>'+l+'</span><i style="width:'+Math.max(2,v/mx*100)+'%"></i><u>'+esc(raw)+'</u></div>'}
+ return'<div class="bm"><div class="nm"><span>'+esc(m.name)+(m.unit?" ("+esc(m.unit)+")":"")+'</span>'+(d!==null?'<small>'+(d>0?"+":"")+d+'% vs baseline</small>':"")+'</div>'+bar("","Baseline",b,m.baseline)+bar("t","Target",t,m.target)+bar("r","Result",r,m.result)+'</div>'}).join("")}
+function paretoHTML(s){
+ var rows=(s.pareto||[]).map(function(r){return{l:String(r.label||"").trim(),c:num(r.count)}}).filter(function(r){return r.l&&r.c!==null&&r.c>0});
+ if(!rows.length)return"";rows.sort(function(a,b){return b.c-a.c});
+ var tot=rows.reduce(function(a,r){return a+r.c},0),mx=rows[0].c,cum=0;
+ return'<div class="sub">Pareto</div>'+(s.paretoTitle?'<p class="cap">'+esc(s.paretoTitle)+'</p>':"")+'<div class="par">'+rows.map(function(r){cum+=r.c;return'<div class="pr"><span>'+esc(r.l)+'</span><i><u style="width:'+(r.c/mx*100)+'%"></u></i><b>'+r.c.toLocaleString("en-US")+'</b><em>'+Math.round(cum/tot*100)+'%</em></div>'}).join("")+'</div>'}
+function actionsTable(acts){return'<table class="t"><tr><th style="width:30px">#</th><th>Countermeasure</th><th>Owner</th><th>Due</th><th>Status</th></tr>'+(acts.length?acts.map(function(a,i){return'<tr><td class="n">'+(i+1)+'</td><td>'+esc(a.action)+'</td><td>'+esc(a.owner)+'</td><td style="white-space:nowrap">'+fmtDate(a.due)+'</td><td><span class="pill '+a.status.replace(" ","")+'">'+esc(a.status)+'</span></td></tr>'}).join(""):'<tr><td colspan="5" class="empty">No actions yet</td></tr>')+'</table>'}
+function actionsCards(acts){return acts.length?acts.map(function(a,i){return'<div class="ai"><b>'+(i+1)+'.</b> '+esc(a.action)+'<div class="m"><span>'+esc(a.owner)+(a.due?" · "+fmtDate(a.due):"")+'</span><span class="pill '+a.status.replace(" ","")+'">'+esc(a.status)+'</span></div></div>'}).join(""):'<span class="empty">–</span>'}
+function sec(letter,name,inner,flex){return'<div class="sec"'+(flex?' style="flex:1"':'')+'><h2><b>'+letter+'</b>'+name+'</h2><div class="in">'+inner+'</div></div>'}
+
+function renderA3(){
+ var s=S.a3,met=cleanMet(s.metrics);
+ var mt=met.length?'<table class="t"><tr><th>Measure</th><th>Baseline</th><th>Target</th></tr>'+met.map(function(m){return'<tr><td>'+esc(m.name)+(m.unit?' <span style="color:#6A7385">('+esc(m.unit)+')</span>':'')+'</td><td class="n">'+esc(m.baseline||"–")+'</td><td class="n">'+esc(m.target||"–")+'</td></tr>'}).join("")+'</table>':"";
+ var acts=s.actions.filter(function(a){return a.action||a.owner}),done=acts.filter(function(a){return a.status==="Done"}).length,bars=barsHTML(met);
+ $("#stat-a3").textContent=acts.length?done+" of "+acts.length+" actions done":"";
+ $("#sheet-a3").innerHTML=head("A3 PROBLEM SOLVING",s)+
+ '<div class="cols"><div class="col">'+
+ sec("1","Background",para(s.background))+
+ sec("2","Current condition",para(s.problem)+mt)+
+ sec("3","Goal",para(s.goal))+
+ sec("4","Root cause analysis",'<div class="sub">Cause categories</div>'+causesHTML(s.fb)+'<div class="sub" style="margin-top:12px">5 Whys</div>'+(whysHTML(s)||'<span class="empty">–</span>')+rootHTML(s),true)+
+ '</div><div class="col">'+
+ sec("5","Countermeasures",actionsTable(acts))+
+ sec("6","Results / effectiveness",(bars?'<div class="bars">'+bars+'</div>':"")+para(s.results))+
+ sec("7","Standardize &amp; follow-up",'<div class="sub">Standardization</div>'+ul(s.standardize)+'<div class="sub" style="margin-top:10px">Follow-up / next steps</div>'+ul(s.followup),true)+
+ '</div></div>'+foot("Plan → Do → Check → Act",s);
+ fit("a3")}
+function renderDM(){
+ var s=S.dm,met=cleanMet(s.metrics);
+ var mt=met.length?'<table class="t"><tr><th>Measure</th><th>Baseline</th><th>Target</th></tr>'+met.map(function(m){return'<tr><td>'+esc(m.name)+(m.unit?' <span style="color:#6A7385">('+esc(m.unit)+')</span>':'')+'</td><td class="n">'+esc(m.baseline||"–")+'</td><td class="n">'+esc(m.target||"–")+'</td></tr>'}).join("")+'</table>':"";
+ var acts=s.actions.filter(function(a){return a.action||a.owner}),done=acts.filter(function(a){return a.status==="Done"}).length,bars=barsHTML(met);
+ $("#stat-dm").textContent=acts.length?done+" of "+acts.length+" actions done":"";
+ $("#sheet-dm").innerHTML=head("DMAIC PROJECT",s)+
+ '<div class="dcols">'+
+ sec("D","Define",'<div class="sub">Problem</div>'+para(s.problem)+'<div class="sub">Goal</div>'+para(s.goal)+'<div class="sub">In scope</div>'+ul(s.scopeIn)+'<div class="sub">Out of scope</div>'+ul(s.scopeOut)+'<div class="sub">Business case</div>'+para(s.businessCase))+
+ sec("M","Measure",'<div class="sub">Key measures</div>'+(mt||'<span class="empty">–</span>')+'<div class="sub">Data collection &amp; baseline</div>'+para(s.measureNote))+
+ sec("A","Analyze",paretoHTML(s)+'<div class="sub">Causes by category</div>'+causesHTML(s.fb,true)+'<div class="sub" style="margin-top:10px">5 Whys</div>'+(whysHTML(s)||'<span class="empty">–</span>')+rootHTML(s))+
+ sec("I","Improve",actionsCards(acts))+
+ sec("C","Control",(bars?'<div class="sub">Results</div><div class="bars">'+bars+'</div>':'<div class="sub">Results</div>')+para(s.results)+'<div class="sub">Control plan</div>'+ul(s.standardize)+'<div class="sub" style="margin-top:10px">Benefits &amp; follow-up</div>'+ul(s.followup))+
+ '</div>'+foot("Define → Measure → Analyze → Improve → Control",s);
+ fit("dm")}
+function render(p){if(p==="dm")renderDM();else renderA3()}
+function fit(p){var f=$("#fit-"+p),sh=$("#sheet-"+p);if(!f)return;sh.style.transform="none";f.style.height="auto";var w=f.clientWidth;if(!w)return;var sc=Math.min(1,w/1587);sh.style.transform="scale("+sc+")";f.style.height=(sh.offsetHeight*sc)+"px"}
+
+/* ---------- state ---------- */
+function save(){try{localStorage.setItem(KEY,JSON.stringify({a3:S.a3,dm:S.dm,mode:MODE}))}catch(e){}}
+function setMode(m){MODE=m;document.body.setAttribute("data-cur",m);document.querySelectorAll("#seg button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-set")===m)});save();setTimeout(function(){fit(m)},30)}
+function refreshAll(){fillStatic();drawLists();renderA3();renderDM();save()}
+
+/* ---------- events ---------- */
+document.addEventListener("input",function(e){
+ var t=e.target,k=t.getAttribute&&t.getAttribute("data-k"),l=t.getAttribute&&t.getAttribute("data-l"),p;
+ if(k){setP(k,t.value);p=k.split(".")[0]}
+ else if(l){var i=+t.getAttribute("data-i"),f=t.getAttribute("data-f"),arr=getP(l);if(f)arr[i][f]=t.value;else arr[i]=t.value;p=l.split(".")[0]}
+ else return;
+ render(p);save()});
+document.addEventListener("click",function(e){
+ var t=e.target.closest("[data-add],[data-del],[data-view],[data-set]");if(!t)return;
+ if(t.dataset.set){setMode(t.dataset.set);return}
+ if(t.dataset.view){document.body.className="v-"+t.dataset.view;setTimeout(function(){fit(MODE)},30);return}
+ if(t.dataset.add){var path=t.dataset.add;getP(path).push(newItem(path));drawLists();render(path.split(".")[0]);save();
+  var c=$("#"+path.replace(/\./g,"-"));if(c&&c.lastElementChild){var f=c.lastElementChild.querySelector("input,textarea");if(f)f.focus()}return}
+ if(t.dataset.del){var dp=t.dataset.del;getP(dp).splice(+t.dataset.i,1);drawLists();render(dp.split(".")[0]);save()}});
+$("#bEx").onclick=function(){if(confirm("Replace the current "+CRUMB[MODE]+" content with the worked example?")){S[MODE]=normalize(clone(EX[MODE]),MODE);refreshAll()}};
+$("#bNew").onclick=function(){if(confirm("Clear the "+CRUMB[MODE]+" sheet and start blank?")){S[MODE]=blank(MODE);refreshAll()}};
+$("#bPrint").onclick=function(){document.body.className="v-edit";fit(MODE);setTimeout(function(){window.print()},60)};
+$("#bSave").onclick=function(){
+ var b=new Blob([JSON.stringify({kind:MODE==="a3"?"a3":"dmaic",version:2,data:S[MODE]},null,2)],{type:"application/json"}),a=document.createElement("a");
+ a.href=URL.createObjectURL(b);a.download=((S[MODE].title||"problem-solving").replace(/[^\w\-]+/g,"_").slice(0,50))+"."+(MODE==="a3"?"a3":"dmaic")+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},500)};
+$("#bOpen").onclick=function(){$("#fOpen").click()};
+$("#fOpen").onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{
+ var d=JSON.parse(r.result),kind,data;
+ if(d.kind==="dmaic"&&d.data){kind="dm";data=d.data}else if(d.kind==="a3"&&d.data){kind="a3";data=d.data}else if(d.metrics&&d.fb){kind="a3";data=d}else throw 0;
+ S[kind]=normalize(data,kind);refreshAll();setMode(kind)}catch(x){alert("That file is not a valid A3 or DMAIC file.")}};r.readAsText(f);e.target.value=""};
+window.addEventListener("resize",function(){fit(MODE)});
+window.addEventListener("beforeprint",function(){var f=$("#fit-"+MODE),sh=$("#sheet-"+MODE);sh.style.transform="none";var h=sh.offsetHeight,k=Math.min(1,1116/h);sh.style.transform=k<1?"scale("+k+")":"none";f.style.height=(h*k)+"px"});
+window.addEventListener("afterprint",function(){fit(MODE)});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fit(MODE)});
+
+/* ---------- init ---------- */
+var saved=null;try{saved=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){}
+S.a3=normalize(saved&&saved.a3?saved.a3:clone(EX.a3),"a3");
+S.dm=normalize(saved&&saved.dm?saved.dm:clone(EX.dm),"dm");
+$("#form-a3").innerHTML=formHTML("a3");
+$("#form-dm").innerHTML=formHTML("dm");
+refreshAll();
+setMode(saved&&(saved.mode==="a3"||saved.mode==="dm")?saved.mode:"a3");
+})();
+</script>
+</body>
+</html>
