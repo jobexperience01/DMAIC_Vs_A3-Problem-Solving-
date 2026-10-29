@@ -268,14 +268,15 @@ var MODE="a3",S={};
 /* ---------- default examples ---------- */
 var EX={
 a3:{
-title:"Lead Scrap Reduction at Rahimafrooz Globatt Ltd.",owner:"RRD, In-Charge QA (Project Leader)",team:"KMI (Sponsor), SYU (Champion), DAR (Coordinator), SNZ, ZLM, AER",area:"Ishwardi Plant: plate preparation, assembly, charging, warehouse",date:"2018-08-27",
+title:"Lead Scrap Reduction at Rahimafrooz Globatt Ltd.",owner:"RRD, In-Charge QA (Project Leader)",team:"KMI (Sponsor), SYU (Champion), DAR (Coordinator), SNZ, ZLM, AER",area:"Ishwardi Plant: plate preparation, assembly, charging, warehouse. Out of scope: lead quality, new COS machine validation, raw material availability",date:"2018-08-27",
 background:"Scrap directly raises the manufacturing cost of a battery. Cutting plate and process scrap lowers cost, supports a competitive price and helps keep customers. This Lean Six Sigma Green Belt project covers six stages: grid and cylinder casting, pasting, parting, COS operation, ICW and heat-seal, and charging and warehouse.",
-problem:"Overall lead scrap averaged 4.2% (Nov’17 to Jun’18 baseline). It comes from plate scrap (pasting, group operation, parting, COS) and process scrap (washed paste, dross at casting pots and COS, heat-seal, ICW and SFG rejection at charging). Before improvement, heat-seal rejection was 0.88%, COS group-plate rejection 0.311% and ICW rejection averaged 70.67 pieces a month.",
+problem:"Overall lead scrap averaged 4.2% (Nov’17 to Jun’18 baseline). It comes from plate scrap (pasting, group operation, parting, COS) and process scrap (washed paste, dross at casting pots and COS, heat-seal, ICW and SFG rejection at charging). Before improvement: COS group-plate rejection was 0.311% (2,910 of 935,634 plates; model N50 alone was 33% of rejects), heat-seal rejection 0.88% (961 of 108,725; N50:SMF was 40%), ICW rejection averaged 70.67 pieces a month (Jul to Dec’18), and right-first-time (RFT) was 98.75%, with container/cover leakage the biggest defect.",
 metrics:[
 {name:"Overall lead scrap",unit:"%",baseline:"4.2",target:"3.5",result:"3.74"},
 {name:"Heat-seal rejection",unit:"%",baseline:"0.88",target:"",result:"0.49"},
 {name:"COS group-plate rejection",unit:"%",baseline:"0.311",target:"",result:"0.29"},
 {name:"ICW rejection",unit:"pcs/month",baseline:"70.67",target:"",result:"32"},
+{name:"Right-first-time (RFT)",unit:"%",baseline:"98.75",target:"",result:"99.36"},
 {name:"Cost savings (Jul’18 to Mar’19)",unit:"BDT",baseline:"0",target:"7511501",result:"3160525"}],
 goal:"Reduce overall lead scrap by 16.67% (from 4.2% to 3.5%) by June 2019, worth an annualized benefit of BDT 4,803,108 (project charter).",
 fb:{
@@ -288,14 +289,14 @@ environment:["Temperature difference between areas of heat-seal molds","Poor wat
 whys:["Why is there SFG rejection in charging? Cover and top-part leakage, battery burst, cell short, breakage at handling.","Why? Low rib-to-rib bonding, excess heat, spark, plates touching, lead chips in the battery, low awareness.","Why? Inferior container and cover, temperature difference across heat-seal molds, poor water cooling, loose connecting bars, PE height misalignment, lack of training.","Why? Supplier incapability, heater capacity and mold misalignment, cooling system design, inefficient connecting bars, too few skilled people.","Why? Lack of awareness at the supplier, machine incapability and lack of monitoring."],
 rootCause:"Machine and supplier incapability, combined with weak process monitoring and low operator awareness in the heat-seal and ICW areas.",
 actions:[
-{action:"100% chemical wash for each COS mold after use; proper mold maintenance; hands-on COS adjustment training",owner:"AER / ARB",due:"",status:"Done"},
-{action:"Reuse washed paste through a submarine-type paste collector, following the process instruction manual",owner:"ZLM",due:"",status:"Done"},
+{action:"100% chemical wash for each COS mold after use; proper mold maintenance; hands-on COS adjustment training",owner:"AER / ARB / SOF",due:"",status:"Done"},
+{action:"Reuse washed paste through a submarine-type paste collector, following the process instruction manual (idea: SYU)",owner:"ZLM",due:"",status:"Done"},
 {action:"Collect cutting lead chips in a tray and reuse them in the COS lead pot (Kaizen)",owner:"—",due:"",status:"Done"},
 {action:"Melt COS straps in the COS pot, reuse PE separators and reuse rejected charging connectors (Kaizen)",owner:"—",due:"",status:"Done"},
 {action:"Change ICW welding tips every 20,000 shots with records; new electrode bars on line 1; fix online UPS; preventive maintenance",owner:"AER",due:"",status:"Done"},
 {action:"5S at the COS mold keeping area",owner:"—",due:"",status:"Done"},
-{action:"Heat-seal: hands-on training, new supplier development, machine perfection test (IE method), QMS monitoring by shift in-charges",owner:"AER",due:"",status:"In progress"}],
-results:"Average scrap from Jul’18 to Mar’19 was 3.74% (calculated from 215,581 kg scrap on 5,759,752 kg lead), against the 4.2% baseline. Savings reached BDT 3,160,525, which is 42% of the BDT 7,511,501 potential for FY 2018-19. COS group-plate rejection fell from 0.311% to 0.29%, heat-seal rejection from 0.88% to 0.49%, ICW rejection from 70.67 to 32 pieces a month, and right-first-time rose from 98.75% to 99.36%. Heat-seal scrap is still high.",
+{action:"Heat-seal and SFG: hands-on training, new supplier development, machine perfection test (IE method), QMS monitoring by shift in-charges and on-field awareness of technicians",owner:"AER / MKZ",due:"",status:"In progress"}],
+results:"Average scrap from Jul’18 to Mar’19 was 3.74% (calculated from 215,581 kg scrap on 5,759,752 kg lead), against the 4.2% baseline. Jul’18 and Sep’18 were worse than baseline; Jan to Mar’19 averaged 3.36% (calculated), better than the 3.5% target. Savings reached BDT 3,160,525 (25,779 kg of lead at BDT 123/kg), which is 42% of the BDT 7,511,501 potential for FY 2018-19. COS group-plate rejection fell from 0.311% to 0.29%, heat-seal rejection from 0.88% to 0.37% in Feb’19 and 0.49% in Mar’19, ICW rejection from 70.67 to 32 pieces a month, and right-first-time rose from 98.75% to 99.36%. Heat-seal scrap is still high.",
 standardize:"Segment-wise scrap monitored daily\nSustain and audit protocol: COS group-plate rejection (weekly), heat-seal rejection and mold checking (daily), SFG rejection at wet charge, washing paste and lead dross (weekly)\nWashing-paste reuse procedure and 5S at the mold area",
 followup:"Process and Green Belt training for all shift in-charges\nFurther cut scrap in the heat-seal area of assembly and charging\nIntroduce weekly process audits in all concerned sections\nPush ICW rejection towards zero and measure OEE by section"},
 dm:{
