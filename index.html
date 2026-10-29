@@ -38,7 +38,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-off
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
 .row{display:grid;gap:6px;align-items:center;margin-bottom:6px}
-.row.met{grid-template-columns:1.6fr .8fr .8fr .8fr .8fr 30px}
+.row.met{display:block;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--soft);margin-bottom:8px}
+.mh{display:grid;grid-template-columns:1fr 30px;gap:6px;align-items:center}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:2px}
+.mg label{margin:6px 0 3px;font-size:11px}
 .row.act{grid-template-columns:1fr 30px;border:1px solid var(--line);border-radius:8px;padding:8px;background:var(--soft)}
 .row.why{grid-template-columns:50px 1fr 30px}
 .row.cs{grid-template-columns:1fr 30px}
@@ -58,13 +61,43 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-off
 .gb table{width:100%;border-collapse:collapse;font-size:13px;margin:4px 0}
 .gb td,.gb th{border:1px solid var(--line);padding:4px 7px;vertical-align:top;text-align:left}
 .gb th{background:var(--soft)}
-.built{max-width:1960px;margin:0 auto 28px;padding:0 18px}
-.built>div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;max-width:560px}
-.bh{display:flex;gap:8px;align-items:center;font-weight:700;letter-spacing:.12em;color:#2F7D62;font-size:15px}
-.bn{font-size:22px;font-weight:700;margin-top:10px}
-.br{color:var(--mute);margin-bottom:10px;font-size:17px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips span{background:#DCEBE3;color:#2E4A3E;border-radius:99px;padding:5px 14px;font-weight:500;font-size:14.5px}
+.bh{display:flex;gap:8px;align-items:center;font-weight:700;letter-spacing:.12em;color:#2F7D62;font-size:13px}
+.bn{font-size:19px;font-weight:700;margin-top:8px}
+.br{color:var(--mute);margin-bottom:8px;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{background:#DCEBE3;color:#2E4A3E;border-radius:99px;padding:4px 11px;font-weight:500;font-size:12.5px}
+.ham{border:1px solid var(--line);background:var(--field);border-radius:8px;width:40px;height:38px;display:grid;place-items:center;cursor:pointer;padding:0}
+.ham:hover{border-color:var(--acc)}
+.scrim{position:fixed;inset:0;background:rgba(10,18,30,.5);opacity:0;pointer-events:none;transition:opacity .2s;z-index:39}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;left:0;bottom:0;width:min(350px,88vw);background:var(--panel);z-index:40;overflow-y:auto;overscroll-behavior:contain;transform:translateX(-104%);visibility:hidden;transition:transform .25s ease,visibility 0s .25s;box-shadow:6px 0 30px rgba(10,20,40,.25);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer.open{transform:none;visibility:visible;transition:transform .25s ease}
+@media (prefers-reduced-motion:reduce){.drawer,.scrim{transition:none}}
+.dr-head{display:flex;justify-content:space-between;align-items:center;padding:16px 16px 12px;border-bottom:1px solid var(--line)}
+.dr-t{font-family:var(--hd);font-weight:700;font-size:24px}
+.dr-t b{background:var(--acc);color:#fff;padding:0 8px;border-radius:3px}
+.dr-s{color:var(--mute);font-size:13px;margin-top:2px}
+.dr-sec{padding:12px 14px;border-bottom:1px solid var(--line)}
+.dr-lb{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:0 0 6px 2px}
+.dr-lb.g{color:#2F7D62;font-size:13px;display:flex;gap:8px;align-items:center}
+@media (prefers-color-scheme:dark){.dr-lb.g{color:#6FCBA6}}
+.dr-item{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:0;border-left:3px solid transparent;background:transparent;padding:9px 10px;border-radius:6px;cursor:pointer;font-size:14.5px}
+.dr-item:hover{background:var(--soft)}
+.dr-item.on{background:var(--soft);border-left-color:var(--acc);font-weight:600}
+.tips{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink)}
+.tips li{margin:5px 0}
+.dr-p{font-size:13.5px;color:var(--mute);margin:8px 0}
+.ln{display:flex;gap:9px;align-items:center;padding:5px 2px;font-size:14px;color:#1F5FBF;text-decoration:none;word-break:break-all}
+.ln:hover{text-decoration:underline}
+@media (prefers-color-scheme:dark){.ln{color:#8FB6FF}}
+.ln .ic{width:22px;text-align:center;flex:none}
+.orc{background:#A6CE39;color:#fff;font-weight:700;font-size:11px;border-radius:4px;width:22px;height:20px;display:grid;place-items:center;flex:none}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+a.btn{text-decoration:none;color:inherit;display:inline-block}
+.dr-foot{padding:12px 16px 18px;color:var(--mute);font-size:12px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--acc2);color:var(--panel);padding:9px 16px;border-radius:8px;font-size:14px;z-index:60;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+@media (max-width:700px){.hs,.bt{display:none}}
 @media (prefers-color-scheme:dark){.chips span{background:#1F3A30;color:#CFE5DA}.bh{color:#6FCBA6}}
 /* preview */
 .pv{min-width:0}
@@ -147,14 +180,12 @@ table.t td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowr
 .tabs{display:flex}
 body.v-edit .pv{display:none}
 body.v-pv .form{display:none}
-.row.met{grid-template-columns:1fr 1fr 30px}
-.row.met .nm{grid-column:1/3}
-.row.met .hdr{display:none}
+input,select,textarea{font-size:16px}
 }
 @media print{
 @page{size:A3 landscape;margin:0}
 html,body{background:#fff}
-.top,.form,.pvbar,.built{display:none!important}
+.top,.form,.pvbar,.drawer,.scrim,.toast{display:none!important}
 .app{display:block;padding:0;max-width:none}
 .fit{box-shadow:none;border-radius:0;overflow:visible}
 .sheet{width:1587px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -164,16 +195,56 @@ body[data-cur="a3"] #pv-a3,body[data-cur="dm"] #pv-dm{display:block!important}
 </head>
 <body data-cur="a3" class="v-edit">
 <div class="top">
-  <div class="brand"><b>A3 · DMAIC</b> Problem-Solving Builder</div>
-  <div class="seg" id="seg"><button data-set="a3">A3 Problem Solving</button><button data-set="dm">DMAIC</button></div>
+  <button class="ham" id="bMenu" data-drawer="open" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <div class="brand"><b>A3 · DMAIC</b><span class="bt"> Problem-Solving Builder</span></div>
+  <div class="seg" id="seg"><button data-set="a3">A3<span class="hs"> Problem Solving</span></button><button data-set="dm">DMAIC</button></div>
   <div class="tabs"><button class="btn sm" data-view="edit">Edit</button><button class="btn sm" data-view="pv">Preview</button></div>
-  <button class="btn" id="bEx">Load example</button>
-  <button class="btn" id="bNew">New blank</button>
-  <button class="btn" id="bSave">Save file</button>
-  <button class="btn" id="bOpen">Open file</button>
-  <input type="file" id="fOpen" accept=".json,application/json" hidden>
-  <button class="btn pri" id="bPrint">Print / Save PDF</button>
+  <button class="btn pri" id="bPrint">Print<span class="hs"> / Save PDF</span></button>
 </div>
+<input type="file" id="fOpen" accept=".json,application/json" hidden>
+<div class="scrim" id="scrim" data-drawer="close"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Menu">
+  <div class="dr-head"><div><div class="dr-t"><b>A3 · DMAIC</b></div><div class="dr-s">Problem-Solving Builder</div></div><button class="x" data-drawer="close" aria-label="Close menu" style="font-size:26px">×</button></div>
+  <div class="dr-sec"><div class="dr-lb">Workspace</div>
+    <button class="dr-item" data-set="a3">📄 A3 Problem Solving</button>
+    <button class="dr-item" data-set="dm">🔁 DMAIC</button>
+    <button class="dr-item" data-go="guide">📘 How to use &amp; study</button>
+  </div>
+  <div class="dr-sec"><div class="dr-lb">Project</div>
+    <button class="dr-item" id="bEx">✨ Load example</button>
+    <button class="dr-item" id="bNew">🆕 New blank</button>
+    <button class="dr-item" id="bSave">💾 Save file</button>
+    <button class="dr-item" id="bOpen">📂 Open file</button>
+    <button class="dr-item" id="bPrint2">🖨️ Print / Save PDF</button>
+  </div>
+  <div class="dr-sec"><div class="dr-lb">Tips</div>
+    <ul class="tips">
+      <li>Start from the example: change one section at a time and watch the sheet.</li>
+      <li>Name the problem, not the solution.</li>
+      <li>One cause per row. Keep asking “why” until you reach a process cause.</li>
+      <li>Use numbers with units, and measure the result the same way as the baseline.</li>
+      <li>To print: choose A3 landscape, margins None, and turn on Background graphics.</li>
+      <li>Your work is saved in this browser only. Use Save file to back up or move it to another device.</li>
+      <li>On a phone, switch between the Edit and Preview tabs. Press Esc to close this menu.</li>
+    </ul>
+  </div>
+  <div class="dr-sec">
+    <div class="dr-lb g"><span>👤</span> BUILT BY</div>
+    <div class="bn">Md Shahariar Ahmed</div>
+    <div class="br">Developer</div>
+    <div class="chips"><span>📜 EIT (APEGS)</span><span>🥋 LSS Green Belt</span><span>🎓 M.Eng Industrial Systems Engineering</span><span>🎓 B.Sc Mechanical Engineering</span></div>
+    <p class="dr-p">Designed and built this A3 &amp; DMAIC builder to make structured problem solving fast, private, and free.</p>
+  </div>
+  <div class="dr-sec">
+    <div class="dr-lb g"><span>✉️</span> CONTACT &amp; FEEDBACK</div>
+    <a class="ln" href="mailto:jobexperience01@gmail.com"><span class="ic">📧</span>jobexperience01@gmail.com</a>
+    <a class="ln" href="https://orcid.org/0009-0003-6480-4817" target="_blank" rel="noopener"><span class="orc">iD</span>ORCID: 0009-0003-6480-4817</a>
+    <p class="dr-p">Found a bug or have a feature request? Reach out any time.</p>
+    <div class="btnrow"><button class="btn sm" id="bShare">🔗 Share this app</button><a class="btn sm" href="mailto:jobexperience01@gmail.com?subject=Feedback%3A%20A3%20%26%20DMAIC%20Problem-Solving%20Builder">📝 Send feedback</a></div>
+  </div>
+  <div class="dr-foot">Version 2.1 · Runs entirely in your browser. Nothing is uploaded.</div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
 
 <div class="app">
   <div class="form" id="form-a3" data-m="a3"></div>
@@ -185,15 +256,6 @@ body[data-cur="a3"] #pv-a3,body[data-cur="dm"] #pv-dm{display:block!important}
   <div class="pv" id="pv-dm" data-m="dm">
     <div class="pvbar"><span>Live DMAIC one-page preview (prints on one A3 landscape page)</span><span id="stat-dm"></span></div>
     <div class="fit" id="fit-dm"><div class="sheet dm" id="sheet-dm"></div></div>
-  </div>
-</div>
-
-<div class="built">
-  <div>
-    <div class="bh"><span>👤</span> BUILT BY</div>
-    <div class="bn">Md Shahariar Ahmed</div>
-    <div class="br">Developer</div>
-    <div class="chips"><span>📜 EIT (APEGS)</span><span>🥋 LSS Green Belt</span><span>🎓 M.Eng Industrial Systems Engineering</span><span>🎓 B.Sc Mechanical Engineering</span></div>
   </div>
 </div>
 
@@ -330,7 +392,7 @@ function I(p,k,type){return'<input'+(type?' type="'+type+'"':'')+' data-k="'+p+'
 function T(p,k,rows){return'<textarea rows="'+(rows||3)+'" data-k="'+p+'.'+k+'"></textarea>'}
 function card(num,title,hint,inner){return'<div class="card"><h3>'+(num?'<i>'+num+'</i>':'')+title+'</h3><p class="hint">'+hint+'</p>'+inner+'</div>'}
 function listBox(p,k,addLabel){return'<div id="'+p+'-'+k+'"></div><button class="btn sm" data-add="'+p+'.'+k+'">'+addLabel+'</button>'}
-function metricsBox(p){return'<div class="row met"><p class="hdr">Measure</p><p class="hdr">Unit</p><p class="hdr">Baseline</p><p class="hdr">Target</p><p class="hdr">Result</p><span></span></div>'+listBox(p,"metrics","+ Add measure")}
+function metricsBox(p){return listBox(p,"metrics","+ Add measure")}
 function causesBox(p){return FB.map(function(f){return'<div class="cat"><h4>'+f[1]+'</h4><div id="'+p+'-fb-'+f[0]+'"></div><button class="btn sm" data-add="'+p+'.fb.'+f[0]+'">+ Add cause</button></div>'}).join("")}
 function formHTML(p){
  var dm=p==="dm",h=guide(p);
@@ -361,7 +423,8 @@ function kindOf(path){var s=path.split(".");var last=s[s.length-1];if(s[1]==="fb
 function newItem(path){var k=kindOf(path);return k==="metric"?{name:"",unit:"",baseline:"",target:"",result:""}:k==="action"?{action:"",owner:"",due:"",status:"Planned"}:k==="pareto"?{label:"",count:""}:""}
 function rowHTML(path,k,v,i){
  var a=' data-l="'+path+'" data-i="'+i+'"',x='<button class="x" title="Remove" data-del="'+path+'" data-i="'+i+'">×</button>';
- if(k==="metric")return'<div class="row met"><input class="nm" placeholder="e.g. Defect rate"'+a+' data-f="name" value="'+esc(v.name)+'"><input placeholder="%"'+a+' data-f="unit" value="'+esc(v.unit)+'"><input inputmode="decimal"'+a+' data-f="baseline" value="'+esc(v.baseline)+'"><input inputmode="decimal"'+a+' data-f="target" value="'+esc(v.target)+'"><input inputmode="decimal"'+a+' data-f="result" value="'+esc(v.result)+'">'+x+'</div>';
+ if(k==="metric"){function mf(lb,f,ph,dec){return'<div><label>'+lb+'</label><input'+(dec?' inputmode="decimal"':'')+(ph?' placeholder="'+ph+'"':'')+a+' data-f="'+f+'" value="'+esc(v[f])+'"></div>'}
+  return'<div class="row met"><div class="mh"><input class="nm" placeholder="Measure name, e.g. Defect rate" aria-label="Measure name"'+a+' data-f="name" value="'+esc(v.name)+'">'+x+'</div><div class="mg">'+mf("Unit","unit","%",0)+mf("Baseline","baseline","",1)+mf("Target","target","",1)+mf("Result","result","",1)+'</div></div>'}
  if(k==="why")return'<div class="row why"><span class="wh">Why '+(i+1)+'</span><input placeholder="Why does this happen?"'+a+' value="'+esc(v)+'">'+x+'</div>';
  if(k==="pareto")return'<div class="row par"><input placeholder="Category"'+a+' data-f="label" value="'+esc(v.label)+'"><input inputmode="decimal" placeholder="Count"'+a+' data-f="count" value="'+esc(v.count)+'">'+x+'</div>';
  if(k==="action"){var st=["Planned","In progress","Done","Delayed"].map(function(o){return'<option'+(o===v.status?" selected":"")+'>'+o+'</option>'}).join("");
@@ -430,7 +493,7 @@ function fit(p){var f=$("#fit-"+p),sh=$("#sheet-"+p);if(!f)return;sh.style.trans
 
 /* ---------- state ---------- */
 function save(){try{localStorage.setItem(KEY,JSON.stringify({a3:S.a3,dm:S.dm,mode:MODE}))}catch(e){}}
-function setMode(m){MODE=m;document.body.setAttribute("data-cur",m);document.querySelectorAll("#seg button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-set")===m)});save();setTimeout(function(){fit(m)},30)}
+function setMode(m){MODE=m;document.body.setAttribute("data-cur",m);document.querySelectorAll("[data-set]").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-set")===m)});save();setTimeout(function(){fit(m)},30)}
 function refreshAll(){fillStatic();drawLists();renderA3();renderDM();save()}
 
 /* ---------- events ---------- */
@@ -441,15 +504,29 @@ document.addEventListener("input",function(e){
  else return;
  render(p);save()});
 document.addEventListener("click",function(e){
- var t=e.target.closest("[data-add],[data-del],[data-view],[data-set]");if(!t)return;
- if(t.dataset.set){setMode(t.dataset.set);return}
+ var t=e.target.closest("[data-add],[data-del],[data-view],[data-set],[data-go],[data-drawer]");if(!t)return;
+ if(t.dataset.drawer){t.dataset.drawer==="open"?openDrawer():closeDrawer();return}
+ if(t.dataset.go==="guide"){document.body.className="v-edit";closeDrawer();var g=$("#form-"+MODE+" .guide");if(g){g.open=true;setTimeout(function(){g.scrollIntoView({behavior:"smooth",block:"start"})},60)}return}
+ if(t.dataset.set){setMode(t.dataset.set);closeDrawer();return}
  if(t.dataset.view){document.body.className="v-"+t.dataset.view;setTimeout(function(){fit(MODE)},30);return}
  if(t.dataset.add){var path=t.dataset.add;getP(path).push(newItem(path));drawLists();render(path.split(".")[0]);save();
   var c=$("#"+path.replace(/\./g,"-"));if(c&&c.lastElementChild){var f=c.lastElementChild.querySelector("input,textarea");if(f)f.focus()}return}
  if(t.dataset.del){var dp=t.dataset.del;getP(dp).splice(+t.dataset.i,1);drawLists();render(dp.split(".")[0]);save()}});
 $("#bEx").onclick=function(){if(confirm("Replace the current "+CRUMB[MODE]+" content with the worked example?")){S[MODE]=normalize(clone(EX[MODE]),MODE);refreshAll()}};
 $("#bNew").onclick=function(){if(confirm("Clear the "+CRUMB[MODE]+" sheet and start blank?")){S[MODE]=blank(MODE);refreshAll()}};
-$("#bPrint").onclick=function(){document.body.className="v-edit";fit(MODE);setTimeout(function(){window.print()},60)};
+function doPrint(){closeDrawer();document.body.className="v-edit";fit(MODE);setTimeout(function(){window.print()},120)}
+$("#bPrint").onclick=doPrint;$("#bPrint2").onclick=doPrint;
+function openDrawer(){$("#drawer").classList.add("open");$("#scrim").classList.add("open");$("#drawer").setAttribute("aria-hidden","false");$("#bMenu").setAttribute("aria-expanded","true");var c=$("#drawer .x");if(c)c.focus()}
+function closeDrawer(){$("#drawer").classList.remove("open");$("#scrim").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");$("#bMenu").setAttribute("aria-expanded","false")}
+$("#drawer").addEventListener("click",function(e){if(e.target.closest(".dr-item,a.btn"))setTimeout(closeDrawer,0)});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeDrawer()});
+function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.h);toast.h=setTimeout(function(){t.classList.remove("on")},2200)}
+$("#bShare").onclick=function(){
+ var url=/^https?:/.test(location.protocol)?location.href:"";
+ var data={title:"A3 & DMAIC Problem-Solving Builder",text:"Free one-page A3 and DMAIC problem-solving builder: fill in the form and print an A3 sheet.",url:url||undefined};
+ if(navigator.share){navigator.share(data).catch(function(){})}
+ else{var txt=data.text+(url?" "+url:"");
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast("Copied to clipboard")},function(){toast("Could not copy")})}else toast("Sharing is not available here")}};
 $("#bSave").onclick=function(){
  var b=new Blob([JSON.stringify({kind:MODE==="a3"?"a3":"dmaic",version:2,data:S[MODE]},null,2)],{type:"application/json"}),a=document.createElement("a");
  a.href=URL.createObjectURL(b);a.download=((S[MODE].title||"problem-solving").replace(/[^\w\-]+/g,"_").slice(0,50))+"."+(MODE==="a3"?"a3":"dmaic")+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},500)};
@@ -459,7 +536,7 @@ $("#fOpen").onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new 
  if(d.kind==="dmaic"&&d.data){kind="dm";data=d.data}else if(d.kind==="a3"&&d.data){kind="a3";data=d.data}else if(d.metrics&&d.fb){kind="a3";data=d}else throw 0;
  S[kind]=normalize(data,kind);refreshAll();setMode(kind)}catch(x){alert("That file is not a valid A3 or DMAIC file.")}};r.readAsText(f);e.target.value=""};
 window.addEventListener("resize",function(){fit(MODE)});
-window.addEventListener("beforeprint",function(){var f=$("#fit-"+MODE),sh=$("#sheet-"+MODE);sh.style.transform="none";var h=sh.offsetHeight,k=Math.min(1,1116/h);sh.style.transform=k<1?"scale("+k+")":"none";f.style.height=(h*k)+"px"});
+window.addEventListener("beforeprint",function(){closeDrawer();var f=$("#fit-"+MODE),sh=$("#sheet-"+MODE);sh.style.transform="none";var h=sh.offsetHeight,k=Math.min(1,1116/h);sh.style.transform=k<1?"scale("+k+")":"none";f.style.height=(h*k)+"px"});
 window.addEventListener("afterprint",function(){fit(MODE)});
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fit(MODE)});
 
