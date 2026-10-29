@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>A3 &amp; DMAIC Problem-Solving Builder</title>
+<title>A3, DMAIC &amp; Slides Problem-Solving Builder</title>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#EEF0F3;--panel:#FFFFFF;--ink:#14213D;--mute:#5E6878;--line:#D9DDE4;--acc:#E8590C;--acc2:#14213D;--soft:#F4F6F9;--field:#FFFFFF;
@@ -182,6 +182,45 @@ body.v-edit .pv{display:none}
 body.v-pv .form{display:none}
 input,select,textarea{font-size:16px}
 }
+
+body[data-cur="sl"] [data-m="a3"],body[data-cur="sl"] [data-m="dm"],body[data-cur="a3"] [data-m="sl"],body[data-cur="dm"] [data-m="sl"]{display:none}
+#bPpt{display:none}
+body[data-cur="sl"] #bPpt{display:inline-block}
+body[data-cur="sl"] #bPrint,body[data-cur="sl"] #bPrint2{display:none}
+.ib{border:1px solid var(--line);background:var(--field);border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:14px;padding:0;line-height:1}
+.ib:hover{border-color:var(--acc)}
+.ib.wide{width:100%;font-size:11px}
+.bt2{display:flex;gap:3px;justify-content:flex-end}
+.slrow{display:grid;grid-template-columns:26px 1fr auto;gap:6px;align-items:center;padding:5px 6px;border:1px solid var(--line);border-radius:8px;margin-bottom:5px;background:var(--field);cursor:pointer}
+.slrow.on{border-color:var(--acc);background:var(--soft);box-shadow:inset 3px 0 0 var(--acc)}
+.slrow .n{color:var(--mute);font-weight:600;font-size:13px;text-align:center}
+.slrow .tt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.slrow .ib{width:24px;height:24px;font-size:12px}
+.bk{border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:8px;padding:10px;margin:10px 0;background:var(--soft)}
+.bkh{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;margin-bottom:6px}
+.bkh .ty{font-family:var(--hd);font-size:17px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--acc)}
+.sc{border:1px solid var(--line);border-radius:8px;padding:8px;margin:6px 0;background:var(--field)}
+.gwrap{overflow-x:auto;margin:4px 0}
+.gtab{border-collapse:collapse;font-size:13px}
+.gtab td{padding:2px;vertical-align:top}
+.gtab input{min-width:88px;padding:5px 6px;font-size:13px}
+.gtab tr.h input{font-weight:700;background:var(--soft)}
+.gtab .rb{white-space:nowrap}
+.lrow{display:grid;grid-template-columns:1fr auto;gap:5px;margin-bottom:5px;align-items:center}
+.sub2{margin:8px 0 4px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+label.chk{display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:14px;color:var(--ink);font-weight:500;margin:8px 0}
+label.chk input{width:auto}
+.btnrow{margin:6px 0}
+.paste summary{cursor:pointer;font-size:13px;color:var(--mute);margin:6px 0}
+.slfit{width:100%;overflow:hidden;border-radius:6px;box-shadow:0 6px 28px rgba(10,20,40,.18);background:#fff;position:relative}
+.slslide{width:1280px;height:720px;position:relative;overflow:hidden;transform-origin:0 0}
+.slnav{display:flex;gap:8px;align-items:center}
+#slcount{font-weight:600;color:var(--ink);min-width:110px;text-align:center}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);padding:18px 20px;max-width:min(460px,92vw)}
+dialog::backdrop{background:rgba(10,18,30,.5)}
+.dlgbtns{display:grid;gap:8px;margin-top:10px}
+.dlgbtns .btn{text-align:left;padding:10px 12px}
+@media print{.drawer,.scrim,.toast,dialog{display:none!important}}
 @media print{
 @page{size:A3 landscape;margin:0}
 html,body{background:#fff}
@@ -197,9 +236,10 @@ body[data-cur="a3"] #pv-a3,body[data-cur="dm"] #pv-dm{display:block!important}
 <div class="top">
   <button class="ham" id="bMenu" data-drawer="open" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
   <div class="brand"><b>A3 · DMAIC</b><span class="bt"> Problem-Solving Builder</span></div>
-  <div class="seg" id="seg"><button data-set="a3">A3<span class="hs"> Problem Solving</span></button><button data-set="dm">DMAIC</button></div>
+  <div class="seg" id="seg"><button data-set="a3">A3<span class="hs"> Problem Solving</span></button><button data-set="dm">DMAIC</button><button data-set="sl">Slides<span class="hs"> (PPT)</span></button></div>
   <div class="tabs"><button class="btn sm" data-view="edit">Edit</button><button class="btn sm" data-view="pv">Preview</button></div>
   <button class="btn pri" id="bPrint">Print<span class="hs"> / Save PDF</span></button>
+  <button class="btn pri" id="bPpt">⬇ <span class="hs">Download </span>.pptx</button>
 </div>
 <input type="file" id="fOpen" accept=".json,application/json" hidden>
 <div class="scrim" id="scrim" data-drawer="close"></div>
@@ -208,6 +248,7 @@ body[data-cur="a3"] #pv-a3,body[data-cur="dm"] #pv-dm{display:block!important}
   <div class="dr-sec"><div class="dr-lb">Workspace</div>
     <button class="dr-item" data-set="a3">📄 A3 Problem Solving</button>
     <button class="dr-item" data-set="dm">🔁 DMAIC</button>
+    <button class="dr-item" data-set="sl">🎞️ Slides (PowerPoint)</button>
     <button class="dr-item" data-go="guide">📘 How to use &amp; study</button>
   </div>
   <div class="dr-sec"><div class="dr-lb">Project</div>
@@ -225,6 +266,7 @@ body[data-cur="a3"] #pv-a3,body[data-cur="dm"] #pv-dm{display:block!important}
       <li>Use numbers with units, and measure the result the same way as the baseline.</li>
       <li>To print: choose A3 landscape, margins None, and turn on Background graphics.</li>
       <li>Your work is saved in this browser only. Use Save file to back up or move it to another device.</li>
+      <li>Slides mode builds a real .pptx: pick a style, add Pareto, Cpk, SPC, voting, VOC and scope slides, and import Excel data.</li>
       <li>On a phone, switch between the Edit and Preview tabs. Press Esc to close this menu.</li>
     </ul>
   </div>
@@ -245,6 +287,10 @@ body[data-cur="a3"] #pv-a3,body[data-cur="dm"] #pv-dm{display:block!important}
   <div class="dr-foot">Version 2.1 · Runs entirely in your browser. Nothing is uploaded.</div>
 </aside>
 <div class="toast" id="toast" role="status"></div>
+<input type="file" id="slXls" accept=".xlsx,.xls,.csv,.tsv,.txt" hidden>
+<input type="file" id="slImg" accept="image/*" hidden>
+<dialog id="dlgEx"><h3 style="margin:0 0 4px;font-family:var(--hd);font-size:22px">Load an example deck</h3><p class="hint" style="margin:0">This replaces the slides you have now.</p>
+<div class="dlgbtns"><button class="btn" data-sa="ex" data-k="lead">📊 Lead Scrap Reduction (Green Belt, DMAIC)</button><button class="btn" data-sa="ex" data-k="qc">☀️ QC Circle Surjo (BSTQM 2019, PDCA)</button><button class="btn" data-sa="ex" data-k="blank">📄 Blank deck</button><button class="btn" data-sa="exclose">Cancel</button></div></dialog>
 
 <div class="app">
   <div class="form" id="form-a3" data-m="a3"></div>
@@ -257,8 +303,693 @@ body[data-cur="a3"] #pv-a3,body[data-cur="dm"] #pv-dm{display:block!important}
     <div class="pvbar"><span>Live DMAIC one-page preview (prints on one A3 landscape page)</span><span id="stat-dm"></span></div>
     <div class="fit" id="fit-dm"><div class="sheet dm" id="sheet-dm"></div></div>
   </div>
+  <div class="form" id="form-sl" data-m="sl"></div>
+  <div class="pv" id="pv-sl" data-m="sl">
+    <div class="pvbar"><div class="slnav"><button class="btn sm" data-sa="prev" aria-label="Previous slide">◀</button><span id="slcount"></span><button class="btn sm" data-sa="next" aria-label="Next slide">▶</button></div><span>Live preview of the exported slide</span></div>
+    <div class="slfit" id="slfit"><div class="slslide" id="slslide"></div></div>
+  </div>
 </div>
 
+<script>
+(function(){
+/* ===== Slides engine core: themes, fitting, charts, block layout, backends ===== */
+var SW=13.333,SH=7.5,FONT="Calibri, Arial, Helvetica, sans-serif";
+var THEMES=[
+{id:"corp",name:"Corporate Blue",font:"Calibri",fac:.5,dark:0,bg:"FFFFFF",ink:"1F2A44",mute:"5B6578",acc:"0B5CAD",acc2:"F28C28",card:"F4F7FB",soft:"E6EEF8",line:"C9D3E0",hdr:"0B5CAD",ts:"bar",pal:["0B5CAD","F28C28","2E9E6B","8E5BC2","D64550","14A3C7"]},
+{id:"rahim",name:"Rahimafrooz style (peach title)",font:"Calibri",fac:.5,dark:0,bg:"FFFFFF",ink:"111111",mute:"555555",acc:"2F3B9A",acc2:"F2A05E",card:"F3F0F8",soft:"E4DDF0",line:"BDB2D3",hdr:"8064A2",ts:"pill",pill:"F9D3B0",pillLine:"E0955A",pal:["8064A2","F2A05E","4BACC6","9BBB59","C0504D","2F3B9A"]},
+{id:"dark",name:"Dark Slate",font:"Calibri",fac:.5,dark:1,bg:"1E2430",ink:"EDEFF4",mute:"A9B2C3",acc:"4FC3F7",acc2:"FFB74D",card:"2A3242",soft:"333D52",line:"4A5671",hdr:"2F6F94",ts:"underline",pal:["4FC3F7","FFB74D","81C784","BA68C8","E57373","4DD0E1"]},
+{id:"minimal",name:"Minimal White",font:"Calibri",fac:.5,dark:0,bg:"FFFFFF",ink:"222222",mute:"666666",acc:"111111",acc2:"E8590C",card:"F7F7F7",soft:"EEEEEE",line:"DDDDDD",hdr:"111111",ts:"underline",pal:["111111","E8590C","6B7280","2563EB","16A34A","9333EA"]},
+{id:"toyota",name:"Signal Red",font:"Arial",fac:.55,dark:0,bg:"FFFFFF",ink:"222222",mute:"5F6B7A",acc:"C8102E",acc2:"5F6B7A",card:"F6F6F6",soft:"EDEDED",line:"D4D4D4",hdr:"C8102E",ts:"bar",pal:["C8102E","5F6B7A","F59E0B","0F766E","1D4ED8","7C3AED"]},
+{id:"forest",name:"Forest Green",font:"Calibri",fac:.5,dark:0,bg:"F4F9F4",ink:"1C3A2B",mute:"52705F",acc:"2E7D32",acc2:"F9A825",card:"FFFFFF",soft:"E2EFE3",line:"BBD3BE",hdr:"2E7D32",ts:"side",pal:["2E7D32","F9A825","00897B","8D6E63","C62828","1565C0"]},
+{id:"midnight",name:"Midnight & Gold",font:"Calibri",fac:.5,dark:1,bg:"0F1B34",ink:"F2F4F8",mute:"A6B0C6",acc:"D4AF37",acc2:"5CC8FF",card:"182848",soft:"213357",line:"34466E",hdr:"24407A",ts:"underline",pal:["D4AF37","5CC8FF","7DD87F","D98CF0","FF8A80","FFB86B"]},
+{id:"sand",name:"Warm Sand (serif)",font:"Georgia",fac:.56,dark:0,bg:"FBF6EE",ink:"3B2F26",mute:"7A6A5A",acc:"B5651D",acc2:"2F6F73",card:"FFFFFF",soft:"F1E6D6",line:"DCCBB2",hdr:"B5651D",ts:"underline",pal:["B5651D","2F6F73","8A9A5B","A23B3B","6B5B95","D9A441"]},
+{id:"teal",name:"Teal Modern",font:"Calibri",fac:.5,dark:0,bg:"FFFFFF",ink:"12343B",mute:"4F6B72",acc:"00897B",acc2:"FF7043",card:"EEF7F6",soft:"D9EEEC",line:"B5D6D2",hdr:"00897B",ts:"side",pal:["00897B","FF7043","3949AB","FBC02D","8E24AA","546E7A"]},
+{id:"mono",name:"Print Black & White",font:"Arial",fac:.55,dark:0,bg:"FFFFFF",ink:"000000",mute:"555555",acc:"333333",acc2:"777777",card:"F2F2F2",soft:"E5E5E5",line:"BBBBBB",hdr:"333333",ts:"bar",pal:["333333","777777","AAAAAA","555555","999999","222222"]},
+{id:"blueprint",name:"Blueprint",font:"Trebuchet MS",fac:.54,dark:1,bg:"0D3B66",ink:"FFFFFF",mute:"C5D8EE",acc:"FFD166",acc2:"8EE3EF",card:"124A7D",soft:"18598F",line:"3B78AE",hdr:"1F6AA5",ts:"underline",pal:["FFD166","8EE3EF","EF8354","B8F2A8","F4A6D7","C9B6FF"]},
+{id:"violet",name:"Violet Studio",font:"Calibri",fac:.5,dark:0,bg:"FFFFFF",ink:"2B2140",mute:"6B5F80",acc:"6C3FC4",acc2:"F2A900",card:"F5F1FC",soft:"E7DEF8",line:"CDBFEA",hdr:"6C3FC4",ts:"bar",pal:["6C3FC4","F2A900","1AA7A1","E4572E","3E7CB1","8CB369"]}
+];
+function theme(id){for(var i=0;i<THEMES.length;i++)if(THEMES[i].id===id)return THEMES[i];return THEMES[0]}
+function nh(c){return String(c).replace("#","")}
+function hx(c){return"#"+nh(c)}
+function lum(c){c=nh(c);return(0.299*parseInt(c.substr(0,2),16)+0.587*parseInt(c.substr(2,2),16)+0.114*parseInt(c.substr(4,2),16))/255}
+function onC(c){return lum(c)>0.6?"111111":"FFFFFF"}
+function tint(c,t){c=nh(c);var o="";for(var i=0;i<3;i++){var v=parseInt(c.substr(i*2,2),16);v=Math.round(v+(255-v)*t);o+=("0"+v.toString(16)).slice(-2)}return o.toUpperCase()}
+function escH(x){return String(x==null?"":x).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function numv(v){var n=parseFloat(String(v==null?"":v).replace(/[, $%]/g,""));return isNaN(n)?null:n}
+function nz(s){return String(s==null?"":s).trim()!==""}
+function fmtN(v){if(v==null||isNaN(v))return"";var a=Math.abs(v);if(a>=1000)return Math.round(v).toLocaleString("en-US");return String(Math.round(v*100)/100)}
+
+/* ---- text fitting (same numbers feed the preview and the .pptx) ---- */
+function lineCount(txt,wIn,pt,fac){var cpl=Math.max(1,Math.floor(wIn*72/(pt*fac))),n=0;
+ String(txt).split("\n").forEach(function(p){var words=p.split(/\s+/),cur=0,l=1;
+  words.forEach(function(w){var len=w.length;if(cur===0)cur=len;else if(cur+1+len<=cpl)cur+=1+len;else{l++;cur=len}while(cur>cpl){l++;cur-=cpl}});n+=l});return n}
+function textH(paras,wIn,pt,fac,gap){var h=0;paras.forEach(function(p){var s=p.size||pt,ind=(p.bullet||p.num)?0.25:0;h+=lineCount(p.t,wIn-ind-0.14,s,fac)*s*1.2/72+gap/72});return h+0.1}
+function fitPt(paras,wIn,hIn,maxPt,minPt,fac,gap){gap=gap==null?4:gap;for(var pt=maxPt;pt>minPt;pt-=0.5){if(textH(paras,wIn,pt,fac,gap)<=hIn)return pt}return minPt}
+
+/* ---- drawing primitives ---- */
+function R(x,y,w,h,o){o=o||{};return{k:"r",x:x,y:y,w:w,h:h,fill:o.fill,line:o.line,lw:o.lw||1,r:o.r||0}}
+function T(x,y,w,h,paras,o){o=o||{};var n=0;paras=paras.map(function(p){var q={t:p.t,bullet:p.bullet,num:p.num,b:p.b,i:p.i,color:p.color,size:p.size};if(q.num){n++;q.n=n}return q});
+ return{k:"t",x:x,y:y,w:w,h:h,paras:paras,size:o.size||14,color:o.color,font:o.font,align:o.align||"left",valign:o.valign||"top",bold:o.bold,italic:o.italic,gap:o.gap==null?4:o.gap,pad:o.pad==null?.05:o.pad}}
+function IM(x,y,w,h,data){return{k:"i",x:x,y:y,w:w,h:h,data:data}}
+function LN(x1,y1,x2,y2,color,lw,dash){return{k:"l",x1:x1,y1:y1,x2:x2,y2:y2,color:color,lw:lw||1,dash:dash}}
+function P1(t,o){o=o||{};return[{t:t,b:o.b,i:o.i,color:o.color,size:o.size}]}
+
+/* ---- tables ---- */
+function mkTable(rows,colW,r,th,fsMax){
+ var fs,hs=[],tot;
+ for(fs=fsMax||14;fs>=6.5;fs-=.5){tot=0;hs=[];
+  rows.forEach(function(rw){var mh=0,ci=0;rw.forEach(function(cell){var sp=cell.span||1,cw=0;for(var q=0;q<sp;q++)cw+=colW[ci+q]||0;ci+=sp;
+    var ln=lineCount(cell.t,cw-0.16,cell.fs||fs,th.fac);mh=Math.max(mh,ln*(cell.fs||fs)*1.2/72+(fs<9?0.04:0.08))});
+   var hh=Math.max(mh,fs*1.2/72+0.05);hs.push(hh);tot+=hh});
+  if(tot<=r.h)break}
+ var w=0;colW.forEach(function(c){w+=c});
+ return{k:"tb",x:r.x,y:r.y,w:w,colW:colW,rowH:hs,rows:rows,fs:fs}}
+function colWeights(grid,w){var nc=0;grid.forEach(function(rw){if(rw.length>nc)nc=rw.length});var wt=[],s=0;
+ for(var c=0;c<nc;c++){var m=2;grid.forEach(function(rw){var L=0;String(rw[c]==null?"":rw[c]).split("\n").forEach(function(x){if(x.length>L)L=x.length});if(L>m)m=L});var v=Math.max(3,Math.min(30,Math.sqrt(m)*3));wt.push(v);s+=v}
+ return wt.map(function(v){return w*v/s})}
+function gridTable(grid,r,th,o){o=o||{};if(!grid||!grid.length)return[];
+ var nc=0;grid.forEach(function(rw){if(rw.length>nc)nc=rw.length});if(!nc)return[];
+ var g=grid.map(function(rw){var a=rw.map(function(c){return String(c==null?"":c)});while(a.length<nc)a.push("");return a});
+ var rows=g.map(function(rw,ri){return rw.map(function(t,ci){
+  var isH=o.head!==false&&ri===0;
+  var num=/^[\d.,%\-–\s$]+$/.test(t)&&t.length<14&&t.trim()!=="";
+  var c={t:t,align:isH?"center":(num?"center":"left"),b:isH,fill:isH?th.hdr:((o.zebra&&ri%2===0)?th.soft:th.card),color:isH?onC(th.hdr):th.ink};
+  if(o.mark&&o.mark(ri,ci,t)){var m=o.mark(ri,ci,t);for(var k in m)c[k]=m[k]}
+  return c})});
+ var colW=o.colW||colWeights(g,r.w);
+ return[mkTable(rows,colW,r,th,o.fs||14)]}
+
+/* ---- statistics ---- */
+function parseVals(t){return String(t||"").split(/[\s,;]+/).map(function(x){return parseFloat(x)}).filter(function(x){return isFinite(x)})}
+function capab(v,lsl,usl){var n=v.length;if(n<2)return null;
+ var m=v.reduce(function(a,b){return a+b},0)/n,sd=Math.sqrt(v.reduce(function(a,b){return a+(b-m)*(b-m)},0)/(n-1));
+ var mr=0;for(var i=1;i<n;i++)mr+=Math.abs(v[i]-v[i-1]);mr/=(n-1);var sw=mr/1.128;if(!(sw>0))sw=sd;if(!(sd>0))return{n:n,mean:m,sd:0};
+ function idx(s){var cp=(usl!=null&&lsl!=null)?(usl-lsl)/(6*s):null,cu=usl!=null?(usl-m)/(3*s):null,cl=lsl!=null?(m-lsl)/(3*s):null,ck=(cu!=null&&cl!=null)?Math.min(cu,cl):(cu!=null?cu:cl);return{cp:cp,ck:ck}}
+ var w=idx(sw),o=idx(sd);return{n:n,mean:m,sd:sd,sw:sw,cp:w.cp,cpk:w.ck,pp:o.cp,ppk:o.ck,min:Math.min.apply(null,v),max:Math.max.apply(null,v)}}
+var A2T={2:1.88,3:1.023,4:.729,5:.577,6:.483,7:.419,8:.373,9:.337,10:.308};
+function spcCalc(v,n){n=Math.max(1,Math.min(10,parseInt(n,10)||1));var pts=[],cl,ucl,lcl;
+ if(n===1){if(v.length<3)return null;pts=v.slice();cl=pts.reduce(function(a,b){return a+b},0)/pts.length;var mr=0;for(var i=1;i<pts.length;i++)mr+=Math.abs(pts[i]-pts[i-1]);mr/=(pts.length-1);ucl=cl+2.66*mr;lcl=cl-2.66*mr}
+ else{var rs=[];for(var s=0;s+n<=v.length;s+=n){var g=v.slice(s,s+n);pts.push(g.reduce(function(a,b){return a+b},0)/n);rs.push(Math.max.apply(null,g)-Math.min.apply(null,g))}
+  if(pts.length<3)return null;cl=pts.reduce(function(a,b){return a+b},0)/pts.length;var rb=rs.reduce(function(a,b){return a+b},0)/rs.length;ucl=cl+A2T[n]*rb;lcl=cl-A2T[n]*rb}
+ var out=[];pts.forEach(function(p,i){if(p>ucl||p<lcl)out.push(i)});return{pts:pts,cl:cl,ucl:ucl,lcl:lcl,out:out,n:n}}
+function seriesFrom(grid){var head=grid[0]||[],rows=grid.slice(1).filter(function(r){return nz(r[0])||r.slice(1).some(nz)});
+ var cats=rows.map(function(r){return String(r[0]==null?"":r[0])}),ser=[];
+ for(var c=1;c<head.length;c++)(function(c){ser.push({name:String(head[c]||("Series "+c)),vals:rows.map(function(r){return numv(r[c])})})})(c);
+ return{cats:cats,ser:ser,rows:rows}}
+
+/* ---- charts (canvas, same image goes to the preview and to the .pptx) ---- */
+function niceMax(v){if(v<=0)return 1;var e=Math.pow(10,Math.floor(Math.log(v)/Math.LN10)),f=v/e,n=f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10;return n*e}
+function cut(g,t,mw){t=String(t);if(g.measureText(t).width<=mw)return t;while(t.length>1&&g.measureText(t+"…").width>mw)t=t.slice(0,-1);return t+"…"}
+function palFor(th){return th.dark?["#0B5CAD","#F28C28","#2E9E6B","#8E5BC2","#D64550","#14A3C7"]:th.pal.map(hx)}
+function ctitle(g,t,W,k){if(!nz(t))return;g.fillStyle="#1F2A44";g.font="bold "+(17*k)+"px "+FONT;g.textAlign="center";g.fillText(t,W/2,26*k)}
+function cnote(g,t,W,H,k){g.fillStyle="#777";g.font=(16*k)+"px "+FONT;g.textAlign="center";g.fillText(t,W/2,H/2)}
+function caxes(g,k,L,Tp,Rt,B,max,ticks,lab){g.strokeStyle="#E1E5EC";g.fillStyle="#555";g.font=(12*k)+"px "+FONT;g.textAlign="right";g.lineWidth=1;
+ for(var i=0;i<=ticks;i++){var y=B-(B-Tp)*i/ticks;g.beginPath();g.moveTo(L,y);g.lineTo(Rt,y);g.stroke();g.fillText(lab(max*i/ticks),L-6*k,y+4*k)}
+ g.strokeStyle="#888";g.beginPath();g.moveTo(L,Tp);g.lineTo(L,B);g.lineTo(Rt,B);g.stroke()}
+function cxlabels(g,k,cats,L,Rt,B){var n=cats.length,band=(Rt-L)/n;g.font=(12*k)+"px "+FONT;g.fillStyle="#333";var mw=0;cats.forEach(function(c){mw=Math.max(mw,g.measureText(c).width)});
+ var rot=mw>band*0.92;cats.forEach(function(c,i){var cx=L+band*(i+.5);g.save();if(rot){g.translate(cx,B+10*k);g.rotate(-Math.PI/6);g.textAlign="right";g.fillText(cut(g,c,95*k),0,0)}else{g.textAlign="center";g.fillText(cut(g,c,band*0.96),cx,B+18*k)}g.restore()})}
+function clegend(g,k,names,pal,W,y){g.font=(12*k)+"px "+FONT;var tw=0,ws=names.map(function(n){var w=g.measureText(n).width+26*k;tw+=w;return w}),x=(W-tw)/2;g.textAlign="left";
+ names.forEach(function(n,i){g.fillStyle=pal[i%pal.length];g.fillRect(x,y-9*k,12*k,12*k);g.fillStyle="#333";g.fillText(n,x+17*k,y+1*k);x+=ws[i]})}
+function drawBarLine(g,sp,W,H,th,line){var k=W/900,pal=palFor(th),d=seriesFrom(sp.grid||[]),n=d.cats.length,ns=d.ser.length;
+ if(!n||!ns){cnote(g,"Add data in the table",W,H,k);return}
+ var L=70*k,Rt=W-24*k,Tp=(nz(sp.title)?54:30)*k,B=H-(ns>1?96:76)*k,mx=0;
+ d.ser.forEach(function(s){s.vals.forEach(function(v){if(v!=null&&v>mx)mx=v})});var nm=niceMax(mx||1);
+ ctitle(g,sp.title,W,k);caxes(g,k,L,Tp,Rt,B,nm,5,fmtN);var band=(Rt-L)/n;
+ if(!line){var bw=band*0.7/ns;d.ser.forEach(function(s,si){g.fillStyle=pal[si%pal.length];s.vals.forEach(function(v,i){if(v==null)return;var x=L+band*i+band*0.15+bw*si,h=(B-Tp)*v/nm;g.fillRect(x,B-h,bw,h);
+   if(sp.labels!==false&&n*ns<=24){g.fillStyle="#222";g.font=(11*k)+"px "+FONT;g.textAlign="center";g.fillText(fmtN(v),x+bw/2,B-h-4*k);g.fillStyle=pal[si%pal.length]}})})}
+ else{d.ser.forEach(function(s,si){g.strokeStyle=pal[si%pal.length];g.fillStyle=pal[si%pal.length];g.lineWidth=2.5*k;g.beginPath();var st=false;
+  s.vals.forEach(function(v,i){if(v==null)return;var x=L+band*(i+.5),y=B-(B-Tp)*v/nm;if(!st){g.moveTo(x,y);st=true}else g.lineTo(x,y)});g.stroke();
+  s.vals.forEach(function(v,i){if(v==null)return;var x=L+band*(i+.5),y=B-(B-Tp)*v/nm;g.beginPath();g.arc(x,y,4*k,0,7);g.fill();
+   if(sp.labels!==false&&n<=16){g.fillStyle="#222";g.font=(11*k)+"px "+FONT;g.textAlign="center";g.fillText(fmtN(v),x,y-8*k);g.fillStyle=pal[si%pal.length]}})})}
+ cxlabels(g,k,d.cats,L,Rt,B);if(ns>1)clegend(g,k,d.ser.map(function(s){return s.name}),pal,W,H-10*k)}
+function drawPie(g,sp,W,H,th){var k=W/900,pal=palFor(th),d=seriesFrom(sp.grid||[]);var s=d.ser[0];if(!s||!d.cats.length){cnote(g,"Add data in the table",W,H,k);return}
+ var vals=s.vals.map(function(v){return v&&v>0?v:0}),tot=vals.reduce(function(a,b){return a+b},0);if(!tot){cnote(g,"Values must be positive",W,H,k);return}
+ ctitle(g,sp.title,W,k);var cy=H/2+(nz(sp.title)?14:0)*k,rad=Math.min(H*0.38,W*0.28),cx=W*0.34,a=-Math.PI/2;
+ vals.forEach(function(v,i){var an=v/tot*Math.PI*2;g.fillStyle=pal[i%pal.length];g.beginPath();g.moveTo(cx,cy);g.arc(cx,cy,rad,a,a+an);g.closePath();g.fill();g.strokeStyle="#fff";g.lineWidth=2*k;g.stroke();
+  if(v/tot>0.04){var m=a+an/2;g.fillStyle="#fff";g.font="bold "+(13*k)+"px "+FONT;g.textAlign="center";g.fillText(Math.round(v/tot*1000)/10+"%",cx+Math.cos(m)*rad*.65,cy+Math.sin(m)*rad*.65+4*k)}a+=an});
+ g.font=(14*k)+"px "+FONT;g.textAlign="left";var ly=cy-Math.min(d.cats.length,12)*13*k;
+ d.cats.slice(0,12).forEach(function(c,i){g.fillStyle=pal[i%pal.length];g.fillRect(W*0.64,ly+i*26*k,14*k,14*k);g.fillStyle="#222";g.fillText(cut(g,c+" ("+fmtN(vals[i])+")",W*0.33),W*0.64+22*k,ly+i*26*k+12*k)})}
+function drawPareto(g,sp,W,H,th){var k=W/900,pal=palFor(th),d=seriesFrom(sp.grid||[]),s=d.ser[0];if(!s||!d.cats.length){cnote(g,"Add data in the table",W,H,k);return}
+ var items=d.cats.map(function(c,i){return{c:c,v:s.vals[i]||0}});if(sp.sort!==false)items.sort(function(a,b){return b.v-a.v});
+ var tot=items.reduce(function(a,b){return a+b.v},0);if(!tot){cnote(g,"Values must be positive",W,H,k);return}
+ var L=72*k,Rt=W-64*k,Tp=(nz(sp.title)?56:34)*k,B=H-80*k,n=items.length,band=(Rt-L)/n;ctitle(g,sp.title,W,k);
+ caxes(g,k,L,Tp,Rt,B,tot,5,function(v){return fmtN(Math.round(v))});
+ g.fillStyle="#555";g.textAlign="left";g.font=(12*k)+"px "+FONT;for(var i=0;i<=5;i++)g.fillText(i*20+"%",Rt+6*k,B-(B-Tp)*i/5+4*k);
+ g.strokeStyle="#D9534F";g.setLineDash([5*k,4*k]);g.lineWidth=1*k;var y80=B-(B-Tp)*0.8;g.beginPath();g.moveTo(L,y80);g.lineTo(Rt,y80);g.stroke();g.setLineDash([]);
+ var cum=0,pts=[];items.forEach(function(it,i){var h=(B-Tp)*it.v/tot,x=L+band*i+band*0.14;g.fillStyle=pal[0];g.fillRect(x,B-h,band*0.72,h);
+  g.fillStyle="#222";g.font=(11*k)+"px "+FONT;g.textAlign="center";if(n<=20)g.fillText(fmtN(it.v),x+band*0.36,B-h-4*k);cum+=it.v;pts.push([L+band*(i+.5),B-(B-Tp)*cum/tot,cum/tot])});
+ g.strokeStyle=pal[1];g.fillStyle=pal[1];g.lineWidth=2.5*k;g.beginPath();pts.forEach(function(p,i){if(i)g.lineTo(p[0],p[1]);else g.moveTo(p[0],p[1])});g.stroke();
+ pts.forEach(function(p){g.beginPath();g.arc(p[0],p[1],4*k,0,7);g.fill();if(n<=14){g.fillStyle="#7A3E00";g.font=(10.5*k)+"px "+FONT;g.textAlign="center";g.fillText(Math.round(p[2]*100)+"%",p[0],p[1]-8*k);g.fillStyle=pal[1]}});
+ cxlabels(g,k,items.map(function(x){return x.c}),L,Rt,B)}
+function drawCpk(g,sp,W,H,th){var k=W/900,v=parseVals(sp.vals),lsl=numv(sp.lsl),usl=numv(sp.usl),tg=numv(sp.target);ctitle(g,sp.title,W,k);
+ var c=capab(v,lsl,usl);if(!c||!c.sd){cnote(g,"Enter at least 2 different values",W,H,k);return}
+ var L=60*k,Rt=W-24*k,Tp=(nz(sp.title)?58:36)*k,B=H-52*k,lo=Math.min(c.min,lsl==null?c.min:lsl),hi=Math.max(c.max,usl==null?c.max:usl),pad=(hi-lo)*0.12||1;lo-=pad;hi+=pad;
+ var nb=Math.max(6,Math.min(20,Math.round(Math.sqrt(v.length)))),bw=(c.max-c.min)/nb||1,start=c.min,counts=[];for(var i=0;i<nb;i++)counts.push(0);
+ v.forEach(function(x){var b=Math.min(nb-1,Math.floor((x-start)/bw));counts[b]++});
+ var pk=function(x){return Math.exp(-0.5*Math.pow((x-c.mean)/c.sd,2))/(c.sd*Math.sqrt(2*Math.PI))*c.n*bw},ymax=Math.max.apply(null,counts);for(var xx=lo;xx<=hi;xx+=(hi-lo)/60)ymax=Math.max(ymax,pk(xx));ymax=Math.ceil(ymax*1.15);
+ function X(x){return L+(Rt-L)*(x-lo)/(hi-lo)}function Y(y){return B-(B-Tp)*y/ymax}
+ g.strokeStyle="#888";g.lineWidth=1;g.beginPath();g.moveTo(L,Tp);g.lineTo(L,B);g.lineTo(Rt,B);g.stroke();
+ g.fillStyle="#555";g.font=(12*k)+"px "+FONT;g.textAlign="right";for(var t=0;t<=4;t++){g.fillText(String(Math.round(ymax*t/4*10)/10),L-6*k,Y(ymax*t/4)+4*k)}
+ g.textAlign="center";for(var t2=0;t2<=6;t2++){var xv=lo+(hi-lo)*t2/6;g.fillText(fmtN(xv),X(xv),B+18*k)}
+ g.fillStyle="#9DB8E8";counts.forEach(function(n,i){g.fillRect(X(start+i*bw)+1,Y(n),X(start+(i+1)*bw)-X(start+i*bw)-2,B-Y(n))});
+ g.strokeStyle="#0B5CAD";g.lineWidth=2.5*k;g.beginPath();var f=true;for(var x2=lo;x2<=hi;x2+=(hi-lo)/80){var px=X(x2),py=Y(pk(x2));if(f){g.moveTo(px,py);f=false}else g.lineTo(px,py)}g.stroke();
+ function vline(x,col,lab,dash){g.strokeStyle=col;g.lineWidth=2*k;g.setLineDash(dash?[6*k,4*k]:[]);g.beginPath();g.moveTo(X(x),Tp);g.lineTo(X(x),B);g.stroke();g.setLineDash([]);g.fillStyle=col;g.font="bold "+(12*k)+"px "+FONT;g.textAlign="center";g.fillText(lab,X(x),Tp-6*k)}
+ if(lsl!=null)vline(lsl,"#D64550","LSL "+fmtN(lsl));if(usl!=null)vline(usl,"#D64550","USL "+fmtN(usl));if(tg!=null)vline(tg,"#2E9E6B","Target",1);vline(c.mean,"#0B5CAD","Mean "+fmtN(c.mean),1);
+ function r2(x){return x==null||!isFinite(x)?"–":(Math.round(x*100)/100).toFixed(2)}
+ var bx=Rt-170*k,by=Tp+6*k;g.fillStyle="rgba(255,255,255,.92)";g.fillRect(bx,by,166*k,128*k);g.strokeStyle="#CFD4DC";g.lineWidth=1;g.strokeRect(bx,by,166*k,128*k);
+ g.textAlign="left";g.font=(13*k)+"px "+FONT;var rows=[["n",String(c.n)],["Mean",fmtN(Math.round(c.mean*1000)/1000)],["Std dev",fmtN(Math.round(c.sd*10000)/10000)],["Cp",r2(c.cp)],["Cpk",r2(c.cpk)],["Pp / Ppk",r2(c.pp)+" / "+r2(c.ppk)]];
+ rows.forEach(function(r,i){g.fillStyle="#333";g.fillText(r[0],bx+10*k,by+20*k+i*20*k);g.fillStyle=r[0]==="Cpk"?(c.cpk>=1.33?"#1D7A3A":c.cpk>=1?"#B7791F":"#C0392B"):"#111";g.font=(r[0]==="Cpk"?"bold ":"")+(13*k)+"px "+FONT;g.textAlign="right";g.fillText(r[1],bx+156*k,by+20*k+i*20*k);g.textAlign="left";g.font=(13*k)+"px "+FONT})}
+function drawSpc(g,sp,W,H,th){var k=W/900,v=parseVals(sp.vals),c=spcCalc(v,sp.n);ctitle(g,sp.title,W,k);if(!c){cnote(g,"Enter at least 3 points (or 3 subgroups)",W,H,k);return}
+ var L=64*k,Rt=W-110*k,Tp=(nz(sp.title)?58:34)*k,B=H-50*k,lo=Math.min(c.lcl,Math.min.apply(null,c.pts)),hi=Math.max(c.ucl,Math.max.apply(null,c.pts)),pad=(hi-lo)*0.1||1;lo-=pad;hi+=pad;
+ function X(i){return L+(Rt-L)*(i+.5)/c.pts.length}function Y(y){return B-(B-Tp)*(y-lo)/(hi-lo)}
+ g.strokeStyle="#888";g.lineWidth=1;g.beginPath();g.moveTo(L,Tp);g.lineTo(L,B);g.lineTo(Rt,B);g.stroke();g.fillStyle="#555";g.font=(12*k)+"px "+FONT;g.textAlign="right";
+ for(var t=0;t<=4;t++){var yv=lo+(hi-lo)*t/4;g.fillText(fmtN(Math.round(yv*100)/100),L-6*k,Y(yv)+4*k)}
+ g.textAlign="center";var step=Math.max(1,Math.ceil(c.pts.length/20));for(var i=0;i<c.pts.length;i+=step)g.fillText(String(i+1),X(i),B+18*k);
+ function hl(y,col,lab,dash){g.strokeStyle=col;g.lineWidth=1.8*k;g.setLineDash(dash?[7*k,5*k]:[]);g.beginPath();g.moveTo(L,Y(y));g.lineTo(Rt,Y(y));g.stroke();g.setLineDash([]);g.fillStyle=col;g.font="bold "+(12*k)+"px "+FONT;g.textAlign="left";g.fillText(lab+" "+fmtN(Math.round(y*1000)/1000),Rt+6*k,Y(y)+4*k)}
+ hl(c.ucl,"#D64550","UCL",1);hl(c.cl,"#2E9E6B","CL",0);hl(c.lcl,"#D64550","LCL",1);
+ g.strokeStyle="#0B5CAD";g.lineWidth=2*k;g.beginPath();c.pts.forEach(function(p,i){if(i)g.lineTo(X(i),Y(p));else g.moveTo(X(i),Y(p))});g.stroke();
+ c.pts.forEach(function(p,i){var bad=c.out.indexOf(i)>=0;g.fillStyle=bad?"#D64550":"#0B5CAD";g.beginPath();g.arc(X(i),Y(p),(bad?6:3.6)*k,0,7);g.fill()});
+ g.fillStyle=c.out.length?"#C0392B":"#1D7A3A";g.font="bold "+(13*k)+"px "+FONT;g.textAlign="left";g.fillText(c.out.length?c.out.length+" point(s) outside the limits":"All points within the control limits",L,H-12*k)}
+function drawFish(g,sp,W,H,th){var k=W/900,pal=palFor(th),cats=(sp.cats||[]).filter(function(c){return nz(c.name)||(c.causes||[]).some(nz)});
+ var yM=H/2,x0=24*k,hx0=W-190*k;g.strokeStyle="#1F2A44";g.fillStyle="#1F2A44";g.lineWidth=3.5*k;g.beginPath();g.moveTo(x0,yM);g.lineTo(hx0,yM);g.stroke();
+ g.beginPath();g.moveTo(hx0,yM);g.lineTo(hx0-14*k,yM-8*k);g.lineTo(hx0-14*k,yM+8*k);g.closePath();g.fill();
+ g.fillStyle=pal[0];g.fillRect(hx0,yM-40*k,W-hx0-10*k,80*k);g.fillStyle="#fff";g.font="bold "+(15*k)+"px "+FONT;g.textAlign="center";
+ var words=String(sp.effect||"Effect").split(/\s+/),lines=[],cur="";words.forEach(function(w){var t=cur?cur+" "+w:w;if(g.measureText(t).width>W-hx0-26*k&&cur){lines.push(cur);cur=w}else cur=t});lines.push(cur);
+ lines.slice(0,4).forEach(function(l,i){g.fillText(l,(hx0+W-10*k)/2,yM-((Math.min(lines.length,4)-1)*9*k)+i*18*k+5*k)});
+ var nt=Math.ceil(cats.length/2),sides=[cats.slice(0,nt),cats.slice(nt)];
+ sides.forEach(function(list,si){var top=si===0,m=list.length;list.forEach(function(c,i){
+  var span=hx0-x0,jx=x0+span*(0.3+0.64*(m>1?i/(m-1):0.5)),dx=span*0.1,ox=jx-dx,oy=top?yM-H*0.36:yM+H*0.36,col=pal[(si*nt+i)%pal.length];
+  g.strokeStyle=col;g.lineWidth=2.6*k;g.beginPath();g.moveTo(ox,oy);g.lineTo(jx,yM);g.stroke();
+  var bwid=Math.min(150*k,span*0.28),by=top?oy-28*k:oy;g.fillStyle=col;g.fillRect(ox-bwid/2,by,bwid,28*k);g.fillStyle=onC(nh(col)).length?("#"+onC(nh(col))):"#fff";g.font="bold "+(13*k)+"px "+FONT;g.textAlign="center";g.fillText(cut(g,c.name||"",bwid-8*k),ox,by+19*k);
+  var cs=(c.causes||[]).filter(nz),nC=cs.length,spacing=m>1?span*0.64/(m-1):span*0.5,len=Math.min(130*k,spacing*0.7);
+  cs.forEach(function(t,j){var f=(j+1)/(nC+1),px=ox+dx*f,py=oy+(yM-oy)*f;g.strokeStyle="#555";g.lineWidth=1.4*k;g.beginPath();g.moveTo(px-len,py);g.lineTo(px,py);g.stroke();
+   g.fillStyle="#222";g.font=(11.5*k)+"px "+FONT;g.textAlign="left";g.fillText(cut(g,t,len-2*k),px-len+2*k,py-4*k)})})})}
+var chartMemo={},chartN=0;
+function chartImg(sp,wIn,hIn,th){var key=JSON.stringify([sp,Math.round(wIn*20),Math.round(hIn*20),th.id]);if(chartMemo[key])return chartMemo[key];
+ var W=Math.max(200,Math.round(wIn*150)),H=Math.max(150,Math.round(hIn*150)),c=document.createElement("canvas");c.width=W;c.height=H;var g=c.getContext("2d");
+ g.fillStyle="#fff";g.fillRect(0,0,W,H);g.textBaseline="alphabetic";
+ try{var kd=sp.kind;if(kd==="pie")drawPie(g,sp,W,H,th);else if(kd==="pareto")drawPareto(g,sp,W,H,th);else if(kd==="cpk")drawCpk(g,sp,W,H,th);else if(kd==="spc")drawSpc(g,sp,W,H,th);else if(kd==="fish")drawFish(g,sp,W,H,th);else drawBarLine(g,sp,W,H,th,kd==="line")}catch(e){g.fillStyle="#C0392B";g.font="16px Arial";g.fillText("Chart error: "+e.message,10,24)}
+ var u=c.toDataURL("image/png");if(++chartN>80){chartMemo={};chartN=0}chartMemo[key]=u;return u}
+
+/* ---- blocks -> primitives ---- */
+function cellsFor(n,arr,a){var g=.22,out=[],i;
+ function cols(m,x,y,w,h,ws){var tw=w-g*(m-1),cx=x;for(var q=0;q<m;q++){var cw=ws?tw*ws[q]:tw/m;out.push({x:cx,y:y,w:cw,h:h});cx+=cw+g}}
+ function rowsF(m,x,y,w,h){var rh=(h-g*(m-1))/m;for(var q=0;q<m;q++)out.push({x:x,y:y+q*(rh+g),w:w,h:rh})}
+ if(n<=0)return out;
+ if(arr==="auto"||!arr)arr=n===1?"one":n===2?"cols":n===3?"cols":n===4?"grid":n<=6?"grid3":"rows";
+ if(arr==="one"||n===1){out.push({x:a.x,y:a.y,w:a.w,h:a.h});return out}
+ if(arr==="cols"){cols(n,a.x,a.y,a.w,a.h);return out}
+ if(arr==="rows"){rowsF(n,a.x,a.y,a.w,a.h);return out}
+ if((arr==="l40"||arr==="r40")&&n===2){cols(2,a.x,a.y,a.w,a.h,arr==="l40"?[.4,.6]:[.6,.4]);return out}
+ if(arr==="main"&&n>=2){var lw=(a.w-g)*.5;out.push({x:a.x,y:a.y,w:lw,h:a.h});rowsF(n-1,a.x+lw+g,a.y,a.w-lw-g,a.h);return out}
+ var nc=arr==="grid3"?3:2,nr=Math.ceil(n/nc),cw=(a.w-g*(nc-1))/nc,rh=(a.h-g*(nr-1))/nr;
+ for(i=0;i<n;i++)out.push({x:a.x+(i%nc)*(cw+g),y:a.y+Math.floor(i/nc)*(rh+g),w:cw,h:rh});return out}
+function secHead(b,r,th,pr){if(!nz(b.head))return r;pr.push(R(r.x,r.y,r.w,.36,{fill:th.hdr}));
+ pr.push(T(r.x+.06,r.y,r.w-.12,.36,P1(b.head),{size:fitPt(P1(b.head),r.w-.2,.34,15,9,th.fac,0),bold:1,color:onC(th.hdr),valign:"middle",pad:.04}));return{x:r.x,y:r.y+.42,w:r.w,h:r.h-.42}}
+function blockPrims(b,r0,th){var pr=[],r=secHead(b,r0,th,pr),i,j;
+ if(r.h<.4||r.w<.6)return pr;
+ switch(b.type){
+ case"text":{var paras=(b.items||[]).filter(nz).map(function(t){return{t:t,bullet:b.style==="bullets",num:b.style==="numbered"}});
+  if(b.box)pr.push(R(r.x,r.y,r.w,r.h,{fill:th.card,line:th.line}));
+  var mx=b.size==="large"?28:b.size==="small"?14:20;pr.push(T(r.x+(b.box?.1:0),r.y+(b.box?.08:0),r.w-(b.box?.2:0),r.h-(b.box?.16:0),paras,{size:fitPt(paras,r.w-(b.box?.2:0),r.h-(b.box?.16:0),mx,9,th.fac,6),gap:6}));break}
+ case"table":pr=pr.concat(gridTable(b.grid,r,th,{head:b.head!==false&&b.hdr!==false,zebra:b.zebra}));break;
+ case"chart":{var sp={kind:b.kind,title:b.title,grid:b.grid,labels:b.labels,sort:b.sort},tw=0;
+  if(b.table==="left"||b.table==="below"){var g2=(b.grid||[]).map(function(rw){return rw.slice()});
+   if(b.kind==="pareto"){var d=seriesFrom(g2),tot=0,vs=d.ser[0]?d.ser[0].vals:[];vs.forEach(function(v){tot+=v||0});var cum=0;g2=[g2[0].concat(["Cum %"])].concat(d.rows.map(function(rw,q){cum+=vs[q]||0;return rw.concat([tot?(Math.round(cum/tot*10000)/100)+"%":""])}))}
+   var left=b.table==="left",tr=left?{x:r.x,y:r.y,w:r.w*.42,h:r.h}:{x:r.x,y:r.y+r.h*.62,w:r.w,h:r.h*.38};
+   pr=pr.concat(gridTable(g2,tr,th,{fs:12}));var cr=left?{x:r.x+r.w*.44,y:r.y,w:r.w*.56,h:r.h}:{x:r.x,y:r.y,w:r.w,h:r.h*.6};
+   pr.push(IM(cr.x,cr.y,cr.w,cr.h,chartImg(sp,cr.w,cr.h,th)))}
+  else pr.push(IM(r.x,r.y,r.w,r.h,chartImg(sp,r.w,r.h,th)));break}
+ case"cpk":case"spc":pr.push(IM(r.x,r.y,r.w,r.h,chartImg({kind:b.type,title:b.title,vals:b.vals,lsl:b.lsl,usl:b.usl,target:b.target,n:b.n},r.w,r.h,th)));break;
+ case"fishbone":pr.push(IM(r.x,r.y,r.w,r.h,chartImg({kind:"fish",effect:b.effect,cats:b.cats},r.w,r.h,th)));break;
+ case"voting":{var g3=(b.grid||[]).map(function(rw){return rw.slice()});if(g3.length<2)break;var nc=g3[0].length,tots=[];
+  for(j=1;j<nc;j++){var s=0;for(i=1;i<g3.length;i++)s+=numv(g3[i][j])||0;tots.push(s)}var best=Math.max.apply(null,tots),wi=tots.indexOf(best)+1;
+  g3.push(["Total"].concat(tots.map(fmtN)));var last=g3.length-1;
+  pr=pr.concat(gridTable(g3,{x:r.x,y:r.y,w:r.w,h:r.h-.5},th,{mark:function(ri,ci){if(ci===wi&&ri>0)return{fill:tint(th.acc2,.55),color:"111111",b:ri===last};if(ri===last)return{b:true,fill:th.soft}}}));
+  pr.push(T(r.x,r.y+r.h-.46,r.w,.42,P1("Selected: "+(b.grid[0][wi]||"")+" ("+fmtN(best)+" points)",{b:1,color:th.acc}),{size:16,valign:"middle"}));break}
+ case"voc":{var cs=[],cw3=null,gs=[[b.vocGrid,"VOC to CTQ",th.acc2],b.showVob!==false?[b.vobGrid,"VOB to CTB",th.acc]:null].filter(Boolean);
+  gs.forEach(function(x){var g=x[0]||[];if(!g.length)return;cs.push([{t:x[1],span:3,fill:x[2],color:onC(x[2]),b:true,align:"center"}]);
+   g.forEach(function(rw,ri){cs.push([0,1,2].map(function(c){return{t:String(rw[c]==null?"":rw[c]),fill:ri===0?tint(x[2],.6):th.card,color:ri===0?"111111":th.ink,b:ri===0,align:ri===0?"center":"left"}}))})});
+  var all=[];cs.forEach(function(rw){if(rw.length===3)all.push([rw[0].t,rw[1].t,rw[2].t])});cw3=colWeights(all,r.w);if(cs.length)pr.push(mkTable(cs,cw3,r,th,13));break}
+ case"scope":{var inn=(b.inList||[]).filter(nz),out=(b.outList||[]).filter(nz),st=(b.stages||[]).filter(function(s){return nz(s.name)||nz(s.items)}),y=r.y,hh=r.h;
+  function chips(list,col,lab,yy,hgt){pr.push(R(r.x,yy,r.w,hgt,{fill:tint(col,.85),line:col}));pr.push(T(r.x+.05,yy,1.5,hgt,P1(lab,{b:1,color:col}),{size:13,valign:"middle"}));
+   var n=Math.max(1,list.length),cw=(r.w-1.7-.1*(n-1))/n;list.forEach(function(t,q){var cx=r.x+1.6+q*(cw+.1);pr.push(R(cx,yy+.08,cw,hgt-.16,{fill:"FFFFFF",line:col,r:.05}));pr.push(T(cx,yy+.08,cw,hgt-.16,P1(t,{color:"111111"}),{size:fitPt(P1(t),cw-.1,hgt-.2,13,8,th.fac,0),align:"center",valign:"middle",gap:0}))})}
+  if(!st.length){var half=(r.w-.25)/2;[[inn,"2E7D32","IN SCOPE",r.x],[out,"C62828","OUT OF SCOPE",r.x+half+.25]].forEach(function(z){var ps=z[0].map(function(t){return{t:t,bullet:true}});pr.push(R(z[3],r.y,half,r.h,{fill:th.card,line:z[1],lw:1.5}));pr.push(R(z[3],r.y,half,.4,{fill:z[1]}));pr.push(T(z[3],r.y,half,.4,P1(z[2],{b:1,color:"FFFFFF"}),{size:15,valign:"middle",pad:.1}));pr.push(T(z[3]+.1,r.y+.5,half-.2,r.h-.6,ps,{size:fitPt(ps,half-.2,r.h-.6,18,9,th.fac,5),gap:5}))});break}
+  var ch=.62;chips(inn,"2E7D32","IN SCOPE",y,ch);chips(out,"C62828","OUT OF SCOPE",y+hh-ch,ch);
+  var n=st.length,cw2=(r.w-.15*(n-1))/n,top=y+ch+.15,bh=hh-2*ch-.3;
+  st.forEach(function(s,q){var cx=r.x+q*(cw2+.15),col="#"+th.pal[q%th.pal.length];col=th.pal[q%th.pal.length];pr.push(R(cx,top,cw2,bh,{fill:th.card,line:col,lw:1.5}));pr.push(R(cx,top,cw2,.5,{fill:col}));
+   pr.push(T(cx,top,cw2,.5,P1(String(q+1).padStart(2,"0")+" – "+s.name,{b:1,color:onC(col)}),{size:fitPt(P1(s.name),cw2-.1,.46,14,8,th.fac,0),valign:"middle",pad:.08}));
+   var ps=lines(s.items).map(function(t){return{t:t,bullet:true}});pr.push(T(cx+.05,top+.55,cw2-.1,bh-.6,ps,{size:fitPt(ps,cw2-.1,bh-.6,14,8,th.fac,3),gap:3}))});break}
+ case"whys":{var ws=(b.whys||[]).filter(nz),hw=(b.how||[]).filter(nz),n2=ws.length+1,wl=hw.length?r.w*.66:r.w,lab=2.0,gp=.12,bh2=(r.h-gp*(n2-1))/n2;
+  [b.problem||"Problem"].concat(ws).forEach(function(t,q){var yy=r.y+q*(bh2+gp),bx=r.x+lab+.1,bw=wl-lab-.1;pr.push(T(r.x,yy,lab,bh2,P1(q===0?"What is the problem?":"Why did this occur? ("+q+")",{color:th.mute}),{size:11.5,align:"right",valign:"middle"}));
+   pr.push(R(bx,yy,bw,bh2,{fill:q===0?th.hdr:th.card,line:q===0?th.hdr:th.acc2,lw:1.5,r:.1}));pr.push(T(bx+.05,yy,bw-.1,bh2,P1(t,{color:q===0?onC(th.hdr):th.ink,b:q===0}),{size:fitPt(P1(t),bw-.2,bh2-.06,15,8,th.fac,0),valign:"middle",pad:.08,gap:0}))});
+  if(hw.length){var hxx=r.x+wl+.25,hww=r.w-wl-.25,ps2=hw.map(function(t){return{t:t,bullet:true}});pr.push(R(hxx,r.y,hww,r.h,{fill:th.soft,line:th.acc,lw:1.5,r:.12}));pr.push(T(hxx,r.y+.05,hww,.4,P1("HOW (actions)",{b:1,color:th.acc}),{size:15,pad:.12}));pr.push(T(hxx+.1,r.y+.5,hww-.2,r.h-.6,ps2,{size:fitPt(ps2,hww-.2,r.h-.6,15,8,th.fac,6),gap:6}))}break}
+ case"cards":{var cd=(b.cards||[]),n3=cd.length;if(!n3)break;var nc2=n3<=2?n3:n3===3?3:n3===4?4:n3<=6?3:4,nr2=Math.ceil(n3/nc2),gx=.2,cw4=(r.w-gx*(nc2-1))/nc2,chh=(r.h-gx*(nr2-1))/nr2;
+  cd.forEach(function(c,q){var cx=r.x+(q%nc2)*(cw4+gx),cy=r.y+Math.floor(q/nc2)*(chh+gx),col=th.pal[q%th.pal.length];
+   if(b.kind==="columns"){pr.push(R(cx,cy,cw4,chh,{fill:th.card,line:col,lw:1.5}));pr.push(R(cx,cy,cw4,.55,{fill:col}));pr.push(T(cx,cy,cw4,.55,P1(c.head||"",{b:1,color:onC(col)}),{size:fitPt(P1(c.head),cw4-.2,.5,18,9,th.fac,0),valign:"middle",align:"center"}));
+    var ps3=lines(c.body).map(function(t){return{t:t,bullet:true}});pr.push(T(cx+.08,cy+.62,cw4-.16,chh-.68,ps3,{size:fitPt(ps3,cw4-.16,chh-.68,16,8,th.fac,4),gap:4}))}
+   else if(b.kind==="kpi"){pr.push(R(cx,cy,cw4,chh,{fill:th.card,line:th.line,r:.12}));pr.push(R(cx,cy,.1,chh,{fill:col}));pr.push(T(cx+.15,cy+.05,cw4-.25,chh*.5,P1(c.title||"",{b:1,color:col}),{size:fitPt(P1(c.title),cw4-.3,chh*.48,40,14,th.fac,0),valign:"middle",align:"center"}));
+    pr.push(T(cx+.15,cy+chh*.5,cw4-.25,chh*.22,P1(c.head||"",{b:1}),{size:fitPt(P1(c.head),cw4-.3,chh*.2,16,9,th.fac,0),align:"center",valign:"middle"}));pr.push(T(cx+.15,cy+chh*.72,cw4-.25,chh*.26,P1(c.body||"",{color:th.mute}),{size:fitPt(P1(c.body),cw4-.3,chh*.24,13,8,th.fac,0),align:"center",valign:"top"}))}
+   else{pr.push(R(cx,cy,cw4,chh,{fill:th.card,line:th.line,r:.12}));var ph=Math.min(chh-.2,cw4*.38),px=cx+.1;
+    if(c.img)pr.push(IM(px,cy+.1,ph,Math.min(chh-.2,ph*1.2),c.img));else{pr.push(R(px,cy+.1,ph,Math.min(chh-.2,ph*1.2),{fill:th.soft,line:th.line}));var ini=String(c.title||"?").split(/\s+/).map(function(w){return w.charAt(0)}).join("").slice(0,2).toUpperCase();pr.push(T(px,cy+.1,ph,Math.min(chh-.2,ph*1.2),P1(ini,{b:1,color:th.mute}),{size:20,align:"center",valign:"middle"}))}
+    var tx=px+ph+.12,tw=cw4-ph-.3,ps4=[{t:c.head||"",b:true,color:"#"+th.acc},{t:c.title||"",b:true}].concat(lines(c.body).map(function(t){return{t:t,color:"#"+th.mute}}));pr.push(T(tx,cy+.05,tw,chh-.1,ps4,{size:fitPt(ps4,tw,chh-.1,15,8,th.fac,3),valign:"middle",gap:3}))}})
+  break}
+ case"image":{var ch2=nz(b.caption)?.4:0;if(b.img&&b.w&&b.h){var ar=b.w/b.h,iw=r.w,ih=iw/ar;if(ih>r.h-ch2){ih=r.h-ch2;iw=ih*ar}pr.push(IM(r.x+(r.w-iw)/2,r.y+(r.h-ch2-ih)/2,iw,ih,b.img))}
+  else{pr.push(R(r.x,r.y,r.w,r.h-ch2,{fill:th.soft,line:th.line}));pr.push(T(r.x,r.y,r.w,r.h-ch2,P1("Image placeholder",{color:th.mute}),{size:16,align:"center",valign:"middle"}))}
+  if(ch2)pr.push(T(r.x,r.y+r.h-.4,r.w,.4,P1(b.caption,{i:1,color:th.mute}),{size:12,align:"center",valign:"middle"}));break}
+ case"callout":{var col2=b.style==="success"?"2E7D32":b.style==="warning"?"C62828":b.style==="dark"?th.hdr:th.acc,big=b.size==="large";
+  pr.push(R(r.x,r.y,r.w,r.h,{fill:b.style==="dark"?th.hdr:tint(col2,.88),line:col2,lw:2,r:.12}));
+  var pp=P1(b.text||"",{b:1,color:b.style==="dark"?onC(th.hdr):(th.dark?"111111":col2)});pr.push(T(r.x+.1,r.y,r.w-.2,r.h,pp,{size:fitPt(pp,r.w-.3,r.h-.1,big?40:24,10,th.fac,0),align:"center",valign:"middle",gap:0}));break}
+ case"gantt":{var months=String(b.months||"").split(",").map(function(s){return s.trim()}).filter(Boolean),nm=months.length||1,wk=4,tw2=nm*wk,acts=(b.activities||[]).filter(function(a){return nz(a.name)});
+  var colW=[3.0,1.2],rem=r.w-4.2,cwk=rem/tw2;for(i=0;i<tw2;i++)colW.push(cwk);
+  var rows=[[{t:"Activities",fill:th.hdr,color:onC(th.hdr),b:true,align:"center"},{t:"Steps",fill:th.hdr,color:onC(th.hdr),b:true,align:"center"}].concat(months.map(function(m){return{t:m,span:wk,fill:th.hdr,color:onC(th.hdr),b:true,align:"center"}}))];
+  acts.forEach(function(a){[["Planning","pf","pt","00B0F0"],["Implementation","df","dt","92D050"]].forEach(function(s,si){var row=[{t:si===0?a.name:"",fill:th.card,color:th.ink,b:true,align:"left"},{t:s[0],fill:th.card,color:th.ink,align:"left"}],f=numv(a[s[1]]),t2=numv(a[s[2]]);
+   for(i=1;i<=tw2;i++)row.push({t:"",fill:(f!=null&&t2!=null&&i>=f&&i<=t2)?s[3]:th.card,color:th.ink});rows.push(row)})});
+  pr.push(mkTable(rows,colW,r,th,12));break}
+ }
+ return pr}
+function lines(t){return String(t||"").split("\n").map(function(s){return s.replace(/^\s*[-•*]\s*/,"").trim()}).filter(Boolean)}
+
+/* ---- slide -> primitives ---- */
+function slideDraw(sl,idx,deck){var th=theme(deck.theme),pr=[],bg=th.bg;
+ function logo(x,y,w,h,right){if(deck.logo)pr.push(IM(x,y,w,h,deck.logo));else if(nz(deck.logoText))pr.push(T(x,y,w,h,P1(deck.logoText,{b:1}),{size:16,bold:1,color:right||th.acc,align:x>SW/2?"right":"left",valign:"middle"}))}
+ function chrome(){if(nz(deck.footer))pr.push(T(.6,SH-.42,SW-2.4,.3,P1(deck.footer),{size:11,color:th.mute,align:"center",valign:"middle"}));
+  if(deck.numbers!==false)pr.push(T(SW-1.3,SH-.42,.8,.3,P1(String(idx+1)),{size:12,color:th.mute,align:"right",valign:"middle"}))}
+ if(sl.kind==="title"){pr.push(R(0,0,SW,.2,{fill:th.acc}));pr.push(R(0,SH-.2,SW,.2,{fill:th.acc2}));logo(.6,.4,3,.8);
+  var tt=P1(sl.title||"Presentation title",{b:1});pr.push(T(.8,1.35,SW-1.6,1.7,tt,{size:fitPt(tt,SW-1.8,1.6,46,24,th.fac,0),bold:1,align:"center",valign:"middle",gap:0}));
+  if(nz(sl.sub))pr.push(T(.8,3.05,SW-1.6,.6,P1(sl.sub,{color:th.mute}),{size:20,align:"center",valign:"middle"}));
+  var ln=lines(sl.lines);if(ln.length){var bh=.35+.5*ln.length,bw=Math.min(10,SW-2),by=3.9;pr.push(R((SW-bw)/2,by,bw,bh,{fill:th.hdr,line:"000000",lw:1.5,r:.25}));
+   var lp=ln.map(function(t){return{t:t}});pr.push(T((SW-bw)/2,by,bw,bh,lp,{size:fitPt(lp,bw-.4,bh-.1,24,12,th.fac,4),bold:1,color:onC(th.hdr),align:"center",valign:"middle",gap:4}))}
+  if(nz(sl.quote)){var qp=P1(sl.quote,{i:1});pr.push(R(SW/2-4,6.0,8,.85,{fill:th.soft,line:th.line,r:.08}));pr.push(T(SW/2-3.9,6.0,7.8,.85,qp,{size:fitPt(qp,7.7,.8,16,10,th.fac,0),italic:1,align:"center",valign:"middle",color:th.ink}))}
+  chrome();return{bg:bg,prims:pr}}
+ if(sl.kind==="section"){bg=th.hdr;var oc=onC(th.hdr);pr.push(R(0,SH/2-.04,SW,.08,{fill:th.acc2}));
+  if(nz(sl.label))pr.push(T(.8,1.6,SW-1.6,1.3,P1(sl.label,{b:1}),{size:70,bold:1,color:th.acc2===th.hdr?oc:th.acc2,align:"center",valign:"middle"}));
+  var st2=P1(sl.title||"Section",{b:1});pr.push(T(.8,SH/2+.3,SW-1.6,1.5,st2,{size:fitPt(st2,SW-1.8,1.4,44,22,th.fac,0),bold:1,color:oc,align:"center",valign:"top"}));
+  if(nz(sl.sub))pr.push(T(.8,5.4,SW-1.6,.8,P1(sl.sub),{size:20,color:oc,align:"center"}));chrome();return{bg:bg,prims:pr}}
+ if(sl.kind==="closing"){pr.push(R(0,0,SW,.2,{fill:th.acc}));pr.push(R(0,SH-.2,SW,.2,{fill:th.acc2}));logo(.6,.4,3,.8);
+  var ct=P1(sl.title||"Thank you",{b:1});pr.push(T(.8,2.1,SW-1.6,2,ct,{size:fitPt(ct,SW-1.8,1.9,72,30,th.fac,0),bold:1,align:"center",valign:"middle",gap:0}));
+  if(nz(sl.sub))pr.push(R(SW/2-2.5,4.4,5,1.0,{fill:th.soft,line:th.line,r:.1})),pr.push(T(SW/2-2.5,4.4,5,1.0,P1(sl.sub,{b:1}),{size:30,bold:1,align:"center",valign:"middle"}));chrome();return{bg:bg,prims:pr}}
+ /* content slide */
+ var ts=th.ts,ttl=sl.title||"",tf;
+ if(ts==="bar"){pr.push(R(0,0,SW,1.05,{fill:th.hdr}));tf=fitPt(P1(ttl),SW-3,.9,30,16,th.fac,0);pr.push(T(.6,.08,SW-3.4,.9,P1(ttl),{size:tf,bold:1,color:onC(th.hdr),valign:"middle",gap:0}));logo(SW-2.6,.15,2.1,.75,onC(th.hdr))}
+ else if(ts==="pill"){var pw=Math.max(4,Math.min(SW-4.4,ttl.length*.26+1.4)),px=(SW-pw)/2;pr.push(R(px,.28,pw,.82,{fill:th.pill||th.acc2,line:th.pillLine||th.acc,lw:1.5,r:.16}));tf=fitPt(P1(ttl),pw-.3,.8,30,14,th.fac,0);pr.push(T(px,.28,pw,.82,P1(ttl),{size:tf,bold:1,color:"111111",align:"center",valign:"middle",gap:0}));logo(.45,.25,1.6,.85);if(!deck.logo&&nz(deck.logoText))0}
+ else if(ts==="side"){pr.push(R(0,.3,.22,.85,{fill:th.acc}));tf=fitPt(P1(ttl),SW-3.4,.85,30,16,th.fac,0);pr.push(T(.6,.3,SW-3.4,.85,P1(ttl),{size:tf,bold:1,valign:"middle",gap:0}));logo(SW-2.6,.25,2.1,.8)}
+ else{tf=fitPt(P1(ttl),SW-3.4,.8,30,16,th.fac,0);pr.push(T(.6,.28,SW-3.4,.8,P1(ttl),{size:tf,bold:1,valign:"bottom",gap:0}));pr.push(R(.6,1.14,1.6,.06,{fill:th.acc}));pr.push(R(.6,1.18,SW-1.2,.012,{fill:th.line}));logo(SW-2.6,.25,2.1,.8)}
+ var area={x:.55,y:1.5,w:SW-1.1,h:SH-1.5-.55},bl=sl.blocks||[],cs=cellsFor(bl.length,sl.layout,area);
+ bl.forEach(function(b,i){if(cs[i])pr=pr.concat(blockPrims(b,cs[i],th))});chrome();return{bg:bg,prims:pr}}
+
+/* ---- backends ---- */
+var PXI=96;function px(v){return Math.round(v*PXI*100)/100}
+function toHTML(prims,th){var s="";
+ prims.forEach(function(p){
+  if(p.k==="r"){s+='<div style="position:absolute;left:'+px(p.x)+'px;top:'+px(p.y)+'px;width:'+px(p.w)+'px;height:'+px(p.h)+'px;box-sizing:border-box;background:'+(p.fill?hx(p.fill):"transparent")+';'+(p.line?"border:"+Math.round(p.lw*1.333*10)/10+"px solid "+hx(p.line)+";":"")+(p.r?"border-radius:"+px(Math.min(p.r,Math.min(p.w,p.h)/2))+"px;":"")+'"></div>'}
+  else if(p.k==="i"){s+='<img alt="" src="'+p.data+'" style="position:absolute;left:'+px(p.x)+'px;top:'+px(p.y)+'px;width:'+px(p.w)+'px;height:'+px(p.h)+'px">'}
+  else if(p.k==="l"){var hz=Math.abs(p.y2-p.y1)<Math.abs(p.x2-p.x1);s+='<div style="position:absolute;left:'+px(Math.min(p.x1,p.x2))+'px;top:'+px(Math.min(p.y1,p.y2))+'px;'+(hz?"width:"+px(Math.abs(p.x2-p.x1))+"px;border-top:":"height:"+px(Math.abs(p.y2-p.y1))+"px;border-left:")+p.lw*1.333+'px '+(p.dash?"dashed ":"solid ")+hx(p.color)+'"></div>'}
+  else if(p.k==="t"){var fs=p.size*PXI/72;
+   s+='<div style="position:absolute;left:'+px(p.x)+'px;top:'+px(p.y)+'px;width:'+px(p.w)+'px;height:'+px(p.h)+'px;overflow:hidden;box-sizing:border-box;padding:'+px(p.pad)+'px;font-family:'+(p.font||th.font)+',Calibri,Arial,sans-serif;font-size:'+fs+'px;line-height:1.2;color:'+hx(p.color||th.ink)+';text-align:'+p.align+';'+(p.bold?"font-weight:700;":"")+(p.italic?"font-style:italic;":"")+(p.valign==="middle"?"display:flex;flex-direction:column;justify-content:center;":p.valign==="bottom"?"display:flex;flex-direction:column;justify-content:flex-end;":"")+'">'+
+   p.paras.map(function(q){return'<div style="'+((q.bullet||q.num)?"position:relative;padding-left:"+0.25*PXI+"px;":"")+"margin-bottom:"+p.gap*PXI/72+"px;"+(q.size?"font-size:"+q.size*PXI/72+"px;":"")+(q.b?"font-weight:700;":"")+(q.i?"font-style:italic;":"")+(q.color?"color:"+hx(q.color)+";":"")+'">'+(q.bullet?'<span style="position:absolute;left:'+0.06*PXI+'px">•</span>':"")+(q.num?'<span style="position:absolute;left:0">'+q.n+".</span>":"")+escH(q.t).replace(/\n/g,"<br>")+"</div>"}).join("")+"</div>"}
+  else if(p.k==="tb"){s+='<table style="position:absolute;left:'+px(p.x)+'px;top:'+px(p.y)+'px;width:'+px(p.w)+'px;border-collapse:collapse;table-layout:fixed;font-family:'+th.font+',Calibri,Arial,sans-serif;font-size:'+p.fs*PXI/72+'px;line-height:1.2"><colgroup>'+p.colW.map(function(w){return'<col style="width:'+px(w)+'px">'}).join("")+"</colgroup>";
+   p.rows.forEach(function(rw,ri){s+='<tr style="height:'+px(p.rowH[ri])+'px">';rw.forEach(function(c){s+='<td'+(c.span>1?' colspan="'+c.span+'"':"")+' style="border:1px solid '+hx(th.line)+';padding:0 '+0.06*PXI+'px;vertical-align:middle;overflow:hidden;background:'+hx(c.fill||th.card)+";color:"+hx(c.color||th.ink)+";text-align:"+(c.align||"left")+";"+(c.b?"font-weight:700;":"")+(c.fs?"font-size:"+c.fs*PXI/72+"px;":"")+'">'+escH(c.t).replace(/\n/g,"<br>")+"</td>"});s+="</tr>"});s+="</table>"}
+ });return s}
+function toPPTX(prims,slide,pptx,th){var ST=pptx.ShapeType||pptx.shapes||{};
+ prims.forEach(function(p){
+  if(p.k==="r"){var o={x:p.x,y:p.y,w:p.w,h:p.h,line:p.line?{color:nh(p.line),width:p.lw}:{type:"none"}};if(p.fill)o.fill={color:nh(p.fill)};
+   if(p.r){o.rectRadius=Math.min(p.r,Math.min(p.w,p.h)/2);slide.addShape(ST.roundRect||"roundRect",o)}else slide.addShape(ST.rect||"rect",o)}
+  else if(p.k==="i"){slide.addImage({data:String(p.data).replace(/^data:/,""),x:p.x,y:p.y,w:p.w,h:p.h})}
+  else if(p.k==="l"){slide.addShape(ST.line||"line",{x:Math.min(p.x1,p.x2),y:Math.min(p.y1,p.y2),w:Math.abs(p.x2-p.x1),h:Math.abs(p.y2-p.y1),line:{color:nh(p.color),width:p.lw,dashType:p.dash?"dash":"solid"}})}
+  else if(p.k==="t"){if(!p.paras.length)return;var runs=p.paras.map(function(q,i){var o={breakLine:i<p.paras.length-1,fontSize:q.size||p.size,fontFace:p.font||th.font,color:nh(q.color||p.color||th.ink),bold:!!(q.b||p.bold),italic:!!(q.i||p.italic),align:p.align,paraSpaceAfter:p.gap};
+    if(q.bullet)o.bullet={indent:16};if(q.num)o.bullet={type:"number"};return{text:String(q.t==null?"":q.t),options:o}});
+   slide.addText(runs,{x:p.x,y:p.y,w:p.w,h:p.h,valign:p.valign==="middle"?"middle":p.valign==="bottom"?"bottom":"top",margin:Math.round(p.pad*72),fit:"none",wrap:true})}
+  else if(p.k==="tb"){var rows=p.rows.map(function(rw){return rw.map(function(c){var o={fill:{color:nh(c.fill||th.card)},color:nh(c.color||th.ink),bold:!!c.b,align:c.align||"left",valign:"middle",fontFace:th.font,fontSize:c.fs||p.fs};if(c.span>1)o.colspan=c.span;return{text:String(c.t==null?"":c.t),options:o}})});
+   slide.addTable(rows,{x:p.x,y:p.y,w:p.w,colW:p.colW,rowH:p.rowH,fontFace:th.font,fontSize:p.fs,border:{type:"solid",pt:.75,color:nh(th.line)},valign:"middle"})}
+ })}
+
+/* ===== Example decks (rebuilt from the two attached presentations) ===== */
+function tx(items,o){o=o||{};return{type:"text",head:o.head||"",items:items,style:o.style||"bullets",size:o.size||"auto",box:!!o.box}}
+function tb(grid,o){o=o||{};return{type:"table",head:o.head||"",grid:grid,hdr:o.hdr!==false,zebra:!!o.zebra}}
+function chx(kind,grid,o){o=o||{};return{type:"chart",head:o.head||"",kind:kind,title:o.title||"",labels:o.labels!==false,sort:o.sort!==false,table:o.table||"none",grid:grid}}
+function co(text,o){o=o||{};return{type:"callout",head:o.head||"",text:text,style:o.style||"info",size:o.size||"normal"}}
+function cds(kind,list){return{type:"cards",head:"",kind:kind,cards:list.map(function(c){return{head:c[0]||"",title:c[1]||"",body:c[2]||"",img:""}})}}
+function im(cap){return{type:"image",head:"",img:"",w:0,h:0,caption:cap||""}}
+function sld(title,blocks,layout,notes){return{kind:"content",title:title,layout:layout||"auto",notes:notes||"",blocks:blocks}}
+function sec(label,title,sub){return{kind:"section",label:label,title:title,sub:sub||""}}
+function fb(effect,cats){return{type:"fishbone",head:"",effect:effect,cats:cats.map(function(c){return{name:c[0],causes:c[1]}})}}
+var FOOT="integrity | excellence | customer delight | innovation | inspiring people";
+var DECKS={};
+
+DECKS.lead={name:"Lead_Scrap_Reduction_Green_Belt",theme:"rahim",footer:FOOT,logoText:"RAHIMAFROOZ",numbers:true,slides:[
+{kind:"title",title:"Lead Scrap Reduction",sub:"",lines:"Lean Six Sigma Green Belt Program Project\nRahimafrooz Globatt Ltd.,\n(Ishwardi Plant)",quote:"The most dangerous kind of waste is the waste we do not recognize.  – Shigeo Shingo, Toyota"},
+sld("Project Team Structure",[cds("team",[["Project Sponsor","KMI","CMSO"],["Project Champion","SYU","Manufacturing Manager, RGL"],["Overall Coordinator","DAR","Manager"],["Project Leader","RRD","In-Charge QA, RGL"],["Project Coordinator","SNZ","Executive QHSMS, RGL"],["Team Member","ZLM","Executive Plate Preparation, RGL"],["Team Member","AER","Officer Assembly, RGL"]])]),
+sec("01","Define Phase","Define the problem."),
+sld("CTQ_CTB Identification",[{type:"voc",head:"",showVob:true,
+ vocGrid:[["VOC (Voice of the Customer)","Key Issue","CTQ (Critical to Quality)"],["This project is not related with the outside customer.","N/A","N/A"]],
+ vobGrid:[["VOB (Voice of the Business)","Key Issue","CTB (Critical to Business / Efficiency)"],["The Process Scrap Generation at different stages of process.","The production cost increases as well as the productivity decreases.","COGS (Cost of goods sold) will be higher."],["","The insufficient process knowledge, power interruption & rework are main reasons for scrap generation.","Deterioration of the quality."],["","Need to plan for 3R ( Reduce, Reuse & Recycle).","Output per man will be lower."]]}]),
+sld("Business Case",[
+ tb([["Benefit Potentials (BP)","Annualized Benefit","Exp. Benefit in p-start year","Original BP"],["Cost Reduction Objective: BDT","4,803,108","0","0"],["Revenue Enhancement Objective: BDT","0","0","0"],["Net Working Capital Objective: BDT","0","0","0"],["Total Benefits: BDT","4,803,108","0","0"]]),
+ tb([["Cost (Efforts)","Annualized Cost","Exp. Cost in p-start year","Original Cost Est."],["One-Off: Restructuring costs BDT","0","0","0"],["One-Off: External Costs BDT","0","0","0"],["CAPEX Spending: Capex BDT","0","0","0"],["Total Cash Req. BDT","0","0","0"]]),
+ tb([["No. / KPI","Period","Unit","Baseline (BSL)","Target","D in %","Agreed by Controlling"],["1. Overall lead scrap reduction in average","Yearly","%","4.2","3.5","-16.67%","BDT 4,803,108"]]),
+ tb([["No.","Assumptions for / Way of Benefit Calculation"],["1","Less dross"],["2","Less group reject in COS & ICW"],["3","Less damage battery"]])],"grid"),
+sld("Project-Charter",[
+ tx(["Scrap is directly related to product cost of manufacturing. Reduction of plate and process scrap will reduce the manufacturing cost. We already know that product price is one of the key factor for customer retention in this competitive market. Also we are aware that reduced rejection will definitely ensure the better quality of product. So we have to offer product at a competitive price with better quality. In that case customer satisfaction will be ensured.","GOAL: 16.67% reduction (from 4.2% to 3.5%) of Lead Scrap by June'2019."],{head:"Problem Statement",style:"plain",box:true}),
+ tb([["Factors","Annualized Benefit","Exp. Benefit in p-start year","Original BP"],["Cost Reduction Objective: BDT","4,803,108","0","0"],["Revenue Enhancement Objective: BDT","0","0","0"],["Net Working Capital Objective: BDT","0","0","0"],["Total Benefits: BDT","4,803,108","0","0"]],{head:"Goals (SMART: Specific, Measurable, Agreed to, Realistic, Time bound)"}),
+ tb([["Project Resource",""],["MBB Name","DAR"],["Project Sponsor","KMI"],["Project Owner","SYU"],["Controlling","MAR"],["Team members","RRD, SNZ, ZLM, AER"]]),
+ tb([["Timeline","Goal (Ending Date)","Actual"],["Kick-off","8/27/2018","8/27/2018"],["Define","9/27/2018","11/13/2018"],["Measure","11/27/2018","11/13/2018"],["Analyze","12/27/2018","11/03/2019"],["Improve","1/27/2019","11/03/2019"],["Control","2/27/2019",""]])],"grid","Authorized by project sponsor & Signature."),
+sld("Project Scope",[{type:"scope",head:"",
+ inList:["Efficient arrangement of alternative power.","LME price variation.","Plate scrap for in-process testing."],
+ outList:["Inferior quality of lead.","Validation for new COS machine.","RAW material Availability."],
+ stages:[{name:"Cylinder Casting & Grid Casting",items:"Reduction of dross generation from lead pot.\nMaximization of mixing ratio for scrap lead.\nMachine Breakdown."},{name:"Pasting",items:"Reduction of pasted plate scrap during pasting.\nReduction of paste waste during pasting.\nLack of skilled operator."},{name:"Parting",items:"Reduction of plate scrap during parting.\nMaximize floor Supervision."},{name:"COS Operation",items:"Reduction of Dross in COS lead Pot.\nReduction of Group plate scrap during COS Operation.\nCOS Mold revalidation."},{name:"ICW & Heat-seal",items:"Adequate Training & Awareness session for Shop floor People.\nFixing UPS issue.\nMaximize floor Supervision."},{name:"Charging & Warehouse",items:"Careful battery handling.\nMaximize floor Supervision.\nCooling system reorganization in charging tank"}]}]),
+sec("02","Measure Phase","Quantify the problem."),
+sld("Operational Measures",[tx(["During Pasting Operation","During Group Operation","Plate Parting operation","During COS Production"],{head:"Plate Scrap"}),tx(["Chemical Paste","SFG Rejection at charging section","Heat-seal Rejection","ICW Rejection","Dross at Grid Casting Pot","Dross at Cylinder Casting Pot","Dross at COS"],{head:"Process Scrap"})],"cols"),
+sld("Operational Definition",[cds("columns",[["Plate Preparation","","Grid casting: Dross Generation\nPositive Pasting operation: Washing Paste\nNegative pasting operation: Washing Paste"],["Assembly","","COS group plate rejection.\nRejection at the time of ICW.\nRejection at the time of Heat-seal."],["Charging","","SFG rejection at the time of charging operation.\nConnector rejection."],["Warehouse","","Finished batteries rejection during battery handling."]])]),
+sld("Data Collection Plan & Baseline Data",[
+ tb([["Sl. No.","Variable","Variable Type (Output, Type, Input)","Data Type Continuous / Discrete","Operational Definition","Who is responsible for data collection","Identifiers","Data/Time/Frequency of measurement","Data Source / Place of measurement"],["1.","Plate Preparation Scrap","Output","Continuous","Dross generated from Lead pot","ZLM","Month/ Plate scrap/ Consumption","Monthly (From July '18 to June '19)","Production Floor"],["2.","Process Scrap","Output","Continuous","Group Rejection after COS Operation","AER","Month/Scrap chemical paste/Scrap casting dross","Monthly (From July '18 to June '19)","Production Floor"],["3.","Process Scrap","Output","Continuous","SFG rejection at charging Section","RRD","Month/SFG Scrap","Monthly (From July '18 to June '19)","Production Floor"]]),
+ tb([["Month","Target (%)","Actual (%)"],["JUL'18","3.78","4.3"],["AUG'18","3.78","3.14"],["SEP'18","3.78","4.14"]])],"main"),
+sec("03","Analyze Phase","Identify the cause of the problem."),
+sld("Analyze Areas",[tx(["Pareto Chart","4M (Man-Machine-Material-Method) Analysis","Fishbone analysis","Why-Why Analysis"],{head:"Analyze Tools"}),tx(["COS: COS Group plate rejection analysis","ICW: ICW Rejection analysis","Heat Seal: Heat seal rejection analysis","Charging Section: SFG rejection analysis at charging"],{head:"Analyze Areas"})],"cols"),
+sld("Pareto Chart of COS Group plate Rejection",[chx("pareto",[["Mold Type","Reject Qty","Produced Qty","Rejection %"],["N50","970","251778","0.39%"],["N70","426","161130","0.26%"],["55D23","303","92790","0.33%"],["L2","289","75702","0.38%"],["N150","190","43842","0.43%"],["NS60","181","132030","0.14%"],["NS40","175","84570","0.21%"],["N100","79","13554","0.58%"],["L3","71","30006","0.24%"],["N120","62","12168","0.51%"],["L5","61","9594","0.64%"],["L1","52","9324","0.56%"],["L4","30","8874","0.34%"],["N200","13","9090","0.14%"],["N100 (OLD)","8","1182","0.68%"]],{table:"left",title:"Pareto Chart-COS Rejection (total 2,910 of 935,634 = 0.311%)"})]),
+sld("Analysis & Initiatives Taken for COS Group plate Rejection",[tb([["Factor","Initiatives"],["Man","Hands on training for adjustment of COS machine.\nAwareness on proper way of plate handling during operation.\nAwareness session on rejection."],["Machine","Introduced 100% chemical wash for each mold after use.\nProper Mold Maintenance.\nBreakdown analysis of COS machines."],["Material","Proper segregation of the useable and non usable plates before reuse."],["Method","Introduction of Strap Lead reuse in COS lead Pot.\nEnsuring proper arrangement of plate during zig box insertion."]])]),
+sld("Pareto Chart of Heat Seal Rejection",[chx("pareto",[["Mold Type","Reject Qty","Produced Qty","Rejection %"],["N50:SMF","382","17042","2.24%"],["N70:SMF","122","15315","0.80%"],["L3:SMF","113","3913","2.89%"],["L2:SMF","75","4534","1.65%"],["L5:SMF","58","1683","3.45%"],["NS40:SMF","42","5691","0.74%"],["55D23:SMF","35","9756","0.36%"],["L1:SMF","34","1425","2.39%"],["L4:SMF","17","810","2.10%"],["N150:SMF","15","3483","0.43%"],["N200:MF","15","929","1.61%"],["NS60:SMF","13","10117","0.13%"],["N120:MF","11","1065","1.03%"],["N100:SMF","8","1262","0.63%"],["D20 BH B:SMF","6","3187","0.19%"],["N200:SMF","5","1499","0.33%"],["N100 (OLD):SMF","2","634","0.32%"],["N120:SMF","2","1734","0.12%"],["N150:MF","2","1198","0.17%"],["N50:MF","2","5522","0.04%"],["N100:MF","1","1336","0.07%"],["N100 (OLD):MF","1","814","0.12%"]],{table:"left",title:"Pareto Chart-Heat Seal Rejection (total 961 of 108,725 = 0.88%)"})],"auto","Four more mold types (55D23:MF, N70:MF, NS40:MF, NS60:MF) had zero rejects and are not listed."),
+sld("Fishbone Analysis of Heat Seal Rejection",[fb("Heat Seal Rejection",[["Man",["Lack of awareness","Inadequate training","Miss-handling","Knowledge Gap","Unskilled"]],["Machine",["So many (12pcs/Machine) Heater Allocation","Heat-Seal machine","Unnecessary sudden movement to both Lower & Upper part at the beginning of each sealing","Frequent breakdown"]],["Material",["Misalignment of container & Cover ribs."]],["Method",["Hitting of ICW areas of each cell before Heat-seal operation for alignment."]]])]),
+sld("Overall Battery Rejection Analysis of Dec'18 & Jan'19",[
+ tb([["Month","Spell","Order Qty","RFT","C/L","T/L","Cell-short","Recharge","Burst","Broken"],["Jan'19","1","12152","11969","105","72","6","0","0","0"],["Jan'19","2","10338","10235","62","32","2","0","0","7"],["Jan'19","3","21437","21252","117","46","10","8","0","4"],["Jan'19","4","8570","8505","35","22","3","5","0","0"],["Dec'18","1","11671","11481","151","24","1","0","10","3"],["Dec'18","2","10209","9956","223","21","6","0","0","0"],["Dec'18","3","13225","13106","80","31","5","0","1","2"],["Dec'18","4","12697","12479","182","27","4","0","0","3"],["Dec'18","5","8440","8393","6","35","1","0","0","5"],["Total","","108739","107376","961","310","38","13","11","24"],["Percentage","","100%","98.75%","0.88%","0.29%","0.03%","0.01%","0.01%","0.02%"]]),
+ chx("pie",[["Fault","Share (%)"],["C/L","70.8"],["T/L","22.8"],["Cell-short","2.8"],["Burst","1.0"],["Recharge","0.8"],["Broken","1.8"]],{title:"Unloading Faulty Battery Result Analysis of Dec'18 & Jan'19"})],"r40"),
+sld("5W-1H",[{type:"whys",head:"",problem:"SFG rejection in charging section",whys:["Due to Cover-leakage, Top-part leakage, battery burst, cell-short, Broken at handling","Low rib to rib bonding, excess heat, spark, Pos & Neg plate touching, Lead chips in battery, Lack of awareness","Inferior quality container & cover, Temperature difference from Area to Area in Heat seal molds, poor water cooling system, connecting bars low tightness, PE height misalignment, Lack of Training & awareness session","Supplier incapability, Heater Capacity & mold misalignment, water cooling system design problem, connecting bars inefficiency, lack of skilled manpower","Lack of awareness at supplier end, Machine incapability, Lack of monitoring"],how:["New supplier develop","Machine Perfection test through IE method.","Effective Process monitoring through QMS by shift-in-charges & engage on field awareness of technicians."]}]),
+sld("ICW Rejection Analysis",[tb([["Month","Qty"],["Jul'18","93"],["Aug'18","72"],["Sep'18","68"],["Oct'18","92"],["Nov'18","53"],["Dec'18","46"],["Average","70.67"]]),chx("pie",[["Cause","Share (%)"],["Cold Joint","17.88"],["Degraded Tips","38.39"],["Lead Flash","43.73"]],{title:"ICW rejection causes"})],"cols"),
+sld("ICW Rejection Initiatives with Improvements",[cds("columns",[["Initiative 1","","On time (After every 20000 shots by each pair) welding Tips change with proper record."],["Initiative 2","","New Electrode bars are installed in line-1 where rejection becomes at lower level than earlier."],["Initiative 3","","Hands on training for adjustment of ICW tips & bars before running each type of new container."],["Initiative 4","","Online UPS connection fixing & Proper Preventive maintenance"]]),tb([["Month","Qty"],["Jan'19","38"],["Feb'19","29"],["Mar'19","32"],["Average (before, Jul–Dec'18)","70.67"]],{head:"Data of last 2 months of ICW Rejection"})],"rows"),
+sec("04","Improve Phase","Implement and verify the solution."),
+sld("Data of COS Rejection % Improvement",[
+ tb([["Before LEAN","Reject Qty","Produced Qty","Rejection %"],["Total","2910","935634","0.311%"]],{head:"Before LEAN"}),
+ tb([["Mold Type","Reject Qty","Produced Qty","Rejection %"],["NS40","113","39108","0.29%"],["NS60","106","38760","0.27%"],["N50","155","97422","0.16%"],["N70","139","51324","0.27%"],["55D23","128","45168","0.28%"],["N100","49","11394","0.43%"],["N100 OLD","53","3384","1.57%"],["N120","119","19884","0.60%"],["N200","31","7146","0.43%"],["LN1","0","1110","0.00%"],["LN2","87","20310","0.43%"],["LN3","82","18372","0.45%"],["LN4","22","3402","0.65%"],["LN5","10","5094","0.20%"],["Total","1094","361878","0.30%"]],{head:"AFTER LEAN: Data of Feb'19"}),
+ tb([["Mold Type","Reject Qty","Produced Qty","Rejection %"],["LN1","26","4662","0.56%"],["LN5","23","4284","0.54%"],["N120","24","4860","0.49%"],["N100","24","4974","0.48%"],["LN2","115","30612","0.38%"],["N50","372","99168","0.38%"],["N150","69","19146","0.36%"],["55D23","94","32718","0.29%"],["N70","141","53514","0.26%"],["NS40","68","35868","0.19%"],["LN3","24","12714","0.19%"],["LN4","6","4002","0.15%"],["NS60","79","57360","0.14%"],["N200","0","4014","0.00%"],["Total","1065","367896","0.29%"]],{head:"AFTER LEAN: Data of Mar'19"})],"cols"),
+sld("Data of Heat Seal Rejection % Improvement",[
+ tb([["Mold Type","Produced Qty","Reject Qty","Rejection %"],["Total","108725","961","0.88%"]],{head:"Before Lean"}),
+ tb([["Mold Type","Produced Qty","Reject Qty","Rejection %"],["L5:SMF","716","24","3.35%"],["L4:SMF","670","14","2.09%"],["N120:SMF","559","8","1.43%"],["N150:MF","1030","11","1.07%"],["L1:SMF","782","6","0.77%"],["N50:SMF","13367","85","0.64%"],["L3:SMF","2118","12","0.57%"],["N200:SMF","610","3","0.49%"],["N70:SMF","6550","29","0.44%"],["L2:SMF","5105","20","0.39%"],["55D23:SMF","5412","15","0.28%"],["N150:SMF","2164","4","0.18%"],["NS60:SMF","8816","12","0.14%"],["NS40:SMF","5383","3","0.06%"],["55D23:MF","41","0","0.00%"],["N100:MF","119","0","0.00%"],["N100:SMF","710","0","0.00%"],["N120:MF","253","0","0.00%"],["N200:MF","61","0","0.00%"],["N50:MF","7946","0","0.00%"],["N70:MF","2068","0","0.00%"],["NS40:MF","596","0","0.00%"],["NS60:MF","742","0","0.00%"],["Total","65818","246","0.374%"]],{head:"Data of Feb'19"}),
+ tb([["Mold Type","Produced Qty","Reject Qty","Rejection %"],["L5","930","23","2.473%"],["N120:SMF","497","11","2.213%"],["L4","567","8","1.411%"],["N50:SMF","9818","119","1.212%"],["N70:SMF","5092","38","0.746%"],["N150:SMF","1364","9","0.660%"],["NS40:SMF","3524","19","0.539%"],["N200:MF","401","2","0.499%"],["55D23:SMF","6964","27","0.388%"],["N100:SMF","599","2","0.334%"],["L2","3332","11","0.330%"],["NS60:SMF","5235","13","0.248%"],["L3","2975","7","0.235%"],["55D23:MF","564","1","0.177%"],["N50:MF","6404","3","0.047%"],["L1","185","0","0.000%"],["N100:MF","1300","0","0.000%"],["N100 (Old):MF","564","0","0.000%"],["N120:MF","620","0","0.000%"],["N150:MF","833","0","0.000%"],["N200:SMF","790","0","0.000%"],["N70:MF","3452","0","0.000%"],["NS40:MF","2994","0","0.000%"],["Total","60229","293","0.49%"]],{head:"Data of Mar'19"})],"cols"),
+sld("Battery Rejection Analysis",[
+ tb([["Parameter","RFT"],["Percentage","98.75%"]],{head:"Before Lean"}),
+ tb([["Spell","Parameter","Order Qty","RFT","C/L","T/L","Cell-short","Recharge","Burst","Broken"],["1","QTY","14062","13985","55","13","8","0","1","0"],["2","QTY","21005","20869","84","41","6","0","6","0"],["3","QTY","30751","30495","107","66","9","8","29","3"],["Total","","65818","65349","246","120","23","8","36","3"],["Percentage","","100%","99.34%","0.37%","0.18%","0.03%","0.01%","0.05%","0.00%"]],{head:"Data of Feb'19"}),
+ tb([["Spell","Parameter","Order Qty","RFT","C/L","T/L","Cell-short","Recharge","Burst","Broken"],["1","QTY","13359","13259","63","24","11","0","2","0"],["2","QTY","15557","15471","39","19","9","9","7","3"],["3","QTY","31313","31114","116","53","13","8","5","4"],["Total","","60229","59844","218","96","33","17","14","7"],["Percentage","","100%","99.36%","0.36%","0.16%","0.05%","0.03%","0.02%","0.01%"]],{head:"Data of Mar'19"})],"rows"),
+sld("Savings of Project",[tb([["Description","1-Jul-18","1-Aug-18","1-Sep-18","1-Oct-18","1-Nov-18","1-Dec-18","1-Jan-19","1-Feb-19","1-Mar-19","Total"],["Lead consumption (kg)","809,180","518,207","548,055","735,881","740,765","644,333","552,127","624,079","587,125","5,759,752"],["Scrap generation (kg)","34,804","16,295","26,671","29,057","25,907","23,540","17,972","20,012","21,323","215,581"],["Scrap (%)","0","0","0","0","0","0","0","0","0","0"],["Savings in kg","(896)","5,420","(3,705)","1,780","5,134","3,461","5,165","6,140","3,280","25,779"],["Estimating savings in taka for per kg","123","123","123","123","123","123","123","123","123","123"],["Savings Calculation","(109,804)","664,524","(454,229)","218,204","629,486","424,260","633,188","752,738","402,158","3,160,525"]],{head:"2018-19"})]),
+sld("Savings of Project",[tb([["KPI","Description","Measurement","UoM","Baseline (Nov17-Jun18)","Target (2018-2019)","Saving Target","D in %","Potential Savings in FY 2018-19 (Tk)","Actual Savings (Tk)"],["1","Overall lead scrap reduction","Monthly","Scrap%","4.20%","3.50%","0.70%","17.00%","7,511,501","3,160,525"]],{head:"Overall Lead Scrap Reduction (2018-19)"}),co("Achievement of Savings (up to Mar'19): 42%",{style:"success",size:"large"})],"rows"),
+sec("05","Control Phase","Maintain the solution."),
+sld("Monitoring & Reaction Plan",[tx(["Segment-wise scrap generation is being monitored on daily basis.","Team is working to reduce ICW rejection's scrap generation at zero level.","Plan to measure OEE at various section."],{size:"large"})]),
+sld("Project Handover",[tx(["Trainings Needed: Process Training & Green Belt Training needed for all shift-in-charges.","Open Issues: Scrap generation is still high in Heat-seal area of both Assembly & charging section and so need further improvement.","Process Audit: Weekly process audit could be introduced in all concerned section."],{style:"plain",size:"large"})]),
+sld("Project sustain & Audit Plan",[tb([["No.","Process","Process Owner","Process Auditor","Audit Frequency","Audit Templates","Audit Findings Reporting Mechanism"],["1","COS group plate rejection","ARB/AER","RRD","Weekly","DMAIC","By Signed Copy."],["2","Heat seal rejection monitoring","AER","RRD","Daily","DMAIC","By e-mail."],["3","COS and Heat Seal Mold checking","SOF/ AER/ARB","RRD","Daily","DMAIC","By e-mail."],["4","SFG rejection monitoring at Wet Charge","MKZ","SYU","Weekly","DMAIC","By-email"],["5","Washing paste monitoring","ZLM","SNZ","Weekly","DMAIC","By e-mail."],["6","Lead dross monitoring at plate Preparation","ZLM","SNZ","Weekly","DMAIC","By e-mail."]],{head:"SUSTAIN & AUDIT PROTOCOL   |   BB/GB Name: SYU   |   Project Title: Reduction of Warranty Return"})],"auto","Send copy of audit protocol to: Process Owner, Project Champion, Program Office."),
+sld("Reuse of Cutting lead chips (Kaizen)",[im("Before"),im("After"),tx(["We used to make scrap all cutting lead chips, we have reorganized the process where cutting lead chips are collected in a tray & we reuse those lead chips in COS lead pot after certain time."],{head:"Advantage",style:"plain",box:true})],"main"),
+sld("Reuse of COS straps & main posts (Kaizen)",[im("Before"),im("After"),tx(["We used to make scrap full COS group with all straps & PE separators, we have reorganized the process where PE separators are collected in boxes, lead straps are melted in COS Lead pots and we reuse those PE Separators and straps' lead are in reuse in Lead pot once again."],{head:"Advantage",style:"plain",box:true})],"main"),
+sld("Reuse of Washing Paste (Kaizen)",[im("Before"),im("After"),tx(["As per Process instruction manual the washing paste is reusing through submarine type paste collector. As a result a significant amount of washing has been used in the process as regular basis.","Idea given by SYU Sir"],{head:"Advantage",style:"plain",box:true})],"main"),
+sld("Reuse of reject connectors (Kaizen)",[im("Reject connector found in scrap yard"),im("After: sorted and labelled"),tx(["As previous practice, the reject connector were sent to scrap yard but now the reject connector has been collected and reuse for making the new connector for battery charging."],{head:"Advantage",style:"plain",box:true})],"main"),
+sld("5S at mold keeping area",[im("Before"),im("After"),tx(["5S has been implemented at COS mold keeping area which helps to accelerate the smooth operation."],{head:"Advantage",style:"plain",box:true})],"main"),
+{kind:"closing",title:"THANK YOU",sub:"???"}
+]};
+
+DECKS.qc={name:"QC_Circle_Surjo_Lead_Waste_BSTQM_2019",theme:"corp",footer:FOOT,logoText:"RAHIMAFROOZ",numbers:true,slides:[
+{kind:"title",title:"23rd National Annual Quality Convention - 2019",sub:"Organized By",lines:"Bangladesh Society for Total Quality Management (BSTQM)",quote:""},
+{kind:"section",label:"QC Circle",title:"SUN",sub:"QC Circle Surjo, Rahimafrooz Globatt Ltd."},
+sld("Core Values",[tx(["Integrity in all our dealings","Excellence in everything we do","Total commitment to Customer Satisfaction","Thinking ahead and taking New Initiatives","Valuing and Inspiring People"],{size:"large"})]),
+sld("Rahimafrooz Globatt Ltd",[co("The largest lead acid battery export plant in Bangladesh.",{size:"large",style:"dark"}),tb([["Item","Details"],["Capacity","2.5 Million Units battery/Year"],["Range","From 22 AH to 220 AH"],["Product","MF & SMF Battery"],["Standard Followed","JIS (Japanese Industrial Standard) & DIN (Deutsches Institut für Normung)"],["Markets","About 72 Countries across the world"],["Certification","ISO 9001:2015, ISO 14001:2015 and OHSAS 18001: 2007."],["Location","IEPZ, Pabna"],["Plant Inception","2009"]])],"l40"),
+sld("The QC Circle",[tb([["Circle","Details"],["Circle Name","Surjo"],["Inception","May' 2011"],["Reformation","August' 2017"],["Slogan","Production is Must But Quality is First"],["Circle Members","10"]]),cds("team",[["Facilitator","Shahariar Ahmed",""],["Team Leader","Ashraful Alam",""],["Deputy Team Leader","Shoaib Arifen",""],["Team Member","Solaiman Islam",""],["Team Member","Biplob Kumar",""]]),co("5 times participated in the National Quality Convention since 2015. 3 times awarded in Excellent category in 2016, 17, & 18.",{style:"success"})],"main"),
+sld("Tools Used in the Project",[co("We have used PDCA Cycle for this project",{size:"large",style:"dark"}),tb([["PDCA","Steps"],["Plan","Step-1: Problem Identification\nStep-2: Problem Selection\nStep-3: Problem Analysis\nStep-4: Generation of Solutions\nStep-5: Plan of Actions"],["Do","Step-6: Implementation"],["Check","Step-7: Assessment of Effectiveness"],["Act","Step-8: Standardization"]])],"l40"),
+sec("Plan","Problem Identification & Selection",""),
+sld("Problem Identification",[tx(["Lead Waste Generation.","In-line Packing System.","Separator Rejection."],{head:"Following problems/ideas are identified through brainstorming of the circle member.",style:"numbered",size:"large"})]),
+sld("Problem Selection (multi voting system)",[{type:"voting",head:"",grid:[["Member Name","Lead Waste Generation","Packing System","Separator Rejection"],["Shahariar Ahmed","10","8","9"],["Ashraful Alam","10","9","7"],["Shoaib Arifen","9","7","10"],["Solaiman Islam","10","7","9"],["Biplob Kumar Sarker","9","9","10"],["Shamiur Rahaman","9","10","8"],["Kajal Kanti Debnath","10","8","9"],["Siraj Ahmed","9","8","10"],["Wasim Akram","10","9","8"],["Anisur Rahman","9","10","8"]]}],"auto","The original slide shows totals of 95, 80 and 87. Adding the member scores gives 95, 85 and 88. The app calculates the totals from the scores. Lead Waste Generation wins either way."),
+sld("Problem Selection",[co("Selected problem: Lead Waste Generation",{size:"large",style:"success"}),tx(["Now a day's Reduce, Reuse and Recycle, are very familiar concept in the manufacturing operation. QC Circle “Surjo” has chosen the concept and tried to implement in the work place. Our aim was produce the product in competitive price with good quality through reduction of waste generation. For Lead Acid battery about 75% cost is come from lead. So, we have targeted to reduce lead waste generation and recovery the lead rather than scrapping."],{head:"Justification",style:"plain",box:true,size:"large"})],"l40"),
+sec("Analysis","Problem Analysis",""),
+sld("Problem Analysis",[tx(["Washing Paste at pasting operation.","Cell short at assembly.","Physical damage at charging area.","Rejection of Charging Connector","ICW and COS Group Rejection","Plate Rejection at pasting operation"],{head:"We have find out the following area where lead waste has been generated in our regular operation.",style:"numbered",size:"large"})]),
+sld("Problem Analysis: lead scrap data",[tb([["Month","Total Lead Consumption (KG)","Washed Paste","Defective Battery","Cell Short Battery","Charging Connector","Total","% of scrap"],["Mar'18","455,340","2,285","375","270","155","3,085","0.68"],["Apr'18","409,443","2,110","354","250","130","2,844","0.69"],["May'18","445,205","2,310","275","245","170","3,000","0.67"],["Jun'18","442,549","2,243","316","273","151","2,983","0.67"],["Jul'18","413,835","1,886","305","240","157","2,588","0.63"],["Aug'18","408,478","1,550","274","248","165","2,237","0.55"],["Average","429,142","2,064","317","254","155","2,790","0.65"]],{head:"The maximum lead waste have been generated in the following areas."}),chx("pareto",[["Source","Average scrap (kg/month)"],["Washed Paste","2064"],["Defective Battery","317"],["Cell Short Battery","254"],["Charging Connector","155"]],{title:"Average monthly lead scrap by source (kg)"})],"r40"),
+sld("Impact of Lead Wastage",[tx(["Excessive material wastage","Higher production cost","Lower productivity","Hamper product quality"],{head:"As we don't have any recycle facilities for recovery the lead from the scrap, it causes",size:"large"})]),
+sld("Problem Analysis (Washed Paste)",[tx(["Lead oxide, DM water, acid & chemicals go into the Mixing Unit","Paste moves through the Hopper to the Pasting Belt, where the Grid is pasted","Pasted plates pass the Finishing Roller, where DM water is sprayed","Finished plates move on; the washed paste drains away (lead oxide + DM water + acid & chemicals)"],{head:"Generation of Washed Paste from Pasting Operation",style:"numbered",size:"large"})]),
+sld("Problem Analysis (Cell Short Battery)",[tx(["Positive and Negative plate contacted","Molten Lead from manual pole burning","Cell to cell acid passing","Inter Cell Welding disconnection","Main post disconnection"],{head:"Cell Short Causes Battery Rejection: reasons of cell short",size:"large"})]),
+sld("Root Causes for Cell Short",[tx(["Separator Misalignment","Lower height of separator"],{head:"POS & NEG Plate Contacted",size:"large"}),tx(["Excess clearance between main post and bush"],{head:"Molten Lead from pole burning",size:"large"})],"cols"),
+sld("Problem Analysis (Battery Physical Damage)",[tx(["Sharpe edge of race way & conveyor","Absence of guide bar","Old loading car"],{head:"Physical damage of finished battery during loading and travelling in conveyor has occurred due to",size:"large"})]),
+sld("Problem Analysis: Rejection of Charging Connector",[im("New connector"),im("Rejected connector")],"cols"),
+sld("Problem Analysis (Fish Bone)",[fb("Lead Waste Generation",[["Environment",[]],["Method",["No procedure for connector recycling","No Washed Paste Collection procedure"]],["Manpower",["Lack of awareness","Lack of initiative"]],["Machine",["Lack of recycling facility for washed Paste","Absence of guide bar at conveyor","Sharp edge at race way"]],["Materials",["Lower height of Separator","Excess clearance between main post & bush"]]])]),
+sec("Action","Solutions and Plan of Action",""),
+sld("Generation of Solutions",[tb([["Point","Solutions / Tasks"],["Recycle of Washed Paste","Preparation of a sample batch and take approval from Quality Control Dept.\nArrangement of a suitable paste collection tools with filtration system\nWritten SOP for the use of washed paste"],["Cell Short Minimization","Need to increase the Separator height from 3mm to 5mm from plate top\nNeed to modify the COS mold of main post port to minimize the excess clearance\nPeriodical checking and changing of cutter blade in regular interval"],["Physical Damage Minimization","Need to arrange the guide bar at the conveyer in charging area\nNeed to wrap the whole race way bar with suitable material in assembly line\nNeed to arrange a new loading car for battery loading & unloading"],["Reuse of Connector","Prepare and take approval from QC for the recycle and reuse of the connector.\nNeed to develop the rejected connector collection and recycle process."]])]),
+sld("Action Plan",[{type:"gantt",head:"Gantt Chart for Implementing the Plan",months:"Jul'2018, Aug'2018, Sep'2018, Oct'2018",activities:[
+ {name:"Data Analysis and QC approval for washed paste",pf:"1",pt:"6",df:"3",dt:"9"},
+ {name:"Fabrication of washed paste collecting drum and SOP Preparation",pf:"8",pt:"12",df:"10",dt:"12"},
+ {name:"Modification of COS mold",pf:"6",pt:"8",df:"7",dt:"10"},
+ {name:"Arrange the guide bar at the conveyer in charging area",pf:"8",pt:"10",df:"10",dt:"11"},
+ {name:"Arrangement of new loading car for charging tank",pf:"11",pt:"14",df:"14",dt:"15"},
+ {name:"Arrangement of rubber pad at various loading and unloading point",pf:"5",pt:"7",df:"6",dt:"8"},
+ {name:"Approval from QC for the recycle of reject connector.",pf:"9",pt:"11",df:"9",dt:"11"}]}],"auto","Bar positions were read from the original chart by eye. Adjust the week numbers if needed."),
+sec("Do","Implementation",""),
+sld("Implementation (Recycle of Washed Paste)",[tx(["Collection & Filtration of Washed Paste","Bagging of Washed Paste","Recycle back to the Mixing Unit"],{head:"Arrangement for washed paste collection and recycle",style:"numbered",size:"large"}),tx(["Washed Paste Inlet","Sedimentation of (Lead oxide)","Outlet of washing water"],{head:"Paste collection vessel"})],"cols"),
+sld("Implementation (Recycle of Washed Paste): trial",[tx(["Collection of Washed Paste","Trial for Paste mixing, Pasting and plate & battery production","Approval from Quality Control at maximum 10% mixing ratio","Use for Commercial Production"],{head:"Recycle of Washed Paste",style:"numbered",size:"large"}),im("Regular paste vs mixed paste (pasted plates)")],"cols"),
+sld("Implementation (Cell Short Minimization)",[tx(["Increase of Separator Height from 3mm to 5mm","Changing of cutter blade in regular interval","Awareness Build up","Close Monitoring"],{head:"Improvement of Separator Enveloping Quality",size:"large"}),tb([["Item","Before","After"],["Separator height","3 mm","5 mm"],["Main post diameter","11 mm","12.5 mm"]],{head:"Increase of main post diameter from 11 mm to 12.5 mm to minimize the clearance between bush and main post"})],"cols"),
+sld("Implementation (Battery Physical Damage)",[tx(["Arrangement of new loading/unloading car","Guide Bar at conveyor","Rubber Cap at race way","Insulation tape in race way"],{head:"Arrangement of",size:"large"}),im("Old system vs new system")],"cols"),
+sld("Implementation: Recycle of Charging Connector",[tx(["Collection of rejected Connector","Preparation and trial of sample connector","Approval from Quality Control","Use for Commercial Production"],{head:"Recycle of Charging Connector",style:"numbered",size:"large"})]),
+sec("Check","Assessment of Effectiveness",""),
+sld("Assessment of Effectiveness",[tb([["Month","Total Lead Consumption (KG)","Lead Scrap Generation (KG)","% of Scrap Generation"],["Mar'18","455,340","3085","0.68"],["Apr'18","409,443","2844","0.69"],["May'18","445,205","3000","0.67"],["Jun'18","442,549","2983","0.67"],["Jul'18","413,835","2588","0.63"],["Aug'18","408,478","2237","0.55"],["Average (before)","","","0.65"],["Sep'18","420,450","1454","0.35"],["Oct'18","425,650","1005","0.24"],["Nov'18","435,575","742","0.17"],["Dec'18","442,165","655","0.15"],["Jan'19","435,170","630","0.14"],["Feb'19","405,870","564","0.14"],["Average (after)","","","0.20"]],{head:"Lead Wastage reduced by 0.45%"}),chx("line",[["Month","% of scrap"],["Mar'18","0.68"],["Apr'18","0.69"],["May'18","0.67"],["Jun'18","0.67"],["Jul'18","0.63"],["Aug'18","0.55"],["Sep'18","0.35"],["Oct'18","0.24"],["Nov'18","0.17"],["Dec'18","0.15"],["Jan'19","0.14"],["Feb'19","0.14"]],{title:"Lead scrap: 0.65% before, 0.20% after"})],"r40"),
+sld("Assessment of Effectiveness: savings",[tb([["Month","Lead consumption (kg)"],["Mar'18","455,340"],["Apr'18","409,443"],["May'18","445,205"],["Jun'18","442,549"],["Jul'18","413,835"],["Aug'18","408,478"],["Sep'18","420,450"],["Oct'18","425,650"],["Nov'18","435,575"],["Dec'18","442,165"],["Jan'19","435,170"],["Feb'19","405,870"],["Monthly average","428,311"]]),cds("kpi",[["0.45% savings of lead","1,927 kg","per month (lead price BDT 220/kg)"],["Monthly savings","BDT 424,028",""],["Yearly savings","BDT 5,088,333","about 51 Lac"]])],"r40"),
+sld("Assessment of Effectiveness: cost and achievement",[tb([["Task","Category","Expenses (BDT)"],["Washed paste collection vessel","Manpower","5,000"],["","Material","7,000"],["COS mold modification","Manpower","6,000"],["","Material","0"],["Arrangement of Guide bar, Insulation Tape, Rubber Cap","Manpower","10,000"],["","Material","25,000"],["Purchase of new loading car","","85,000"],["Total Cost","","1,38,000"]]),tx(["Lead scrap minimization","Productivity increased","Enhancement of product quality","Ensured optimum use of man & machine","Followed of Good Manufacturing Practice (GMP)"],{head:"Achievement of the project"})],"cols"),
+sec("Act","Standardization",""),
+sld("Standardization",[co("All the mentioned activities have been standardized through adequate training of our manpower, required SOP and continuing as regular activities.",{size:"large"}),tx(["In-house SOP for Washed Paste Recycle","Prepared by: Kajal Kanti Debnath, Executive, QC","Approved by: Syed Maudud Hassan, Plant Manager","Signed on 30.09.18"],{head:"Rahimafrooz Globatt Ltd. SOP",style:"plain",box:true})],"cols"),
+{kind:"closing",title:"“I only feel angry when I see waste. When I see People throwing away things we could use”",sub:"— Mother Teresa"},
+{kind:"closing",title:"Questions & Answers",sub:"Thank you"}
+]};
+
+/* ===== Slides UI: state, templates, editor, import, export ===== */
+var D=null,KEYD="ps-deck-v1",impT=null,imgT=null,saveT=null;
+function q$(s){return document.querySelector(s)}
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function getD(path){return path.split(".").reduce(function(o,k){return o==null?o:o[k]},D)}
+function setD(path,v){var p=path.split("."),o=D;for(var i=0;i<p.length-1;i++)o=o[p[i]];o[p[p.length-1]]=v}
+function tip(m){var t=q$("#toast");if(!t)return;t.textContent=m;t.classList.add("on");clearTimeout(tip.h);tip.h=setTimeout(function(){t.classList.remove("on")},2800)}
+
+/* ---- block + slide factories ---- */
+var CPK_VALS="10.02, 9.98, 10.05, 10.01, 9.96, 10.03, 10.08, 9.99, 10.00, 10.04, 9.97, 10.02, 10.06, 9.95, 10.01, 10.03, 9.99, 10.07, 10.00, 9.98, 10.02, 10.04, 9.96, 10.01, 10.05, 9.97, 10.00, 10.03, 9.99, 10.02";
+var SPC_VALS="10.1, 9.9, 10.2, 10.0, 9.8, 10.1, 10.3, 9.9, 10.0, 10.2, 9.7, 10.1, 10.0, 10.4, 9.9, 10.1, 10.2, 10.0, 9.8, 10.5, 10.1, 9.9, 10.0, 10.2, 10.6";
+function newBlock(type,kind){switch(type){
+ case"text":return{type:"text",head:"",items:["First point","Second point","Third point"],style:"bullets",size:"auto",box:false};
+ case"table":return{type:"table",head:"",grid:[["Column A","Column B","Column C"],["","",""],["","",""]],hdr:true,zebra:false};
+ case"chart":kind=kind||"bar";return{type:"chart",head:"",kind:kind,title:"",labels:true,sort:true,table:"none",grid:kind==="pareto"?[["Defect","Count"],["Scratches",48],["Dents",31],["Misalignment",17],["Burrs",9],["Other",5]]:kind==="pie"?[["Category","Share"],["A",40],["B",30],["C",20],["D",10]]:[["Category","Series 1","Series 2"],["Jan",10,8],["Feb",14,11],["Mar",8,12],["Apr",12,9]]};
+ case"cpk":return{type:"cpk",head:"",title:"Process capability",vals:CPK_VALS,lsl:"9.85",usl:"10.15",target:"10"};
+ case"spc":return{type:"spc",head:"",title:"Control chart",vals:SPC_VALS,n:1};
+ case"voting":return{type:"voting",head:"",grid:[["Member","Option A","Option B","Option C"],["Member 1",10,8,9],["Member 2",9,10,7],["Member 3",10,7,9],["Member 4",8,9,10]]};
+ case"voc":return{type:"voc",head:"",showVob:true,vocGrid:[["VOC (Voice of the Customer)","Key Issue","CTQ (Critical to Quality)"],["Late deliveries","Orders arrive after the promised date","On-time delivery of 95% or better"]],vobGrid:[["VOB (Voice of the Business)","Key Issue","CTB (Critical to Business)"],["Rising scrap","Production cost increases","Cost of goods sold"]]};
+ case"scope":return{type:"scope",head:"",inList:["In-scope item 1","In-scope item 2"],outList:["Out-of-scope item 1","Out-of-scope item 2"],stages:[]};
+ case"fishbone":return{type:"fishbone",head:"",effect:"Problem",cats:[{name:"Man",causes:["Cause 1","Cause 2"]},{name:"Machine",causes:["Cause 1","Cause 2"]},{name:"Method",causes:["Cause 1"]},{name:"Material",causes:["Cause 1"]}]};
+ case"whys":return{type:"whys",head:"",problem:"Describe the problem",whys:["First why","Second why","Third why"],how:["Action 1","Action 2"]};
+ case"cards":kind=kind||"team";return{type:"cards",head:"",kind:kind,cards:kind==="kpi"?[{head:"Savings",title:"BDT 4.8M",body:"per year",img:""},{head:"Scrap",title:"-16.7%",body:"4.2% to 3.5%",img:""},{head:"On time",title:"95%",body:"target",img:""}]:kind==="columns"?[{head:"Define",title:"",body:"Point one\nPoint two",img:""},{head:"Measure",title:"",body:"Point one\nPoint two",img:""},{head:"Analyze",title:"",body:"Point one\nPoint two",img:""}]:[{head:"Project Leader",title:"Name",body:"Role / department",img:""},{head:"Team Member",title:"Name",body:"Role / department",img:""}]};
+ case"image":return{type:"image",head:"",img:"",w:0,h:0,caption:""};
+ case"callout":return{type:"callout",head:"",text:"Key message goes here",style:"info",size:"normal"};
+ case"gantt":return{type:"gantt",head:"",months:"Jan, Feb, Mar",activities:[{name:"Activity 1",pf:"1",pt:"4",df:"3",dt:"7"},{name:"Activity 2",pf:"5",pt:"8",df:"7",dt:"11"}]}}
+ return{type:"text",head:"",items:[""],style:"bullets",size:"auto",box:false}}
+function SL(title,blocks,layout){return{kind:"content",title:title,sub:"",layout:layout||"auto",notes:"",blocks:blocks}}
+var TPL=[
+["Slide types",[
+ ["title","Title slide",function(){return{kind:"title",title:"Presentation title",sub:"Subtitle or date",lines:"Project name\nPlant / team",quote:""}}],
+ ["section","Section divider",function(){return{kind:"section",label:"01",title:"Section title",sub:"One-line description"}}],
+ ["closing","Thank you / Q&A",function(){return{kind:"closing",title:"Thank you",sub:"Questions?"}}]]],
+["Content",[
+ ["bullets","Bullet points",function(){return SL("Slide title",[newBlock("text")])}],
+ ["twocol","Two columns",function(){return SL("Slide title",[Object.assign(newBlock("text"),{head:"Left"}),Object.assign(newBlock("text"),{head:"Right"})],"cols")}],
+ ["table","Table / Excel data",function(){return SL("Table",[newBlock("table")])}],
+ ["bar","Chart: bar",function(){return SL("Chart",[newBlock("chart","bar")])}],
+ ["line","Chart: line / trend",function(){return SL("Trend",[newBlock("chart","line")])}],
+ ["pie","Chart: pie",function(){return SL("Share",[newBlock("chart","pie")])}],
+ ["image","Image / photo",function(){return SL("Photo",[newBlock("image")])}],
+ ["kpi","KPI cards",function(){return SL("Key results",[newBlock("cards","kpi")])}],
+ ["team","Team structure",function(){return SL("Project Team Structure",[newBlock("cards","team")])}],
+ ["callout","Key message",function(){return SL("Key message",[newBlock("callout")])}]]],
+["Quality tools",[
+ ["pareto","Pareto analysis (table + chart)",function(){var b=newBlock("chart","pareto");b.table="left";b.title="Pareto chart";return SL("Pareto Analysis",[b])}],
+ ["cpk","Process capability (Cpk)",function(){return SL("Process Capability",[newBlock("cpk")])}],
+ ["spc","SPC control chart",function(){return SL("Statistical Process Control",[newBlock("spc")])}],
+ ["voting","Multi-voting system",function(){return SL("Problem Selection (multi voting system)",[newBlock("voting")])}],
+ ["voc","VOC to CTQ / VOB to CTB",function(){return SL("CTQ_CTB Identification",[newBlock("voc")])}],
+ ["scope","In scope / Out of scope",function(){return SL("Project Scope",[newBlock("scope")])}],
+ ["fish","Fishbone analysis",function(){return SL("Fishbone Analysis",[newBlock("fishbone")])}],
+ ["whys","5 Whys / 5W-1H",function(){return SL("5W-1H",[newBlock("whys")])}],
+ ["gantt","Gantt action plan",function(){return SL("Action Plan",[newBlock("gantt")])}],
+ ["charter","Project charter (4 blocks)",function(){var a=Object.assign(newBlock("text"),{head:"Problem Statement",style:"plain",box:true,items:["Describe the problem, then the goal."]}),
+   b=Object.assign(newBlock("table"),{head:"Goals / Benefits",grid:[["Factors","Annualized Benefit"],["Cost Reduction",""],["Total Benefits",""]]}),
+   c=Object.assign(newBlock("table"),{head:"Project Resource",grid:[["Role","Name"],["Sponsor",""],["Owner",""],["Team members",""]]}),
+   d=Object.assign(newBlock("table"),{head:"Timeline",grid:[["Phase","Goal date","Actual"],["Define","",""],["Measure","",""],["Analyze","",""],["Improve","",""],["Control","",""]]});return SL("Project Charter",[a,b,c,d],"grid")}],
+ ["dcp","Data collection plan",function(){return SL("Data Collection Plan",[Object.assign(newBlock("table"),{grid:[["Variable","Type","Operational definition","Who","Frequency","Source"],["","","","","",""]]})])}],
+ ["before","Before / after comparison",function(){return SL("Before vs After",[Object.assign(newBlock("table"),{head:"Before",grid:[["Measure","Value"],["",""]]}),Object.assign(newBlock("table"),{head:"After",grid:[["Measure","Value"],["",""]]})],"cols")}]]]
+];
+function tplById(id){for(var i=0;i<TPL.length;i++)for(var j=0;j<TPL[i][1].length;j++)if(TPL[i][1][j][0]===id)return TPL[i][1][j][2];return null}
+var ELEMS=[
+["Text & tables",[["text","Bullet list / text"],["table","Table (editable / Excel)"],["callout","Callout / key message"],["image","Image / photo"]]],
+["Charts",[["chart:bar","Bar chart"],["chart:line","Line chart"],["chart:pie","Pie chart"],["chart:pareto","Pareto chart"],["cpk","Process capability (Cpk)"],["spc","SPC control chart"]]],
+["Quality tools",[["voting","Multi-voting system"],["voc","VOC to CTQ / VOB to CTB"],["scope","In scope / Out of scope"],["fishbone","Fishbone diagram"],["whys","5 Whys / 5W-1H"],["gantt","Gantt action plan"]]],
+["Cards",[["cards:team","Team cards (with photo)"],["cards:kpi","KPI cards"],["cards:columns","Column cards (headings + bullets)"]]]];
+var TNAME={text:"Text",table:"Table",chart:"Chart",cpk:"Cpk",spc:"SPC chart",voting:"Multi-voting",voc:"VOC / CTQ",scope:"Scope",fishbone:"Fishbone",whys:"5 Whys",cards:"Cards",image:"Image",callout:"Callout",gantt:"Gantt"};
+
+/* ---- deck normalisation ---- */
+function normBlock(b){var d=newBlock(b.type,b.kind),o={};for(var k in d)o[k]=b[k]===undefined?d[k]:b[k];if(b.type==="chart"){o.kind=b.kind||"bar"}
+ if(b.type==="cards"){o.kind=b.kind||"team"}return o}
+function normDeck(d){var o={name:d.name||"Presentation",theme:d.theme||"corp",footer:d.footer||"",logoText:d.logoText||"",logo:d.logo||"",numbers:d.numbers!==false,slides:[],sel:0};
+ (d.slides||[]).forEach(function(s){var n={kind:s.kind||"content",title:s.title||"",sub:s.sub||"",label:s.label||"",lines:s.lines||"",quote:s.quote||"",layout:s.layout||"auto",notes:s.notes||"",blocks:[]};(s.blocks||[]).forEach(function(b){n.blocks.push(normBlock(b))});o.slides.push(n)});
+ if(!o.slides.length)o.slides.push(tplById("title")());return o}
+function blankDeck(){return normDeck({name:"Presentation",theme:"corp",slides:[tplById("title")(),tplById("bullets")(),tplById("closing")()]})}
+
+/* ---- form pieces ---- */
+function ev(v){return escH(v==null?"":v)}
+function inpF(path,label,ph,re){return(label?"<label>"+label+"</label>":"")+'<input data-sp="'+path+'"'+(re?' data-re="1"':"")+(ph?' placeholder="'+ev(ph)+'"':"")+' value="'+ev(getD(path))+'">'}
+function txaF(path,label,rows,ph){return(label?"<label>"+label+"</label>":"")+'<textarea data-sp="'+path+'" rows="'+(rows||3)+'"'+(ph?' placeholder="'+ev(ph)+'"':"")+">"+ev(getD(path))+"</textarea>"}
+function selF(path,label,opts,re){var v=getD(path);return(label?"<label>"+label+"</label>":"")+'<select data-sp="'+path+'"'+(re?' data-re="1"':"")+">"+opts.map(function(o){return'<option value="'+ev(o[0])+'"'+(String(o[0])===String(v)?" selected":"")+">"+escH(o[1])+"</option>"}).join("")+"</select>"}
+function chkF(path,label){return'<label class="chk"><input type="checkbox" data-sp="'+path+'"'+(getD(path)?" checked":"")+"> "+label+"</label>"}
+function mb(act,p,i,sym,title){return'<button class="ib" data-sa="'+act+'" data-p="'+p+'" data-i="'+i+'" title="'+title+'" aria-label="'+title+'">'+sym+"</button>"}
+function rowBtns(pf,p,i){return mb(pf+"up",p,i,"↑","Move up")+mb(pf+"dn",p,i,"↓","Move down")+mb(pf+"dup",p,i,"⧉","Duplicate")+mb(pf+"del",p,i,"×","Delete")}
+function listF(path,label,ph){var arr=getD(path)||[],h=label?'<div class="sub2">'+label+"</div>":"";
+ arr.forEach(function(v,i){h+='<div class="lrow"><input data-sp="'+path+"."+i+'" placeholder="'+ev(ph||"")+'" value="'+ev(v)+'"><span class="bt2">'+rowBtns("l",path,i)+"</span></div>"});
+ return h+'<button class="btn sm" data-sa="ladd" data-p="'+path+'">+ Add</button>'}
+function gridF(path,note,vals){var g=getD(path)||[],h=note?'<p class="hint">'+note+"</p>":"";
+ h+='<div class="gwrap"><table class="gtab">';
+ g.forEach(function(row,r){h+="<tr"+(r===0?' class="h"':"")+">";row.forEach(function(c,ci){h+='<td><input data-sg="'+path+'" data-r="'+r+'" data-c="'+ci+'" value="'+ev(c)+'"></td>'});h+='<td class="rb">'+rowBtns("g",path,r)+"</td></tr>"});
+ h+="<tr>";(g[0]||[]).forEach(function(_,ci){h+='<td><button class="ib wide" data-sa="gdelc" data-p="'+path+'" data-i="'+ci+'" title="Delete column">× col</button></td>'});h+="<td></td></tr></table></div>";
+ h+='<div class="btnrow"><button class="btn sm" data-sa="gaddr" data-p="'+path+'">+ Row</button><button class="btn sm" data-sa="gaddc" data-p="'+path+'">+ Column</button><button class="btn sm" data-sa="imp" data-p="'+path+'" data-m="grid">📊 Import Excel / CSV</button></div>';
+ h+='<details class="paste"><summary>Paste from Excel</summary><textarea rows="3" id="paste-'+path.replace(/\./g,"_")+'" placeholder="Copy cells in Excel, paste here, then press Apply"></textarea><button class="btn sm" data-sa="applypaste" data-p="'+path+'">Apply pasted data</button></details>';return h}
+function stats(b){var c=capab(parseVals(b.vals),numv(b.lsl),numv(b.usl));if(!c||!c.sd)return'<p class="hint">Enter at least 2 different values.</p>';
+ function r2(x){return x==null||!isFinite(x)?"–":(Math.round(x*100)/100).toFixed(2)}return'<p class="hint"><b>n</b> '+c.n+" · <b>Mean</b> "+fmtN(Math.round(c.mean*1000)/1000)+" · <b>Std</b> "+fmtN(Math.round(c.sd*10000)/10000)+" · <b>Cp</b> "+r2(c.cp)+" · <b>Cpk</b> "+r2(c.cpk)+" · <b>Pp</b> "+r2(c.pp)+" · <b>Ppk</b> "+r2(c.ppk)+"</p>"}
+function imgBtns(path,dims,has){return'<div class="btnrow"><button class="btn sm" data-sa="img" data-p="'+path+'" data-d="'+(dims||"")+'">🖼 '+(has?"Replace image":"Upload image")+"</button>"+(has?'<button class="btn sm" data-sa="imgclear" data-p="'+path+'" data-d="'+(dims||"")+'">Remove</button>':"")+"</div>"}
+
+function bodyHTML(b,p){var h="",i;switch(b.type){
+ case"text":h=selF(p+".style","List style",[["bullets","Bullets"],["numbered","Numbered"],["plain","Plain lines"]])+selF(p+".size","Text size",[["auto","Automatic"],["large","Large"],["small","Small"]])+chkF(p+".box","Show a box behind the text")+listF(p+".items","Items","Type a point");break;
+ case"table":h=chkF(p+".hdr","First row is a header")+chkF(p+".zebra","Alternate row shading")+gridF(p+".grid");break;
+ case"chart":h=selF(p+".kind","Chart type",[["bar","Bar"],["line","Line"],["pie","Pie"],["pareto","Pareto"]],1)+inpF(p+".title","Chart title")+selF(p+".table","Show the data table",[["none","Chart only"],["left","Table on the left"],["below","Table below"]])+chkF(p+".labels","Show values on the chart")+(b.kind==="pareto"?chkF(p+".sort","Sort largest to smallest"):"")+'<p class="hint">First column = categories, other columns = series. '+(b.kind==="pareto"?"The Pareto uses the first series. Cumulative % is added automatically.":"")+"</p>"+gridF(p+".grid");break;
+ case"cpk":h=inpF(p+".title","Chart title")+txaF(p+".vals","Measurements (separate with commas, spaces or new lines)",4)+'<div class="btnrow"><button class="btn sm" data-sa="imp" data-p="'+p+'.vals" data-m="vals">📊 Import a column from Excel</button></div><div class="g3">'+inpF(p+".lsl","LSL")+inpF(p+".usl","USL")+inpF(p+".target","Target")+"</div>"+stats(b);break;
+ case"spc":h=inpF(p+".title","Chart title")+txaF(p+".vals","Measurements in time order",4)+'<div class="btnrow"><button class="btn sm" data-sa="imp" data-p="'+p+'.vals" data-m="vals">📊 Import a column from Excel</button></div>'+selF(p+".n","Subgroup size (1 = individuals chart)",[1,2,3,4,5,6,7,8,9,10].map(function(n){return[n,n===1?"1 (individuals, I-MR)":n+" (X-bar chart)"]}))+'<p class="hint">Limits come from the moving range (n = 1) or the average range (n > 1). Points outside the limits turn red.</p>';break;
+ case"voting":h='<p class="hint">Rows are members, columns are options. Totals and the winner are added automatically.</p>'+gridF(p+".grid");break;
+ case"voc":h=chkF(p+".showVob","Also show VOB to CTB")+'<div class="sub2">VOC to CTQ</div>'+gridF(p+".vocGrid")+'<div class="sub2">VOB to CTB</div>'+gridF(p+".vobGrid");break;
+ case"scope":h=listF(p+".inList","In scope","In-scope item")+listF(p+".outList","Out of scope","Out-of-scope item")+'<div class="sub2">Process stages (optional)</div>';
+  (b.stages||[]).forEach(function(s,si){var sp=p+".stages."+si;h+='<div class="sc"><div class="bkh"><div></div><div class="bt2">'+rowBtns("l",p+".stages",si)+"</div></div>"+inpF(sp+".name","Stage name")+txaF(sp+".items","Points (one per line)",3)+"</div>"});
+  h+='<button class="btn sm" data-sa="ladd" data-p="'+p+'.stages">+ Add stage</button>';break;
+ case"fishbone":h=inpF(p+".effect","Effect (head of the fish)");(b.cats||[]).forEach(function(c,ci){var cp=p+".cats."+ci;h+='<div class="sc"><div class="bkh"><div class="sub2" style="margin:0">Category '+(ci+1)+'</div><div class="bt2">'+rowBtns("l",p+".cats",ci)+"</div></div>"+inpF(cp+".name","Category name")+listF(cp+".causes","Causes (one per row)","Describe one cause")+"</div>"});
+  h+='<button class="btn sm" data-sa="ladd" data-p="'+p+'.cats">+ Add category</button>';break;
+ case"whys":h=inpF(p+".problem","Problem")+listF(p+".whys","Why chain","Why does this happen?")+listF(p+".how","HOW (actions)","Action");break;
+ case"cards":h=selF(p+".kind","Card style",[["team","Team (photo + name)"],["kpi","KPI (big number)"],["columns","Columns (heading + bullets)"]],1);
+  (b.cards||[]).forEach(function(c,ci){var cp=p+".cards."+ci,L=b.kind==="kpi"?["Label","Value","Note"]:b.kind==="columns"?["Heading","","Bullets (one per line)"]:["Role","Name","Details"];
+   h+='<div class="sc"><div class="bkh"><div class="sub2" style="margin:0">Card '+(ci+1)+'</div><div class="bt2">'+rowBtns("l",p+".cards",ci)+"</div></div>"+inpF(cp+".head",L[0])+(L[1]?inpF(cp+".title",L[1]):"")+txaF(cp+".body",L[2],2)+(b.kind==="team"?imgBtns(cp+".img","",!!c.img):"")+"</div>"});
+  h+='<button class="btn sm" data-sa="ladd" data-p="'+p+'.cards">+ Add card</button>';break;
+ case"image":h=imgBtns(p+".img",p,!!b.img)+inpF(p+".caption","Caption (optional)");break;
+ case"callout":h=txaF(p+".text","Message",3)+selF(p+".style","Style",[["info","Accent"],["success","Green"],["warning","Red"],["dark","Dark"]])+selF(p+".size","Size",[["normal","Normal"],["large","Large"]]);break;
+ case"gantt":h=inpF(p+".months","Months (comma separated, 4 weeks each)")+'<p class="hint">Enter week numbers across the whole timeline (week 1 = first week of the first month).</p>';
+  (b.activities||[]).forEach(function(a,ai){var ap=p+".activities."+ai;h+='<div class="sc"><div class="bkh"><div></div><div class="bt2">'+rowBtns("l",p+".activities",ai)+"</div></div>"+inpF(ap+".name","Activity")+'<div class="g2">'+inpF(ap+".pf","Planning: from week")+inpF(ap+".pt","Planning: to week")+inpF(ap+".df","Implementation: from week")+inpF(ap+".dt","Implementation: to week")+"</div></div>"});
+  h+='<button class="btn sm" data-sa="ladd" data-p="'+p+'.activities">+ Add activity</button>';break}
+ return h}
+function optGroups(groups,ph){return'<option value="">'+ph+"</option>"+groups.map(function(g){return'<optgroup label="'+g[0]+'">'+g[1].map(function(o){return'<option value="'+o[0]+'">'+o[1]+"</option>"}).join("")+"</optgroup>"}).join("")}
+function deckHTML(){return'<div class="card"><h3>Deck settings</h3><p class="hint">The style applies to every slide. Change it any time.</p>'+inpF("name","Deck name (also the file name)")+selF("theme","Presentation style",THEMES.map(function(t){return[t.id,t.name]}))+
+ '<div class="g2">'+inpF("footer","Footer text")+inpF("logoText","Logo text (top corner)")+"</div>"+
+ '<label>Logo image (optional)</label>'+imgBtns("logo","",!!D.logo)+chkF("numbers","Show slide numbers")+
+ '<div class="btnrow" style="margin-top:10px"><button class="btn pri" data-sa="download">⬇ Download .pptx</button><button class="btn" data-sa="example">📚 Load example deck</button></div></div>'}
+function listHTML(){var h="";D.slides.forEach(function(s,i){var t=s.title||(s.kind==="title"?"Title slide":s.kind==="section"?"Section":s.kind==="closing"?"Closing":"Untitled");
+ h+='<div class="slrow'+(i===D.sel?" on":"")+'" data-sa="sel" data-i="'+i+'"><span class="n">'+(i+1)+'</span><span class="tt">'+escH(t)+'</span><span class="bt2">'+rowBtns("s","",i)+"</span></div>"});return h}
+function editHTML(){var sl=D.slides[D.sel];if(!sl)return'<div class="intro">No slides yet. Use “Add slide” above.</div>';var p="slides."+D.sel,h='<div class="card"><h3>Slide '+(D.sel+1)+"</h3>";
+ h+=selF(p+".kind","Slide type",[["content","Content slide"],["title","Title slide"],["section","Section divider"],["closing","Thank you / closing"]],1);
+ if(sl.kind==="title")h+=inpF(p+".title","Title")+inpF(p+".sub","Subtitle")+txaF(p+".lines","Highlighted box (one line per row)",3)+txaF(p+".quote","Quote / tagline (optional)",2);
+ else if(sl.kind==="section")h+=inpF(p+".label","Number or label (e.g. 01)")+inpF(p+".title","Title")+inpF(p+".sub","Subtitle");
+ else if(sl.kind==="closing")h+=inpF(p+".title","Message")+inpF(p+".sub","Second line");
+ else{h+=inpF(p+".title","Slide title")+selF(p+".layout","How elements are arranged",[["auto","Automatic"],["cols","Side by side"],["rows","Stacked"],["grid","Grid, 2 columns"],["grid3","Grid, 3 columns"],["l40","2 elements: narrow left, wide right"],["r40","2 elements: wide left, narrow right"],["main","Big element left, others stacked right"]])+txaF(p+".notes","Speaker notes (optional)",2);
+  h+="</div>";(sl.blocks||[]).forEach(function(b,bi){var bp=p+".blocks."+bi;h+='<div class="bk"><div class="bkh"><div class="ty">'+(TNAME[b.type]||b.type)+(b.type==="chart"?": "+b.kind:"")+'</div><div class="bt2">'+rowBtns("b","",bi)+"</div></div>"+inpF(bp+".head","Heading (optional)")+bodyHTML(b,bp)+"</div>"});
+  h+='<div class="card"><label style="margin-top:0">Add an element to this slide</label><select id="selAddBlock">'+optGroups(ELEMS,"＋ Choose an element…")+"</select></div>";return h}
+ return h+"</div>"}
+
+/* ---- rendering ---- */
+function renderList(){var e=q$("#sl-list");if(e)e.innerHTML=listHTML();var c=q$("#sl-count");if(c)c.textContent=D.slides.length}
+function renderEdit(){var e=q$("#sl-edit");if(e)e.innerHTML=editHTML()}
+function renderDeck(){var e=q$("#sl-deck");if(e)e.innerHTML=deckHTML()}
+function fitSl(){var f=q$("#slfit"),s=q$("#slslide");if(!f||!s)return;var w=f.clientWidth;if(!w)return;var sc=w/1280;s.style.transform="scale("+sc+")";f.style.height=(720*sc)+"px"}
+function renderPreview(){var sl=D.slides[D.sel],box=q$("#slslide"),cnt=q$("#slcount");if(!box)return;if(!sl){box.innerHTML="";if(cnt)cnt.textContent="No slides";return}
+ var th=theme(D.theme),d;try{d=slideDraw(sl,D.sel,D);box.style.background=hx(d.bg);box.innerHTML=toHTML(d.prims,th)}catch(e){box.innerHTML='<div style="padding:30px;color:#C0392B">Preview error: '+escH(e.message)+"</div>"}
+ if(cnt)cnt.textContent="Slide "+(D.sel+1)+" of "+D.slides.length;fitSl()}
+function renderAll(){renderDeck();renderList();renderEdit();renderPreview()}
+function queueSave(){clearTimeout(saveT);saveT=setTimeout(function(){try{localStorage.setItem(KEYD,JSON.stringify(D))}catch(e){}},500)}
+function after(){renderPreview();renderList();queueSave()}
+function rerender(){renderEdit();renderPreview();renderList();queueSave()}
+
+/* ---- libraries, import, export ---- */
+var LIBS={pptx:{urls:["https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.bundle.js","https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"],ok:function(){return window.PptxGenJS}},
+ xlsx:{urls:["https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js","https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"],ok:function(){return window.XLSX}}};
+function loadLib(k){var L=LIBS[k];if(L.ok())return Promise.resolve();
+ function tryU(i){if(i>=L.urls.length)return Promise.reject(new Error("Could not load the library. Check your internet connection and try again."));
+  return new Promise(function(res,rej){var s=document.createElement("script");s.src=L.urls[i];s.onload=function(){L.ok()?res():rej()};s.onerror=rej;document.head.appendChild(s)}).catch(function(){return tryU(i+1)})}
+ return tryU(0)}
+function parseCSV(t){var rows=[],row=[],cur="",qt=false;for(var i=0;i<t.length;i++){var ch=t.charAt(i);if(qt){if(ch==='"'){if(t.charAt(i+1)==='"'){cur+='"';i++}else qt=false}else cur+=ch}
+ else if(ch==='"')qt=true;else if(ch===","||ch==="\t"||ch===";"){row.push(cur);cur=""}else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&t.charAt(i+1)==="\n")i++;row.push(cur);rows.push(row);row=[];cur=""}else cur+=ch}
+ if(cur!==""||row.length){row.push(cur);rows.push(row)}return rows}
+function normRows(rows){rows=rows.map(function(r){return r.map(function(c){return String(c==null?"":c).trim()})});var nc=0;rows.forEach(function(r){var l=r.length;while(l>0&&r[l-1]==="")l--;if(l>nc)nc=l});
+ rows=rows.map(function(r){var a=r.slice(0,nc);while(a.length<nc)a.push("");return a}).filter(function(r){return r.some(function(c){return c!==""})});return rows.slice(0,80).map(function(r){return r.slice(0,16)})}
+function readSheet(f){if(/\.(csv|txt|tsv)$/i.test(f.name)){return new Promise(function(res){var r=new FileReader();r.onload=function(){res(parseCSV(String(r.result)))};r.readAsText(f)})}
+ return loadLib("xlsx").then(function(){return new Promise(function(res,rej){var r=new FileReader();r.onerror=rej;r.onload=function(){try{var wb=XLSX.read(r.result,{type:"array"}),name=wb.SheetNames[0];
+  if(wb.SheetNames.length>1){var a=window.prompt("This workbook has several sheets:\n"+wb.SheetNames.map(function(n,i){return(i+1)+" = "+n}).join("\n")+"\n\nType the sheet number to import:","1"),ix=parseInt(a,10);if(ix>=1&&ix<=wb.SheetNames.length)name=wb.SheetNames[ix-1]}
+  res(XLSX.utils.sheet_to_json(wb.Sheets[name],{header:1,raw:false,defval:""}))}catch(e){rej(e)}};r.readAsArrayBuffer(f)})})}
+function applyImport(rows,t){rows=normRows(rows);if(!rows.length)throw new Error("The sheet is empty");
+ if(t.mode==="vals"){var best=0,bc=-1;for(var c=0;c<rows[0].length;c++){var n=0;rows.forEach(function(r){if(numv(r[c])!==null)n++});if(n>best){best=n;bc=c}}
+  if(bc<0)throw new Error("No numbers found");var vs=[];rows.forEach(function(r){var v=numv(r[bc]);if(v!==null)vs.push(r[bc].replace(/[, ]/g,""))});setD(t.path,vs.slice(0,500).join(", "))}
+ else setD(t.path,rows)}
+function readImage(file,max,png,cb){var fr=new FileReader();fr.onload=function(){var im=new Image();im.onload=function(){var sc=Math.min(1,max/Math.max(im.width,im.height)),w=Math.round(im.width*sc),h=Math.round(im.height*sc),c=document.createElement("canvas");c.width=w;c.height=h;var g=c.getContext("2d");
+  if(!png){g.fillStyle="#fff";g.fillRect(0,0,w,h)}g.drawImage(im,0,0,w,h);cb(c.toDataURL(png?"image/png":"image/jpeg",0.85),w,h)};im.onerror=function(){tip("That image could not be read")};im.src=fr.result};fr.readAsDataURL(file)}
+function fileName(){return(D.name||"presentation").replace(/[^\w\-]+/g,"_").slice(0,60)||"presentation"}
+function download(){tip("Building the PowerPoint file…");loadLib("pptx").then(function(){
+ var pptx=new window.PptxGenJS();pptx.layout="LAYOUT_WIDE";pptx.title=D.name||"Presentation";var th=theme(D.theme);
+ D.slides.forEach(function(sl,i){var d=slideDraw(sl,i,D),s=pptx.addSlide();s.background={color:nh(d.bg)};toPPTX(d.prims,s,pptx,th);if(sl.notes&&sl.notes.trim()&&s.addNotes)s.addNotes(sl.notes)});
+ return pptx.writeFile({fileName:fileName()+".pptx"})}).then(function(){tip("Downloaded "+fileName()+".pptx")}).catch(function(e){tip("Could not build the file: "+((e&&e.message)||"unknown error"))})}
+
+/* ---- actions ---- */
+function arrOp(op,arr,i){switch(op){case"up":if(i>0){var x=arr[i];arr[i]=arr[i-1];arr[i-1]=x}break;case"dn":if(i<arr.length-1){var y=arr[i];arr[i]=arr[i+1];arr[i+1]=y}break;case"dup":arr.splice(i+1,0,clone(arr[i]));break;case"del":arr.splice(i,1);break}}
+function defFor(path){var l=path.split(".").pop();return l==="cats"?{name:"",causes:[""]}:l==="stages"?{name:"",items:""}:l==="cards"?{head:"",title:"",body:"",img:""}:l==="activities"?{name:"",pf:"",pt:"",df:"",dt:""}:""}
+function addSlideFrom(id){var f=tplById(id);if(!f)return;D.slides.splice(D.sel+1,0,normDeck({slides:[f()]}).slides[0]);D.sel++;renderAll();queueSave()}
+function addBlock(v){var sl=D.slides[D.sel];if(!sl||!v)return;var pr=v.split(":"),b=newBlock(pr[0],pr[1]);if(b.type==="chart"&&b.kind==="pareto"){b.table="left"}sl.blocks.push(b);rerender()}
+function openExample(){var d=q$("#dlgEx");if(d&&d.showModal)d.showModal();else if(d)d.setAttribute("open","")}
+function closeExample(){var d=q$("#dlgEx");if(d&&d.close)d.close();else if(d)d.removeAttribute("open")}
+function loadExample(k){var src=k==="blank"?blankDeck():normDeck(clone(DECKS[k]));D=src;D.sel=0;renderAll();queueSave();closeExample();tip("Loaded: "+(D.name||"deck"))}
+function act(a,t){var p=t.dataset.p,i=+t.dataset.i,pf=a.charAt(0),op=a.slice(1);
+ if(a==="sel"){D.sel=i;renderList();renderEdit();renderPreview();return}
+ if(a==="prev"){if(D.sel>0){D.sel--;renderList();renderEdit();renderPreview()}return}
+ if(a==="next"){if(D.sel<D.slides.length-1){D.sel++;renderList();renderEdit();renderPreview()}return}
+ if(a==="download"){download();return}
+ if(a==="example"){openExample();return}
+ if(a==="ex"){loadExample(t.dataset.k);return}
+ if(a==="exclose"){closeExample();return}
+ if(pf==="s"&&/^(up|dn|dup|del)$/.test(op)){arrOp(op,D.slides,i);D.sel=op==="up"?Math.max(0,i-1):op==="dn"?Math.min(D.slides.length-1,i+1):op==="dup"?i+1:Math.min(i,D.slides.length-1);if(D.sel<0)D.sel=0;renderAll();queueSave();return}
+ if(pf==="b"&&/^(up|dn|dup|del)$/.test(op)){arrOp(op,D.slides[D.sel].blocks,i);rerender();return}
+ if(pf==="l"&&/^(up|dn|dup|del)$/.test(op)){arrOp(op,getD(p),i);rerender();return}
+ if(pf==="g"&&/^(up|dn|dup|del)$/.test(op)){var g=getD(p);if(op==="del"&&g.length<=1)return;arrOp(op,g,i);rerender();return}
+ if(a==="ladd"){getD(p).push(defFor(p));rerender();return}
+ if(a==="gaddr"){var gg=getD(p),n=(gg[0]||[]).length||2,r=[];for(var k=0;k<n;k++)r.push("");gg.push(r);rerender();return}
+ if(a==="gaddc"){getD(p).forEach(function(r,ri){r.push(ri===0?"New":"")});rerender();return}
+ if(a==="gdelc"){var g2=getD(p);if((g2[0]||[]).length>1){g2.forEach(function(r){r.splice(i,1)});rerender()}return}
+ if(a==="imp"){impT={path:p,mode:t.dataset.m};q$("#slXls").value="";q$("#slXls").click();return}
+ if(a==="applypaste"){var ta=q$("#paste-"+p.replace(/\./g,"_"));if(!ta||!ta.value.trim()){tip("Paste your cells first");return}var rows=normRows(parseCSV(ta.value));if(!rows.length){tip("Nothing to apply");return}setD(p,rows);rerender();return}
+ if(a==="img"){imgT={path:p,dims:t.dataset.d};q$("#slImg").value="";q$("#slImg").click();return}
+ if(a==="imgclear"){setD(p,"");if(t.dataset.d){var o=getD(t.dataset.d);o.w=0;o.h=0}p==="logo"?renderAll():rerender();queueSave();return}}
+
+/* ---- events ---- */
+document.addEventListener("input",function(e){var t=e.target;if(!t.closest||!t.closest("#form-sl"))return;
+ if(t.dataset.sp){setD(t.dataset.sp,t.type==="checkbox"?t.checked:t.value);if(t.dataset.re){renderEdit()}after()}
+ else if(t.dataset.sg){getD(t.dataset.sg)[+t.dataset.r][+t.dataset.c]=t.value;after()}});
+document.addEventListener("change",function(e){var t=e.target;
+ if(t.id==="selAddBlock"){var v=t.value;t.value="";addBlock(v)}
+ else if(t.id==="selAddSlide"){var v2=t.value;t.value="";if(v2)addSlideFrom(v2)}
+ else if(t.id==="slXls"&&impT){var f=t.files[0];if(!f)return;readSheet(f).then(function(rows){applyImport(rows,impT);rerender();tip("Imported from "+f.name)}).catch(function(err){tip("Import failed: "+((err&&err.message)||"could not read the file"))})}
+ else if(t.id==="slImg"&&imgT){var fi=t.files[0];if(!fi)return;var logo=imgT.path==="logo";readImage(fi,logo?600:1400,logo,function(data,w,h){setD(imgT.path,data);if(imgT.dims){var o=getD(imgT.dims);o.w=w;o.h=h}logo?renderAll():rerender();queueSave()})}});
+document.addEventListener("click",function(e){var t=e.target.closest("[data-sa]");if(!t||!t.closest("#form-sl,#pv-sl,#dlgEx"))return;e.stopPropagation&&0;act(t.dataset.sa,t)});
+
+/* ---- public hooks ---- */
+function loadSaved(){try{var r=JSON.parse(localStorage.getItem(KEYD)||"null");if(r&&r.slides&&r.slides.length)return normDeck(r)}catch(e){}return normDeck(clone(DECKS.lead))}
+function init(){D=loadSaved();
+ var f=q$("#form-sl");if(!f)return;
+ f.innerHTML='<details class="guide" open><summary>How to build a presentation</summary><div class="gb">'+
+ '<h5>What this does</h5><p>Build a multi-slide presentation, pick a style, and download a real PowerPoint (.pptx) file. The live preview shows exactly what will be exported.</p>'+
+ '<h5>Steps</h5><ol><li>Open <b>Load example deck</b> to see the Lead Scrap Reduction (Green Belt) or QC Circle Surjo decks, or start blank.</li><li>Choose a <b>Presentation style</b>, footer and logo in Deck settings.</li><li>Use <b>Add slide</b> to pick a ready layout (Pareto, Cpk, SPC, multi-voting, VOC, scope, fishbone, 5 Whys, Gantt and more).</li><li>Inside a slide, use <b>Add an element</b> to place text, tables, charts, images or quality tools. Every element, list row and table row can be duplicated, moved or deleted.</li><li>For tables and charts press <b>Import Excel / CSV</b> or paste cells copied from Excel. They appear in the .pptx as tables and charts.</li><li>Press <b>Download .pptx</b>. Use <b>Save file</b> in the menu to keep your work and reopen it later.</li></ol>'+
+ '<h5>Good to know</h5><ul><li>Charts are inserted into the .pptx as pictures, so they look identical to the preview. Tables and text stay editable in PowerPoint.</li><li>Photos from your original slides are not copied. Use Image or Team cards to add them.</li><li>The Excel and PowerPoint libraries load from the internet the first time you use them.</li></ul></div></details>'+
+ '<div id="sl-deck"></div><div class="card"><h3>Slides (<span id="sl-count"></span>)</h3><div id="sl-list"></div><label>Add a slide</label><select id="selAddSlide">'+optGroups(TPL,"＋ Choose a slide layout…")+'</select></div><div id="sl-edit"></div>';
+ renderAll()}
+window.PSB_SL={init:init,show:function(){if(!D)init();renderAll();setTimeout(fitSl,30)},fit:fitSl,example:openExample,
+ blank:function(){D=blankDeck();renderAll();queueSave()},
+ save:function(){var b=new Blob([JSON.stringify({kind:"deck",version:1,data:D},null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=fileName()+".deck.json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},500)},
+ load:function(d){D=normDeck(d);renderAll();queueSave()},download:download,ready:function(){return!!D}};
+init();
+window.addEventListener("resize",fitSl);
+
+window.PSB_SL.dbg={DECKS:DECKS,slideDraw:slideDraw,toHTML:toHTML,toPPTX:toPPTX,theme:theme,THEMES:THEMES,normDeck:normDeck,TPL:TPL,newBlock:newBlock};
+})();
+</script>
 <script>
 (function(){
 var KEY="ps-builder-v2";
@@ -268,15 +999,14 @@ var MODE="a3",S={};
 /* ---------- default examples ---------- */
 var EX={
 a3:{
-title:"Lead Scrap Reduction at Rahimafrooz Globatt Ltd.",owner:"RRD, In-Charge QA (Project Leader)",team:"KMI (Sponsor), SYU (Champion), DAR (Coordinator), SNZ, ZLM, AER",area:"Ishwardi Plant: plate preparation, assembly, charging, warehouse. Out of scope: lead quality, new COS machine validation, raw material availability",date:"2018-08-27",
+title:"Lead Scrap Reduction at Rahimafrooz Globatt Ltd.",owner:"RRD, In-Charge QA (Project Leader)",team:"KMI (Sponsor), SYU (Champion), DAR (Coordinator), SNZ, ZLM, AER",area:"Ishwardi Plant: plate preparation, assembly, charging, warehouse",date:"2018-08-27",
 background:"Scrap directly raises the manufacturing cost of a battery. Cutting plate and process scrap lowers cost, supports a competitive price and helps keep customers. This Lean Six Sigma Green Belt project covers six stages: grid and cylinder casting, pasting, parting, COS operation, ICW and heat-seal, and charging and warehouse.",
-problem:"Overall lead scrap averaged 4.2% (Nov’17 to Jun’18 baseline). It comes from plate scrap (pasting, group operation, parting, COS) and process scrap (washed paste, dross at casting pots and COS, heat-seal, ICW and SFG rejection at charging). Before improvement: COS group-plate rejection was 0.311% (2,910 of 935,634 plates; model N50 alone was 33% of rejects), heat-seal rejection 0.88% (961 of 108,725; N50:SMF was 40%), ICW rejection averaged 70.67 pieces a month (Jul to Dec’18), and right-first-time (RFT) was 98.75%, with container/cover leakage the biggest defect.",
+problem:"Overall lead scrap averaged 4.2% (Nov’17 to Jun’18 baseline). It comes from plate scrap (pasting, group operation, parting, COS) and process scrap (washed paste, dross at casting pots and COS, heat-seal, ICW and SFG rejection at charging). Before improvement, heat-seal rejection was 0.88%, COS group-plate rejection 0.311% and ICW rejection averaged 70.67 pieces a month.",
 metrics:[
 {name:"Overall lead scrap",unit:"%",baseline:"4.2",target:"3.5",result:"3.74"},
 {name:"Heat-seal rejection",unit:"%",baseline:"0.88",target:"",result:"0.49"},
 {name:"COS group-plate rejection",unit:"%",baseline:"0.311",target:"",result:"0.29"},
 {name:"ICW rejection",unit:"pcs/month",baseline:"70.67",target:"",result:"32"},
-{name:"Right-first-time (RFT)",unit:"%",baseline:"98.75",target:"",result:"99.36"},
 {name:"Cost savings (Jul’18 to Mar’19)",unit:"BDT",baseline:"0",target:"7511501",result:"3160525"}],
 goal:"Reduce overall lead scrap by 16.67% (from 4.2% to 3.5%) by June 2019, worth an annualized benefit of BDT 4,803,108 (project charter).",
 fb:{
@@ -289,14 +1019,14 @@ environment:["Temperature difference between areas of heat-seal molds","Poor wat
 whys:["Why is there SFG rejection in charging? Cover and top-part leakage, battery burst, cell short, breakage at handling.","Why? Low rib-to-rib bonding, excess heat, spark, plates touching, lead chips in the battery, low awareness.","Why? Inferior container and cover, temperature difference across heat-seal molds, poor water cooling, loose connecting bars, PE height misalignment, lack of training.","Why? Supplier incapability, heater capacity and mold misalignment, cooling system design, inefficient connecting bars, too few skilled people.","Why? Lack of awareness at the supplier, machine incapability and lack of monitoring."],
 rootCause:"Machine and supplier incapability, combined with weak process monitoring and low operator awareness in the heat-seal and ICW areas.",
 actions:[
-{action:"100% chemical wash for each COS mold after use; proper mold maintenance; hands-on COS adjustment training",owner:"AER / ARB / SOF",due:"",status:"Done"},
-{action:"Reuse washed paste through a submarine-type paste collector, following the process instruction manual (idea: SYU)",owner:"ZLM",due:"",status:"Done"},
+{action:"100% chemical wash for each COS mold after use; proper mold maintenance; hands-on COS adjustment training",owner:"AER / ARB",due:"",status:"Done"},
+{action:"Reuse washed paste through a submarine-type paste collector, following the process instruction manual",owner:"ZLM",due:"",status:"Done"},
 {action:"Collect cutting lead chips in a tray and reuse them in the COS lead pot (Kaizen)",owner:"—",due:"",status:"Done"},
 {action:"Melt COS straps in the COS pot, reuse PE separators and reuse rejected charging connectors (Kaizen)",owner:"—",due:"",status:"Done"},
 {action:"Change ICW welding tips every 20,000 shots with records; new electrode bars on line 1; fix online UPS; preventive maintenance",owner:"AER",due:"",status:"Done"},
 {action:"5S at the COS mold keeping area",owner:"—",due:"",status:"Done"},
-{action:"Heat-seal and SFG: hands-on training, new supplier development, machine perfection test (IE method), QMS monitoring by shift in-charges and on-field awareness of technicians",owner:"AER / MKZ",due:"",status:"In progress"}],
-results:"Average scrap from Jul’18 to Mar’19 was 3.74% (calculated from 215,581 kg scrap on 5,759,752 kg lead), against the 4.2% baseline. Jul’18 and Sep’18 were worse than baseline; Jan to Mar’19 averaged 3.36% (calculated), better than the 3.5% target. Savings reached BDT 3,160,525 (25,779 kg of lead at BDT 123/kg), which is 42% of the BDT 7,511,501 potential for FY 2018-19. COS group-plate rejection fell from 0.311% to 0.29%, heat-seal rejection from 0.88% to 0.37% in Feb’19 and 0.49% in Mar’19, ICW rejection from 70.67 to 32 pieces a month, and right-first-time rose from 98.75% to 99.36%. Heat-seal scrap is still high.",
+{action:"Heat-seal: hands-on training, new supplier development, machine perfection test (IE method), QMS monitoring by shift in-charges",owner:"AER",due:"",status:"In progress"}],
+results:"Average scrap from Jul’18 to Mar’19 was 3.74% (calculated from 215,581 kg scrap on 5,759,752 kg lead), against the 4.2% baseline. Savings reached BDT 3,160,525, which is 42% of the BDT 7,511,501 potential for FY 2018-19. COS group-plate rejection fell from 0.311% to 0.29%, heat-seal rejection from 0.88% to 0.49%, ICW rejection from 70.67 to 32 pieces a month, and right-first-time rose from 98.75% to 99.36%. Heat-seal scrap is still high.",
 standardize:"Segment-wise scrap monitored daily\nSustain and audit protocol: COS group-plate rejection (weekly), heat-seal rejection and mold checking (daily), SFG rejection at wet charge, washing paste and lead dross (weekly)\nWashing-paste reuse procedure and 5S at the mold area",
 followup:"Process and Green Belt training for all shift in-charges\nFurther cut scrap in the heat-seal area of assembly and charging\nIntroduce weekly process audits in all concerned sections\nPush ICW rejection towards zero and measure OEE by section"},
 dm:{
@@ -490,11 +1220,11 @@ function renderDM(){
  '</div>'+foot("Define → Measure → Analyze → Improve → Control",s);
  fit("dm")}
 function render(p){if(p==="dm")renderDM();else renderA3()}
-function fit(p){var f=$("#fit-"+p),sh=$("#sheet-"+p);if(!f)return;sh.style.transform="none";f.style.height="auto";var w=f.clientWidth;if(!w)return;var sc=Math.min(1,w/1587);sh.style.transform="scale("+sc+")";f.style.height=(sh.offsetHeight*sc)+"px"}
+function fit(p){if(p==="sl"){if(window.PSB_SL)window.PSB_SL.fit();return}var f=$("#fit-"+p),sh=$("#sheet-"+p);if(!f)return;sh.style.transform="none";f.style.height="auto";var w=f.clientWidth;if(!w)return;var sc=Math.min(1,w/1587);sh.style.transform="scale("+sc+")";f.style.height=(sh.offsetHeight*sc)+"px"}
 
 /* ---------- state ---------- */
 function save(){try{localStorage.setItem(KEY,JSON.stringify({a3:S.a3,dm:S.dm,mode:MODE}))}catch(e){}}
-function setMode(m){MODE=m;document.body.setAttribute("data-cur",m);document.querySelectorAll("[data-set]").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-set")===m)});save();setTimeout(function(){fit(m)},30)}
+function setMode(m){MODE=m;if(m==="sl"&&window.PSB_SL)window.PSB_SL.show();document.body.setAttribute("data-cur",m);document.querySelectorAll("[data-set]").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-set")===m)});save();setTimeout(function(){fit(m)},30)}
 function refreshAll(){fillStatic();drawLists();renderA3();renderDM();save()}
 
 /* ---------- events ---------- */
@@ -513,10 +1243,10 @@ document.addEventListener("click",function(e){
  if(t.dataset.add){var path=t.dataset.add;getP(path).push(newItem(path));drawLists();render(path.split(".")[0]);save();
   var c=$("#"+path.replace(/\./g,"-"));if(c&&c.lastElementChild){var f=c.lastElementChild.querySelector("input,textarea");if(f)f.focus()}return}
  if(t.dataset.del){var dp=t.dataset.del;getP(dp).splice(+t.dataset.i,1);drawLists();render(dp.split(".")[0]);save()}});
-$("#bEx").onclick=function(){if(confirm("Replace the current "+CRUMB[MODE]+" content with the worked example?")){S[MODE]=normalize(clone(EX[MODE]),MODE);refreshAll()}};
-$("#bNew").onclick=function(){if(confirm("Clear the "+CRUMB[MODE]+" sheet and start blank?")){S[MODE]=blank(MODE);refreshAll()}};
+$("#bEx").onclick=function(){if(MODE==="sl"){window.PSB_SL.example();return}if(confirm("Replace the current "+CRUMB[MODE]+" content with the worked example?")){S[MODE]=normalize(clone(EX[MODE]),MODE);refreshAll()}};
+$("#bNew").onclick=function(){if(MODE==="sl"){if(confirm("Clear the deck and start a new one?"))window.PSB_SL.blank();return}if(confirm("Clear the "+CRUMB[MODE]+" sheet and start blank?")){S[MODE]=blank(MODE);refreshAll()}};
 function doPrint(){closeDrawer();document.body.className="v-edit";fit(MODE);setTimeout(function(){window.print()},120)}
-$("#bPrint").onclick=doPrint;$("#bPrint2").onclick=doPrint;
+$("#bPrint").onclick=doPrint;$("#bPrint2").onclick=doPrint;$("#bPpt").onclick=function(){window.PSB_SL.download()};
 function openDrawer(){$("#drawer").classList.add("open");$("#scrim").classList.add("open");$("#drawer").setAttribute("aria-hidden","false");$("#bMenu").setAttribute("aria-expanded","true");var c=$("#drawer .x");if(c)c.focus()}
 function closeDrawer(){$("#drawer").classList.remove("open");$("#scrim").classList.remove("open");$("#drawer").setAttribute("aria-hidden","true");$("#bMenu").setAttribute("aria-expanded","false")}
 $("#drawer").addEventListener("click",function(e){if(e.target.closest(".dr-item,a.btn"))setTimeout(closeDrawer,0)});
@@ -529,16 +1259,18 @@ $("#bShare").onclick=function(){
  else{var txt=data.text+(url?" "+url:"");
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast("Copied to clipboard")},function(){toast("Could not copy")})}else toast("Sharing is not available here")}};
 $("#bSave").onclick=function(){
+ if(MODE==="sl"){window.PSB_SL.save();return}
  var b=new Blob([JSON.stringify({kind:MODE==="a3"?"a3":"dmaic",version:2,data:S[MODE]},null,2)],{type:"application/json"}),a=document.createElement("a");
  a.href=URL.createObjectURL(b);a.download=((S[MODE].title||"problem-solving").replace(/[^\w\-]+/g,"_").slice(0,50))+"."+(MODE==="a3"?"a3":"dmaic")+".json";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},500)};
 $("#bOpen").onclick=function(){$("#fOpen").click()};
 $("#fOpen").onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{
  var d=JSON.parse(r.result),kind,data;
+ if(d.kind==="deck"&&d.data){window.PSB_SL.load(d.data);refreshAll();setMode("sl");return}
  if(d.kind==="dmaic"&&d.data){kind="dm";data=d.data}else if(d.kind==="a3"&&d.data){kind="a3";data=d.data}else if(d.metrics&&d.fb){kind="a3";data=d}else throw 0;
- S[kind]=normalize(data,kind);refreshAll();setMode(kind)}catch(x){alert("That file is not a valid A3 or DMAIC file.")}};r.readAsText(f);e.target.value=""};
+ S[kind]=normalize(data,kind);refreshAll();setMode(kind)}catch(x){alert("That file is not a valid A3, DMAIC or deck file.")}};r.readAsText(f);e.target.value=""};
 window.addEventListener("resize",function(){fit(MODE)});
-window.addEventListener("beforeprint",function(){closeDrawer();var f=$("#fit-"+MODE),sh=$("#sheet-"+MODE);sh.style.transform="none";var h=sh.offsetHeight,k=Math.min(1,1116/h);sh.style.transform=k<1?"scale("+k+")":"none";f.style.height=(h*k)+"px"});
-window.addEventListener("afterprint",function(){fit(MODE)});
+window.addEventListener("beforeprint",function(){closeDrawer();if(MODE==="sl")return;var f=$("#fit-"+MODE),sh=$("#sheet-"+MODE);sh.style.transform="none";var h=sh.offsetHeight,k=Math.min(1,1116/h);sh.style.transform=k<1?"scale("+k+")":"none";f.style.height=(h*k)+"px"});
+window.addEventListener("afterprint",function(){if(MODE!=="sl")fit(MODE)});
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){fit(MODE)});
 
 /* ---------- init ---------- */
@@ -548,7 +1280,7 @@ S.dm=normalize(saved&&saved.dm?saved.dm:clone(EX.dm),"dm");
 $("#form-a3").innerHTML=formHTML("a3");
 $("#form-dm").innerHTML=formHTML("dm");
 refreshAll();
-setMode(saved&&(saved.mode==="a3"||saved.mode==="dm")?saved.mode:"a3");
+setMode(saved&&(saved.mode==="a3"||saved.mode==="dm"||saved.mode==="sl")?saved.mode:"a3");
 })();
 </script>
 </body>
